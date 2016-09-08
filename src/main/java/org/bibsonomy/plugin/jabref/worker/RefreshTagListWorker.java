@@ -1,28 +1,3 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref.worker;
 
 import java.util.LinkedList;
@@ -32,9 +7,9 @@ import java.util.Vector;
 import javax.swing.JEditorPane;
 
 import net.sf.jabref.Globals;
-import net.sf.jabref.JabRefFrame;
 import net.sf.jabref.MetaData;
 
+import net.sf.jabref.gui.JabRefFrame;
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Tag;
@@ -68,8 +43,8 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
 		
 		MetaData metaData = null;
 		Vector<String> keywords = null;
-		if(jabRefFrame.basePanel() != null) {
-			 metaData = jabRefFrame.basePanel().metaData();
+		if(jabRefFrame.getCurrentBasePanel() != null) {
+			 metaData = jabRefFrame.getCurrentBasePanel().metaData();
 			keywords = metaData.getData(Globals.SELECTOR_META_PREFIX + "keywords");
 		}
 		

@@ -1,28 +1,3 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref.util;
 
 import static org.bibsonomy.util.ValidationUtils.present;
@@ -31,9 +6,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import net.sf.jabref.BibtexEntry;
-import net.sf.jabref.JabRefFrame;
-
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.model.entry.BibEntry;
 import org.bibsonomy.plugin.jabref.PluginProperties;
 
 /**
@@ -52,7 +26,7 @@ public class CheckTagsUtil {
 	private static final String TITLE_FIELD = "title";
 
 	/** the entries to be checked */
-	private List<BibtexEntry> entries;
+	private List<BibEntry> entries;
 	/** jabref frame */
 	private JabRefFrame jabRefFrame;
 
@@ -64,7 +38,7 @@ public class CheckTagsUtil {
 	 * @param jabRefFrame
 	 *            - jabref frame
 	 */
-	public CheckTagsUtil(List<BibtexEntry> entries, JabRefFrame jabRefFrame) {
+	public CheckTagsUtil(List<BibEntry> entries, JabRefFrame jabRefFrame) {
 
 		this.entries = entries;
 		this.jabRefFrame = jabRefFrame;
@@ -78,7 +52,7 @@ public class CheckTagsUtil {
 	public int hasAPostNoTagsAssigned() {
 		int numPostsMissingTags = 0;
 		String postsMissingTags = "";
-		for (BibtexEntry entry : entries) {
+		for (BibEntry entry : entries) {
 			if (!present(entry.getField(KEYWORD_FIELD))) {
 				/*
 				 * if the user has chosen to not to be warned when exporting
@@ -127,7 +101,7 @@ public class CheckTagsUtil {
 	 * add default tag to each post which has no tags assigned.
 	 */
 	public void assignDefaultTag() {
-		for (BibtexEntry entry : entries) {
+		for (BibEntry entry : entries) {
 			if (!present(entry.getField(KEYWORD_FIELD)))
 				entry.setField(KEYWORD_FIELD, DEFAULT_TAG);
 		}
@@ -136,10 +110,10 @@ public class CheckTagsUtil {
 	/**
 	 * assign default tag to a post.
 	 * 
-	 * @param post
+	 * @param entry
 	 *            - the post to assign the default tag to.
 	 */
-	public static void assignDefaultTag(BibtexEntry entry) {
+	public static void assignDefaultTag(BibEntry entry) {
 		entry.setField(KEYWORD_FIELD, DEFAULT_TAG);
 	}
 }

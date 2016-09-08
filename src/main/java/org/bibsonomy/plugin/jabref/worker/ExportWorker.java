@@ -1,36 +1,10 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref.worker;
 
 import java.util.Collections;
 import java.util.List;
 
-import net.sf.jabref.BibtexEntry;
-import net.sf.jabref.JabRefFrame;
-
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.model.entry.BibEntry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.common.enums.PostUpdateOperation;
@@ -54,12 +28,12 @@ public class ExportWorker extends AbstractPluginWorker {
 
 	private static final Log LOG = LogFactory.getLog(ExportWorker.class);
 
-	private List<BibtexEntry> entries;
+	private List<BibEntry> entries;
 
 	public void run() {
 		try {
-			for (BibtexEntry entry : entries) {
-				String intrahash = entry.getField("intrahash");
+			for (BibEntry entry : entries) {
+				String intrahash = entry.getField("intrahash").get();
 				jabRefFrame.output("Exporting post " + entry.getCiteKey());
 
 				// add private or public if groups is empty
@@ -68,7 +42,7 @@ public class ExportWorker extends AbstractPluginWorker {
 				}
 
 				entry.setField("username", PluginProperties.getUsername());
-				String owner = entry.getField("owner");
+				String owner = entry.getField("owner").get();
 				entry.clearField("owner");
 
 				Post<BibTex> post = JabRefModelConverter.convertEntry(entry);
@@ -117,7 +91,7 @@ public class ExportWorker extends AbstractPluginWorker {
 		post.getResource().setIntraHash(hashes.get(0));
 	}
 
-	public ExportWorker(JabRefFrame jabRefFrame, List<BibtexEntry> entries) {
+	public ExportWorker(JabRefFrame jabRefFrame, List<BibEntry> entries) {
 		super(jabRefFrame);
 		this.entries = entries;
 	}

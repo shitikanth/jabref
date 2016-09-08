@@ -27,12 +27,11 @@ package org.bibsonomy.plugin.jabref;
 
 import java.awt.Dimension;
 
+import net.sf.jabref.gui.GUIGlobals;
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.gui.SidePaneComponent;
+import net.sf.jabref.gui.SidePaneManager;
 import org.bibsonomy.plugin.jabref.gui.PluginSidePanel;
-
-import net.sf.jabref.GUIGlobals;
-import net.sf.jabref.JabRefFrame;
-import net.sf.jabref.SidePaneComponent;
-import net.sf.jabref.SidePaneManager;
 
 /**
  * {@link PluginSidePaneComponent} holds the dimension of the {@link PluginSidePanel}.

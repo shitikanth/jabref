@@ -4,9 +4,8 @@
 package org.bibsonomy.plugin.jabref.util;
 
 
-import net.sf.jabref.GUIGlobals;
-import net.sf.jabref.JabRefFrame;
-
+import net.sf.jabref.gui.GUIGlobals;
+import net.sf.jabref.gui.JabRefFrame;
 import org.bibsonomy.plugin.jabref.PluginGlobals;
 import org.bibsonomy.rest.client.util.MultiDirectoryFileFactory;
 
@@ -43,7 +42,7 @@ public class JabRefFileFactory extends MultiDirectoryFileFactory {
 		fileDir = JabRefGlobalsHelper.getDBSpecificUserFileDir(jabRefFrame);
 		if (fileDir != null) return fileDir;
 		
-		String[] fileDirs = jabRefFrame.basePanel().metaData().getFileDirectory(GUIGlobals.FILE_FIELD);
+		String[] fileDirs = jabRefFrame.getCurrentBasePanel().metaData().getFileDirectory(GUIGlobals.FILE_FIELD);
 		if ((fileDirs != null) && (fileDirs.length > 0)) {
 			if (fileDirs[0] != null) {
 				return fileDirs[0];

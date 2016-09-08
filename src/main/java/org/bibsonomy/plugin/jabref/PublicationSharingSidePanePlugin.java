@@ -1,42 +1,15 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref;
 
-import javax.swing.JMenuItem;
-
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.gui.SidePaneManager;
+import net.sf.jabref.plugin.SidePanePlugin;
 import org.bibsonomy.plugin.jabref.gui.EntryEditorTabExtender;
 import org.bibsonomy.plugin.jabref.gui.PluginMenuItem;
 import org.bibsonomy.plugin.jabref.gui.PluginToolBarExtender;
 import org.bibsonomy.plugin.jabref.listener.PluginDataBaseChangeListener;
 import org.bibsonomy.plugin.jabref.listener.TabbedPaneChangeListener;
 
-import net.sf.jabref.JabRefFrame;
-import net.sf.jabref.SidePaneComponent;
-import net.sf.jabref.SidePaneManager;
-import net.sf.jabref.plugin.SidePanePlugin;
+import javax.swing.JMenuItem;
 /**
  * PublicationSharingSidePanelPlugin - This is the entry point of the plugin. 
  * It defines the MenuItem, the ShortcutKey and the SidePaneComponent.
@@ -86,8 +59,8 @@ public class PublicationSharingSidePanePlugin implements SidePanePlugin {
 		jabRefFrame.getTabbedPane().addChangeListener(new TabbedPaneChangeListener(l));
 		// ...but maybe we were too late: Tabs are created by another (swing)thread so the initial tab change event after tab(and database) creation may be over already.
 		// Therefore add the listener to the database of the current tab if it is already present. 
-		if (jabRefFrame.basePanel() != null && jabRefFrame.basePanel().database() != null) {
-			jabRefFrame.basePanel().database().addDatabaseChangeListener(l);
+		if (jabRefFrame.getCurrentBasePanel() != null && jabRefFrame.getCurrentBasePanel().getDatabase() != null) {
+			jabRefFrame.getCurrentBasePanel().getDatabase().addDatabaseChangeListener(l);
 		}
 		
 		this.sidePaneComponent = new PluginSidePaneComponent(manager, jabRefFrame);

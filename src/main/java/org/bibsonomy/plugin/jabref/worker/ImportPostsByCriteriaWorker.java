@@ -1,28 +1,3 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref.worker;
 
 import java.util.Arrays;
@@ -31,11 +6,11 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import net.sf.jabref.BibtexEntry;
 import net.sf.jabref.BibtexFields;
-import net.sf.jabref.JabRefFrame;
-import net.sf.jabref.gui.ImportInspectionDialog;
 
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.gui.importer.ImportInspectionDialog;
+import net.sf.jabref.model.entry.BibEntry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.common.enums.GroupingEntity;
@@ -77,7 +52,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 		this.type = type;
 		this.grouping = grouping;
 		this.groupingValue = groupingValue;
-		this.dialog = new ImportInspectionDialog(jabRefFrame, jabRefFrame.basePanel(), BibtexFields.DEFAULT_INSPECTION_FIELDS, "Import from BibSonomy", false);
+		this.dialog = new ImportInspectionDialog(jabRefFrame, jabRefFrame.getCurrentBasePanel()), BibtexFields.DEFAULT_INSPECTION_FIELDS, "Import from BibSonomy", false);
 
 		this.ignoreRequestSize = ignoreRequestSize;
 
@@ -115,7 +90,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 				final Collection<Post<BibTex>> result = getLogic().getPosts(BibTex.class, grouping, groupingValue, tags, null, search, null, null, null, null, start, end);
 				for (Post<? extends Resource> post : result) {
 					dialog.setProgress(numberOfPosts++, numberOfPostsPerRequest);
-					BibtexEntry entry = JabRefModelConverter.convertPost(post);
+					BibEntry entry = JabRefModelConverter.convertPost(post);
 
 					// clear fields if the fetched posts does not belong to the
 					// user

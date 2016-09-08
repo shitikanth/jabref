@@ -25,9 +25,8 @@
 
 package org.bibsonomy.plugin.jabref.worker;
 
-import net.sf.jabref.AbstractWorker;
-import net.sf.jabref.JabRefFrame;
-
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.gui.worker.AbstractWorker;
 import org.bibsonomy.model.logic.LogicInterface;
 import org.bibsonomy.plugin.jabref.PluginProperties;
 import org.bibsonomy.plugin.jabref.util.JabRefFileFactory;

@@ -1,35 +1,9 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref.worker;
 
 import java.net.URLEncoder;
 
-import net.sf.jabref.BibtexEntry;
-import net.sf.jabref.JabRefFrame;
-
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.model.entry.BibEntry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.model.BibTex;
@@ -55,10 +29,10 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
 	private static final String BIBTEX_FILE_FIELD = "file";
 	
 	
-	private BibtexEntry entry;
+	private BibEntry entry;
 	private boolean isImport;
 	
-	public DownloadDocumentsWorker(JabRefFrame jabRefFrame, BibtexEntry entry, boolean isImport) {
+	public DownloadDocumentsWorker(JabRefFrame jabRefFrame, BibEntry entry, boolean isImport) {
 		super(jabRefFrame);
 		this.entry = entry;
 		this.isImport = isImport;
@@ -71,7 +45,7 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
 		}
 
 		
-		String intrahash = entry.getField("intrahash");
+		String intrahash = entry.getField("intrahash").get();
 		if (intrahash != null && !"".equals(intrahash)) {
 			final Post<? extends Resource> post;
 			try {
@@ -99,7 +73,7 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
 				}
 				
 				try {
-					BasicEventList<BibtexEntry> list = new BasicEventList<BibtexEntry>();
+					BasicEventList<BibEntry> list = new BasicEventList<BibEntry>();
 					String downloadedFileBibTex = ":" + document.getFileName() + ":" + FileUtil.getFileExtension(document.getFileName()).toUpperCase();
 					
 					String entryFileValue = entry.getField(BIBTEX_FILE_FIELD);

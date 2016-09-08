@@ -1,31 +1,3 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
-/**
- * 
- */
 package org.bibsonomy.plugin.jabref.util;
 
 import static org.bibsonomy.util.ValidationUtils.present;
@@ -44,11 +16,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.jabref.BibtexEntry;
-import net.sf.jabref.BibtexEntryType;
+import net.sf.jabref.BibEntryType;
 import net.sf.jabref.Globals;
-import net.sf.jabref.JabRefPreferences;
 
+import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.preferences.JabRefPreferences;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.model.BibTex;
@@ -107,8 +79,8 @@ public class JabRefModelConverter {
 	 *            - a list of posts in BibSonomy's data model
 	 * @return A list of posts in JabRef's data model.
 	 */
-	public static List<BibtexEntry> convertPosts(final List<Post<? extends Resource>> posts) {
-		final List<BibtexEntry> entries = new ArrayList<BibtexEntry>();
+	public static List<BibEntry> convertPosts(final List<Post<? extends Resource>> posts) {
+		final List<BibEntry> entries = new ArrayList<BibEntry>();
 		for (final Post<? extends Resource> post : posts) {
 			entries.add(convertPost(post));
 		}
@@ -116,18 +88,18 @@ public class JabRefModelConverter {
 	}
 
 	/**
-	 * Converts a BibSonomy post into a JabRef BibtexEntry
+	 * Converts a BibSonomy post into a JabRef BibEntry
 	 * 
 	 * @param post
 	 * @return
 	 */
-	public static BibtexEntry convertPost(final Post<? extends Resource> post) {
+	public static BibEntry convertPost(final Post<? extends Resource> post) {
 
 		try {
 			// what we have
 			final BibTex bibtex = (BibTex) post.getResource();
 			// what we want
-			final BibtexEntry entry = new BibtexEntry();
+			final BibEntry entry = new BibEntry();
 			/*
 			 * each entry needs an ID (otherwise we get a NPE) ... let JabRef
 			 * generate it
@@ -144,8 +116,8 @@ public class JabRefModelConverter {
 			 * FIXME: a nicer solution would be to implement the corresponding
 			 * classes for the missing entrytypes.
 			 */
-			final BibtexEntryType entryType = BibtexEntryType.getType(bibtex.getEntrytype());
-			entry.setType(entryType == null ? BibtexEntryType.OTHER : entryType);
+			final BibEntryType entryType = BibEntryType.getType(bibtex.getEntrytype());
+			entry.setType(entryType == null ? BibEntryType.OTHER : entryType);
 
 			copyMiscProperties(entry, bibtex);
 
@@ -182,7 +154,7 @@ public class JabRefModelConverter {
 		return null;
 	}
 
-	public static void copyGroups(final BibtexEntry entry, final Post<? extends Resource> post) {
+	public static void copyGroups(final BibEntry entry, final Post<? extends Resource> post) {
 		// set groups - will be used in jabref when exporting to bibsonomy
 		if (present(post.getGroups())) {
 			final Set<Group> groups = post.getGroups();
@@ -196,7 +168,7 @@ public class JabRefModelConverter {
 		}
 	}
 
-	public static void copyTags(final BibtexEntry entry, final Post<? extends Resource> post) {
+	public static void copyTags(final BibEntry entry, final Post<? extends Resource> post) {
 		/*
 		 * concatenate tags using the JabRef keyword separator
 		 */
@@ -216,7 +188,7 @@ public class JabRefModelConverter {
 			entry.setField("keywords", tagsBufferString);
 	}
 
-	public static void copyMonth(final BibtexEntry entry, final BibTex bibtex) {
+	public static void copyMonth(final BibEntry entry, final BibTex bibtex) {
 		final String month = bibtex.getMonth();
 		if (present(month)) {
 			/*
@@ -231,7 +203,7 @@ public class JabRefModelConverter {
 		}
 	}
 
-	public static void copyMiscProperties(final BibtexEntry entry, final BibTex bibtex) {
+	public static void copyMiscProperties(final BibEntry entry, final BibTex bibtex) {
 		if (present(bibtex.getMisc()) || present(bibtex.getMiscFields())) {
 
 			// parse the misc fields and loop over them
@@ -260,7 +232,7 @@ public class JabRefModelConverter {
 		}
 	}
 
-	protected static void copyStringProperties(BibtexEntry entry, BibTex bibtex) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	protected static void copyStringProperties(BibEntry entry, BibTex bibtex) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		/*
 		 * we use introspection to get all fields ...
 		 */
@@ -287,12 +259,12 @@ public class JabRefModelConverter {
 	}
 
 	/**
-	 * Convert a JabRef BibtexEntry into a BibSonomy post
+	 * Convert a JabRef BibEntry into a BibSonomy post
 	 * 
 	 * @param entry
 	 * @return
 	 */
-	public static Post<BibTex> convertEntry(final BibtexEntry entry) {
+	public static Post<BibTex> convertEntry(final BibEntry entry) {
 		final Post<BibTex> post = new Post<BibTex>();
 		final BibTex bibtex = new BibTex();
 		post.setResource(bibtex);
@@ -390,7 +362,7 @@ public class JabRefModelConverter {
 	 *            source object
 	 * @return list of all copied property names
 	 */
-	public static List<String> copyStringPropertiesToBibsonomyModel(final BibTex bibtex, final BibtexEntry entry) {
+	public static List<String> copyStringPropertiesToBibsonomyModel(final BibTex bibtex, final BibEntry entry) {
 		final List<String> knownFields = new ArrayList<String>(50);
 
 		final BeanInfo info;

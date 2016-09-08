@@ -1,28 +1,3 @@
-/**
- *  
- *  JabRef Bibsonomy Plug-in - Plugin for the reference management 
- * 		software JabRef (http://jabref.sourceforge.net/) 
- * 		to fetch, store and delete entries from BibSonomy.
- *   
- *  Copyright (C) 2008 - 2011 Knowledge & Data Engineering Group, 
- *                            University of Kassel, Germany
- *                            http://www.kde.cs.uni-kassel.de/
- *  
- *  This program is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public License
- *  as published by the Free Software Foundation; either version 2
- *  of the License, or (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
-
 package org.bibsonomy.plugin.jabref.worker;
 
 import java.util.HashSet;
@@ -31,10 +6,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import net.sf.jabref.BibtexDatabase;
-import net.sf.jabref.BibtexEntry;
-import net.sf.jabref.JabRefFrame;
 
+import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.model.database.BibDatabase;
+import net.sf.jabref.model.entry.BibEntry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.model.Post;
@@ -74,19 +49,19 @@ public class SynchronizationWorker extends AbstractPluginWorker {
 	public void run() {
 
 		// Database Object. All operations are performed on this
-		final BibtexDatabase db = this.jabRefFrame.basePanel().database();
+		final BibDatabase db = this.jabRefFrame.getCurrentBasePanel().getDatabase();
 
 		// Set for the entries we have fetched from Bibsonomy
-		final HashSet<BibtexEntry> newEntries = new HashSet<BibtexEntry>();
+		final HashSet<BibEntry> newEntries = new HashSet<BibEntry>();
 
 		// Set of id to be removed from the database
 		final HashSet<String> removeIds = new HashSet<String>();
 
 		LogicInterface logic = getLogic();
 		// Iterate over all entries in the database
-		for (final BibtexEntry entry : db.getEntries()) {
+		for (final BibEntry entry : db.getEntries()) {
 
-			final String intrahash = entry.getField("intrahash");
+			final String intrahash = entry.getField("intrahash").get();
 
 			// check if intrahash is present, otherwise go to next entry
 			if ((intrahash == null) || (intrahash.length() == 0)) {
@@ -119,7 +94,7 @@ public class SynchronizationWorker extends AbstractPluginWorker {
 						//FIXME - also Interhash?
 						entry.setField("interhash", post.getResource().getInterHash());
 						
-						final List<BibtexEntry> entries = new LinkedList<BibtexEntry>();
+						final List<BibEntry> entries = new LinkedList<BibEntry>();
 						entries.add(entry);
 
 						ExportWorker worker = new ExportWorker(this.jabRefFrame, entries);
@@ -161,7 +136,7 @@ public class SynchronizationWorker extends AbstractPluginWorker {
 		}
 
 		// add the new entries
-		for (final BibtexEntry e : newEntries) {
+		for (final BibEntry e : newEntries) {
 			db.insertEntry(e);
 		}
 
