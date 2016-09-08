@@ -10,9 +10,14 @@ import net.sf.jabref.gui.worker.Worker;
  *
  */
 public class WorkerUtil {
-	
-	public static void performAsynchronously(AbstractWorker worker) throws Throwable {
 
+	/**
+	 * Duplicate code.
+	 * See {@link net.sf.jabref.gui.exporter.SaveDatabaseAction}
+	 */
+	@Deprecated
+	public static void performAsynchronously(AbstractWorker worker) throws Throwable {
+		//TODO: Duplicate code. See SaveDatabseAction
 		Worker wrk = worker.getWorker();
 		CallBack cb = worker.getCallBack();
 			

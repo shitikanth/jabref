@@ -1,7 +1,6 @@
 package org.bibsonomy.plugin.jabref.gui;
 
-import net.sf.jabref.EntryEditor;
-import net.sf.jabref.Globals;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.preferences.JabRefPreferences;
 
 import org.bibsonomy.plugin.jabref.PluginGlobals;
@@ -9,7 +8,7 @@ import org.bibsonomy.plugin.jabref.PluginProperties;
 
 
 /**
- * {@link EntryEditorTabExtender} extends the {@link EntryEditor} with custom tabs.
+ * {@link EntryEditorTabExtender} extends the {@link net.sf.jabref.gui.entryeditor.EntryEditor EntryEditor} with custom tabs.
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  *
  */
@@ -25,8 +24,8 @@ public class EntryEditorTabExtender {
 			
 			
 			while(preferences.hasKey(JabRefPreferences.CUSTOM_TAB_NAME + lastTabId)) {
-				
-				if(preferences.get(JabRefPreferences.CUSTOM_TYPE_NAME + lastTabId).equals(Globals.lang("General")))
+				//TODO: check for alternatives - zellerdev
+				if(preferences.get(JabRefPreferences.getCustomTypeName() + lastTabId).equals(Localization.lang("General")))
 					generalTab = true;
 				
 				if(preferences.get(JabRefPreferences.CUSTOM_TAB_NAME + lastTabId).equals(PluginGlobals.PLUGIN_NAME))
@@ -43,7 +42,7 @@ public class EntryEditorTabExtender {
 		if(!generalTab) {
 			
 			preferences.put(JabRefPreferences.CUSTOM_TAB_FIELDS + lastTabId, "crossref;file;doi;url;citeseerurl;comment;owner;timestamp");
-			preferences.put(JabRefPreferences.CUSTOM_TAB_NAME + lastTabId, Globals.lang("General"));
+			preferences.put(JabRefPreferences.CUSTOM_TAB_NAME + lastTabId, Localization.lang("General"));
 			lastTabId++;
 		}
 		

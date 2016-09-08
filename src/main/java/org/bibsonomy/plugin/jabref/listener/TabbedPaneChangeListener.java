@@ -25,10 +25,10 @@ public class TabbedPaneChangeListener implements ChangeListener {
 		if(e.getSource() instanceof JTabbedPane) {
 			JTabbedPane pane = (JTabbedPane) e.getSource();
 			Component[] components = pane.getComponents();
-			for (Component c : components) {
-				BasePanel bp = (BasePanel) c;
-				if (bp.getDatabase() != null) {
-					bp.getDatabase().addDatabaseChangeListener(databaseChangeListener);
+			for (Component component : components) {
+				BasePanel basePanel = (BasePanel) component;
+				if (basePanel.getDatabase() != null) {
+					basePanel.getDatabase().addDatabaseChangeListener(databaseChangeListener);
 				} else {
 					log.warn("found tab-component without database");
 				}

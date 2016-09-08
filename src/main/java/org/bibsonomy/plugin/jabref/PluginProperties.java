@@ -12,253 +12,254 @@ import org.bibsonomy.model.enums.Order;
 
 /**
  * {@link PluginProperties} read and write the plugin properties file.
- * @author Waldemar Biller <biller@cs.uni-kassel.de>
  *
+ * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
 public class PluginProperties extends Properties {
 
-	private static final long serialVersionUID = 5420450194355211249L;
-	
-	private static final Log LOG = LogFactory.getLog(PluginProperties.class);
-	
-	/**
-	 * API properties
-	 */
-	private static final String API_URL = "api.url";
-	private static final String API_USERNAME = "api.username";
-	private static final String API_KEY = "api.key";
-	
-	/**
-	 * Plugin properties
-	 */
-	private static final String PLUGIN_SAVE_API_KEY = "plugin.saveapikey";
-	private static final String PLUGIN_DOCUMENTS_IMPORT = "plugin.documents.import";
-	private static final String PLUGIN_DOCUMENTS_EXPORT = "plugin.documents.export";
-	private static final String PLUGIN_TAGS_REFRESH_ON_STARTUP = "plugin.tags.refreshonstartup";
-	private static final String PLUGIN_TAGS_IGNORE_NO_TAGS = "plugin.tags.ignorenotags";
-	private static final String PLUGIN_NUMBER_OF_POSTS_PER_REQUEST = "plugin.request.size";
-	private static final String PLUGIN_IGNORE_WARNING_MORE_POSTS = "plugin.request.size.ignorewarning";
-	private static final String PLUGIN_EXTRA_TAB_FIELDS = "plugin.tabs.extra";
-	private static final String PLUGIN_VISIBILITY = "plugin.visibilty";
-	private static final String PLUGIN_TAG_CLOUD_SIZE = "plugin.tagcloud.size";
-	private static final String PLUGIN_SIDE_PANE_VISIBILITY_TYPE = "plugin.sidepane.visibility.type";
-	private static final String PLUGIN_SIDE_PANE_VISIBILITY_NAME = "plugin.sidepane.visibility.name";
-	private static final String PLUGIN_TAG_CLOUD_ORDER = "plugin.tagcloud.order";
-	
-	/**
-	 * Singleton of {@link PluginProperties}
-	 */
-	private static PluginProperties INSTANCE = null;
-			
-	/**
-	 * location of properties file; JabRef stores the plugin itself also in this
-	 * directory.
-	 */
-	private static final String PATH_TO_PROPERTIES_FILE = System.getProperty("user.home") + "/.jabref/plugins/";
-	private static final String PROPERTIES_FILE = PATH_TO_PROPERTIES_FILE + "bibsonomy-plugin.properties";
+    private static final long serialVersionUID = 5420450194355211249L;
 
-	/**
-	 * Get the singleton of {@link PluginProperties}. 
-	 * Will create one if INSTANCE is null
-	 * @return singleton of {@link PluginProperties}
-	 */
-	public static PluginProperties getInstance() {
-		
-		if(INSTANCE == null)
-			INSTANCE = new PluginProperties();
-		
-		return INSTANCE;
-	}
-	
-	/**
-	 * The constructor reads the properties from the file system.
-	 */
-	private PluginProperties() {
-		
-		try {
-			File propertiesFile = new File(PROPERTIES_FILE);
-			if(propertiesFile.exists() && propertiesFile.isFile())
-				load(new FileInputStream(propertiesFile));
-		} catch(Exception e) {
-			LOG.error("Error loading properties file", e);
-		}
-	}
-	
-	/**
-	 * Saves the properties to the file system. 
-	 * Checks if the option to store the API is checked.
-	 */
-	public static void save() {
-		
-		String apiKey = getApiKey();
-		if(getStoreApiKey() == false)
-			setApiKey(""); //set the api key to empty string 
-						   //if user does not want to save api key
-		try {
-			
-			getInstance().store(new FileOutputStream(PROPERTIES_FILE), "");
-		} catch(Exception ex) {
-			
-			LOG.error("Failed saving properties file");
-		}
-		//set api key back to its actual value
-		setApiKey(apiKey);
-	}
+    private static final Log LOG = LogFactory.getLog(PluginProperties.class);
 
-	public static boolean ignoreNoTagsAssigned() {
-		
-		return Boolean.valueOf(getInstance().getProperty(PLUGIN_TAGS_IGNORE_NO_TAGS, "false"));
-	}
+    /**
+     * API properties
+     */
+    private static final String API_URL = "api.url";
+    private static final String API_USERNAME = "api.username";
+    private static final String API_KEY = "api.key";
 
-	public static String getUsername() {
-		
-		return getInstance().getProperty(API_USERNAME, PluginGlobals.API_USERNAME);
-	}
+    /**
+     * Plugin properties
+     */
+    private static final String PLUGIN_SAVE_API_KEY = "plugin.saveapikey";
+    private static final String PLUGIN_DOCUMENTS_IMPORT = "plugin.documents.import";
+    private static final String PLUGIN_DOCUMENTS_EXPORT = "plugin.documents.export";
+    private static final String PLUGIN_TAGS_REFRESH_ON_STARTUP = "plugin.tags.refreshonstartup";
+    private static final String PLUGIN_TAGS_IGNORE_NO_TAGS = "plugin.tags.ignorenotags";
+    private static final String PLUGIN_NUMBER_OF_POSTS_PER_REQUEST = "plugin.request.size";
+    private static final String PLUGIN_IGNORE_WARNING_MORE_POSTS = "plugin.request.size.ignorewarning";
+    private static final String PLUGIN_EXTRA_TAB_FIELDS = "plugin.tabs.extra";
+    private static final String PLUGIN_VISIBILITY = "plugin.visibilty";
+    private static final String PLUGIN_TAG_CLOUD_SIZE = "plugin.tagcloud.size";
+    private static final String PLUGIN_SIDE_PANE_VISIBILITY_TYPE = "plugin.sidepane.visibility.type";
+    private static final String PLUGIN_SIDE_PANE_VISIBILITY_NAME = "plugin.sidepane.visibility.name";
+    private static final String PLUGIN_TAG_CLOUD_ORDER = "plugin.tagcloud.order";
 
-	public static String getApiKey() {
-	
-		return getInstance().getProperty(API_KEY, PluginGlobals.API_KEY);
-	}
+    /**
+     * Singleton of {@link PluginProperties}
+     */
+    private static PluginProperties INSTANCE = null;
 
-	public static String getApiUrl() {
-		
-		return getInstance().getProperty(API_URL, PluginGlobals.API_URL);
-	}
+    /**
+     * location of properties file; JabRef stores the plugin itself also in this
+     * directory.
+     */
+    private static final String PATH_TO_PROPERTIES_FILE = System.getProperty("user.home") + "/.jabref/plugins/";
+    private static final String PROPERTIES_FILE = PATH_TO_PROPERTIES_FILE + "bibsonomy-plugin.properties";
 
-	public static boolean getDownloadDocumentsOnImport() {
-		
-		return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_DOCUMENTS_IMPORT, "true"));
-	}
-	
-	public static int getNumberOfPostsPerRequest() {
-		
-		return Integer.parseInt(getInstance().getProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, PluginGlobals.PLUGIN_NUMBER_OF_POSTS_PER_REQUEST));
-	}
-	
-	public static boolean getIgnoreMorePostsWarning() {
-		
-		return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_IGNORE_WARNING_MORE_POSTS, "false"));
-	}
+    /**
+     * Get the singleton of {@link PluginProperties}.
+     * Will create one if INSTANCE is null
+     *
+     * @return singleton of {@link PluginProperties}
+     */
+    public static PluginProperties getInstance() {
 
-	public static String getExtraTabFields() {
-		
-		return getInstance().getProperty(PLUGIN_EXTRA_TAB_FIELDS, "issn;isbn");
-	}
+        if (INSTANCE == null)
+            INSTANCE = new PluginProperties();
 
-	public static String getDefaultVisibilty() {
-		
-		return getInstance().getProperty(PLUGIN_VISIBILITY, "public");
-	}
+        return INSTANCE;
+    }
 
-	public static boolean getStoreApiKey() {
-		
-		return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_SAVE_API_KEY, "true"));
-	}
+    /**
+     * The constructor reads the properties from the file system.
+     */
+    private PluginProperties() {
 
-	public static boolean getUpdateTagsOnStartUp() {
-		
-		return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_TAGS_REFRESH_ON_STARTUP, "false"));
-	}
+        try {
+            File propertiesFile = new File(PROPERTIES_FILE);
+            if (propertiesFile.exists() && propertiesFile.isFile())
+                load(new FileInputStream(propertiesFile));
+        } catch (Exception e) {
+            LOG.error("Error loading properties file", e);
+        }
+    }
 
-	public static boolean getUploadDocumentsOnExport() {
-		
-		return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_DOCUMENTS_EXPORT, "true"));
-	}
+    /**
+     * Saves the properties to the file system.
+     * Checks if the option to store the API is checked.
+     */
+    public static void save() {
 
-	public static int getTagCloudSize() {
-		
-		return Integer.parseInt(getInstance().getProperty(PLUGIN_TAG_CLOUD_SIZE, "100"));
-	}
+        String apiKey = getApiKey();
+        if (getStoreApiKey() == false)
+            setApiKey(""); //set the api key to empty string
+        //if user does not want to save api key
+        try {
 
-	public static void setUsername(String text) {
-		getInstance().setProperty(API_USERNAME, text);
-	}
+            getInstance().store(new FileOutputStream(PROPERTIES_FILE), "");
+        } catch (Exception ex) {
 
-	public static void setApiKey(String text) {
-		getInstance().setProperty(API_KEY, text);
-	}
+            LOG.error("Failed saving properties file");
+        }
+        //set api key back to its actual value
+        setApiKey(apiKey);
+    }
 
-	public static void setStoreApiKey(boolean selected) {
-		getInstance().setProperty(PLUGIN_SAVE_API_KEY, String.valueOf(selected));
-	}
+    public static boolean ignoreNoTagsAssigned() {
 
-	public static void setNumberOfPostsPerRequest(int value) {
-		
-		getInstance().setProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, String.valueOf(value));
-	}
+        return Boolean.valueOf(getInstance().getProperty(PLUGIN_TAGS_IGNORE_NO_TAGS, "false"));
+    }
 
-	public static void setTagCloudSize(int value) {
-		
-		getInstance().setProperty(PLUGIN_TAG_CLOUD_SIZE, String.valueOf(value));
-		
-	}
+    public static String getUsername() {
 
-	public static void setIgnoreNoTagsAssigned(boolean selected) {
-		
-		getInstance().setProperty(PLUGIN_TAGS_IGNORE_NO_TAGS, String.valueOf(selected));
-	}
+        return getInstance().getProperty(API_USERNAME, PluginGlobals.API_USERNAME);
+    }
 
-	public static void setUpdateTagsOnStartup(boolean selected) {
-		
-		getInstance().setProperty(PLUGIN_TAGS_REFRESH_ON_STARTUP, String.valueOf(selected));
-	}
+    public static String getApiKey() {
 
-	public static void setUploadDocumentsOnExport(boolean selected) {
-		
-		getInstance().setProperty(PLUGIN_DOCUMENTS_EXPORT, String.valueOf(selected));
-		
-	}
+        return getInstance().getProperty(API_KEY, PluginGlobals.API_KEY);
+    }
 
-	public static void setDownloadDocumentsOnImport(boolean selected) {
+    public static String getApiUrl() {
 
-		getInstance().setProperty(PLUGIN_DOCUMENTS_IMPORT, String.valueOf(selected));
-	}
+        return getInstance().getProperty(API_URL, PluginGlobals.API_URL);
+    }
 
-	public static void setDefaultVisisbility(String key) {
-		getInstance().setProperty(PLUGIN_VISIBILITY, key);
-	}
+    public static boolean getDownloadDocumentsOnImport() {
 
-	public static void setIgnoreMorePostsWarning(boolean selected) {
-		getInstance().setProperty(PLUGIN_IGNORE_WARNING_MORE_POSTS, String.valueOf(selected));
-	}
+        return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_DOCUMENTS_IMPORT, "true"));
+    }
 
-	public static void setExtraFields(String text) {
-		getInstance().setProperty(PLUGIN_EXTRA_TAB_FIELDS, text);
-	}
-	
-	public static GroupingEntity getSidePaneVisibilityType() {
-		
-		return GroupingEntity.getGroupingEntity(getInstance().getProperty(PLUGIN_SIDE_PANE_VISIBILITY_TYPE, "ALL"));
-	}
-	
-	public static String getSidePaneVisibilityName() {
-		
-		return getInstance().getProperty(PLUGIN_SIDE_PANE_VISIBILITY_NAME, "all users");
-	}
-	
-	public static void setSidePaneVisibilityType(GroupingEntity entity) {
-		
-		getInstance().setProperty(PLUGIN_SIDE_PANE_VISIBILITY_TYPE, entity.toString());
-	}
-	
-	public static void setSidePaneVisibilityName(String value) {
-		
-		getInstance().setProperty(PLUGIN_SIDE_PANE_VISIBILITY_NAME, value);
-	}
+    public static int getNumberOfPostsPerRequest() {
 
-	public static Order getTagCloudOrder() {
-		
-		String order = getInstance().getProperty(PLUGIN_TAG_CLOUD_ORDER, "FREQUENCY");
-		return Order.getOrderByName(order);
-	}
-	
-	public static void setTagCloudOrder(Order order) {
-		
-		getInstance().setProperty(PLUGIN_TAG_CLOUD_ORDER, order.toString());
-	}
+        return Integer.parseInt(getInstance().getProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, PluginGlobals.PLUGIN_NUMBER_OF_POSTS_PER_REQUEST));
+    }
 
-	public static void setApiUrl(String text) {
-		getInstance().setProperty(API_URL, text);
-	}
-	
+    public static boolean getIgnoreMorePostsWarning() {
+
+        return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_IGNORE_WARNING_MORE_POSTS, "false"));
+    }
+
+    public static String getExtraTabFields() {
+
+        return getInstance().getProperty(PLUGIN_EXTRA_TAB_FIELDS, "issn;isbn");
+    }
+
+    public static String getDefaultVisibilty() {
+
+        return getInstance().getProperty(PLUGIN_VISIBILITY, "public");
+    }
+
+    public static boolean getStoreApiKey() {
+
+        return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_SAVE_API_KEY, "true"));
+    }
+
+    public static boolean getUpdateTagsOnStartUp() {
+
+        return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_TAGS_REFRESH_ON_STARTUP, "false"));
+    }
+
+    public static boolean getUploadDocumentsOnExport() {
+
+        return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_DOCUMENTS_EXPORT, "true"));
+    }
+
+    public static int getTagCloudSize() {
+
+        return Integer.parseInt(getInstance().getProperty(PLUGIN_TAG_CLOUD_SIZE, "100"));
+    }
+
+    public static void setUsername(String text) {
+        getInstance().setProperty(API_USERNAME, text);
+    }
+
+    public static void setApiKey(String text) {
+        getInstance().setProperty(API_KEY, text);
+    }
+
+    public static void setStoreApiKey(boolean selected) {
+        getInstance().setProperty(PLUGIN_SAVE_API_KEY, String.valueOf(selected));
+    }
+
+    public static void setNumberOfPostsPerRequest(int value) {
+
+        getInstance().setProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, String.valueOf(value));
+    }
+
+    public static void setTagCloudSize(int value) {
+
+        getInstance().setProperty(PLUGIN_TAG_CLOUD_SIZE, String.valueOf(value));
+
+    }
+
+    public static void setIgnoreNoTagsAssigned(boolean selected) {
+
+        getInstance().setProperty(PLUGIN_TAGS_IGNORE_NO_TAGS, String.valueOf(selected));
+    }
+
+    public static void setUpdateTagsOnStartup(boolean selected) {
+
+        getInstance().setProperty(PLUGIN_TAGS_REFRESH_ON_STARTUP, String.valueOf(selected));
+    }
+
+    public static void setUploadDocumentsOnExport(boolean selected) {
+
+        getInstance().setProperty(PLUGIN_DOCUMENTS_EXPORT, String.valueOf(selected));
+
+    }
+
+    public static void setDownloadDocumentsOnImport(boolean selected) {
+
+        getInstance().setProperty(PLUGIN_DOCUMENTS_IMPORT, String.valueOf(selected));
+    }
+
+    public static void setDefaultVisisbility(String key) {
+        getInstance().setProperty(PLUGIN_VISIBILITY, key);
+    }
+
+    public static void setIgnoreMorePostsWarning(boolean selected) {
+        getInstance().setProperty(PLUGIN_IGNORE_WARNING_MORE_POSTS, String.valueOf(selected));
+    }
+
+    public static void setExtraFields(String text) {
+        getInstance().setProperty(PLUGIN_EXTRA_TAB_FIELDS, text);
+    }
+
+    public static GroupingEntity getSidePaneVisibilityType() {
+
+        return GroupingEntity.getGroupingEntity(getInstance().getProperty(PLUGIN_SIDE_PANE_VISIBILITY_TYPE, "ALL"));
+    }
+
+    public static String getSidePaneVisibilityName() {
+
+        return getInstance().getProperty(PLUGIN_SIDE_PANE_VISIBILITY_NAME, "all users");
+    }
+
+    public static void setSidePaneVisibilityType(GroupingEntity entity) {
+
+        getInstance().setProperty(PLUGIN_SIDE_PANE_VISIBILITY_TYPE, entity.toString());
+    }
+
+    public static void setSidePaneVisibilityName(String value) {
+
+        getInstance().setProperty(PLUGIN_SIDE_PANE_VISIBILITY_NAME, value);
+    }
+
+    public static Order getTagCloudOrder() {
+
+        String order = getInstance().getProperty(PLUGIN_TAG_CLOUD_ORDER, "FREQUENCY");
+        return Order.getOrderByName(order);
+    }
+
+    public static void setTagCloudOrder(Order order) {
+
+        getInstance().setProperty(PLUGIN_TAG_CLOUD_ORDER, order.toString());
+    }
+
+    public static void setApiUrl(String text) {
+        getInstance().setProperty(API_URL, text);
+    }
+
 }
