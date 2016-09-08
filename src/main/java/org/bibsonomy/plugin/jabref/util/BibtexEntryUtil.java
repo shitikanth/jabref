@@ -18,14 +18,15 @@ public class BibtexEntryUtil {
 
     /**
      * Check the (string) equality of two BibTex entries
-     *
-     * @param b1
-     * @param b2
-     * @return
+     * //TODO: Search for another solution - zellerdev
+     * //FIXME: Use FieldName values and check isPresent()
+     * @param firstBibEntry
+     * @param secondBibEntry
+     * @return true if the entries are the same
      */
-    public static boolean areEqual(final BibEntry b1, final BibEntry b2) {
-        final Set<String> commonFields = b1.getFieldNames();
-        commonFields.addAll(b2.getFieldNames());
+    public static boolean areEqual(final BibEntry firstBibEntry, final BibEntry secondBibEntry) {
+        final Set<String> commonFields = firstBibEntry.getFieldNames();
+        commonFields.addAll(secondBibEntry.getFieldNames());
         LOG.debug("Total nr. of common fields: "
                 + commonFields.size());
         for (final String field : commonFields) {
@@ -37,26 +38,26 @@ public class BibtexEntryUtil {
                     && !"timestamp".equals(field)
                     && !"owner".equals(field)) {
                 // check if b1 lacks a field that b2 has
-                if (StringUtil.isEmpty(b1.getField(field))
-                        && !StringUtil.isEmpty(b2.getField(field))) {
+                if (StringUtil.isEmpty(firstBibEntry.getField(field).get())
+                        && !StringUtil.isEmpty(secondBibEntry.getField(field).get())) {
                     LOG.debug("field " + field
                             + " is null for b1 but not for b2");
                     return false;
                 }
                 // check if b2 lacks a field that b1 has
-                if (StringUtil.isEmpty(b2.getField(field))
-                        && !StringUtil.isEmpty(b1.getField(field))) {
+                if (StringUtil.isEmpty(secondBibEntry.getField(field).get())
+                        && !StringUtil.isEmpty(firstBibEntry.getField(field).get())) {
                     LOG.debug("field " + field
                             + " is null for b2 but not for b1");
                     return false;
                 }
                 // check if both are empty/null -> OK
-                if (StringUtil.isEmpty(b1.getField(field))
-                        && StringUtil.isEmpty(b2.getField(field))) {
+                if (StringUtil.isEmpty(firstBibEntry.getField(field).get())
+                        && StringUtil.isEmpty(secondBibEntry.getField(field).get())) {
                     continue;
                 }
                 // check for fields of b1 if they are the same in b2
-                if (!b1.getField(field).equals(b2.getField(field))) {
+                if (!firstBibEntry.getField(field).equals(secondBibEntry.getField(field))) {
                     LOG.debug("Found inequality for field: "
                             + field);
                     return false;

@@ -2,11 +2,9 @@ package org.bibsonomy.plugin.jabref.worker;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JEditorPane;
 
-import net.sf.jabref.Globals;
 import net.sf.jabref.MetaData;
 import net.sf.jabref.gui.JabRefFrame;
 
@@ -36,16 +34,17 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
         this.tagCloud = tagCloud;
         this.grouping = grouping;
         this.groupingValue = groupingValue;
-        this.tags = new LinkedList<Tag>();
+        this.tags = new LinkedList<>();
     }
 
     public void run() {
 
         MetaData metaData = null;
-        Vector<String> keywords = null;
+        List<String> keywords = null;
         if (jabRefFrame.getCurrentBasePanel() != null) {
-            metaData = jabRefFrame.getCurrentBasePanel().metaData();
-            keywords = metaData.getData(Globals.SELECTOR_META_PREFIX + "keywords");
+            //TODO: find MetaData - zellerdev
+            //metaData = jabRefFrame.getCurrentBasePanel().getMetaData();
+            keywords = metaData.getData(MetaData.SELECTOR_META_PREFIX + "keywords");
         }
 
         int start = 0, end = PluginProperties.getTagCloudSize(), max = 1, min = 1;
@@ -76,7 +75,7 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
 
         StringBuffer tagList = new StringBuffer();
         tagList.append("<div style='text-align: center; font-family: Arial, Helvetica, sans;'>");
-        int size = 0;
+        int size;
 
         tagCloud.removeAll();
 
@@ -116,7 +115,7 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
         jabRefFrame.repaint();
 
         if (metaData != null && keywords != null) {
-            metaData.putData(Globals.SELECTOR_META_PREFIX + "keywords", keywords);
+            metaData.putData(MetaData.SELECTOR_META_PREFIX + "keywords", keywords);
         }
 
         jabRefFrame.output("Done.");

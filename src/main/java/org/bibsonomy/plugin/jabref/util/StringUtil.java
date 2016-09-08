@@ -13,7 +13,7 @@ public class StringUtil {
      * @param s the string which should be encoded
      * @return the encoded string or null
      */
-    public static String toUTF8(String s) {
+    static String toUTF8(String s) {
         if (s != null) {
             // FIXME: what is this? why do we want to introduce platform dependency here?
             // This should only be correct if an error from somewhere else has to be corrected.

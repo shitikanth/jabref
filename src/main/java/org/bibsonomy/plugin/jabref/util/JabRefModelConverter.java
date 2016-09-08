@@ -17,6 +17,7 @@ import java.util.Set;
 import net.sf.jabref.BibEntryType;
 import net.sf.jabref.Globals;
 import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.model.entry.FieldName;
 import net.sf.jabref.preferences.JabRefPreferences;
 
 import org.apache.commons.logging.Log;
@@ -78,7 +79,7 @@ public class JabRefModelConverter {
      * @return A list of posts in JabRef's data model.
      */
     public static List<BibEntry> convertPosts(final List<Post<? extends Resource>> posts) {
-        final List<BibEntry> entries = new ArrayList<BibEntry>();
+        final List<BibEntry> entries = new ArrayList<>();
         for (final Post<? extends Resource> post : posts) {
             entries.add(convertPost(post));
         }
@@ -192,6 +193,21 @@ public class JabRefModelConverter {
 			/*
 			 * try to convert the month abbrev like JabRef does it
 			 */
+            /**
+             TODO: Find MONTH_STRNGS
+             MONTH_STRINGS.put("jan", "January");
+             MONTH_STRINGS.put("feb", "February");
+             MONTH_STRINGS.put("mar", "March");
+             MONTH_STRINGS.put("apr", "April");
+             MONTH_STRINGS.put("may", "May");
+             MONTH_STRINGS.put("jun", "June");
+             MONTH_STRINGS.put("jul", "July");
+             MONTH_STRINGS.put("aug", "August");
+             MONTH_STRINGS.put("sep", "September");
+             MONTH_STRINGS.put("oct", "October");
+             MONTH_STRINGS.put("nov", "November");
+             MONTH_STRINGS.put("dec", "December");
+             */
             final String longMonth = Globals.MONTH_STRINGS.get(month);
             if (present(longMonth)) {
                 entry.setField("month", longMonth);
@@ -272,8 +288,8 @@ public class JabRefModelConverter {
         final List<String> knownFields = copyStringPropertiesToBibsonomyModel(bibtex, entry);
 
         try {
-            bibtex.setAuthor(PersonNameUtils.discoverPersonNames(entry.getField("author")));
-            bibtex.setEditor(PersonNameUtils.discoverPersonNames(entry.getField("editor")));
+            bibtex.setAuthor(PersonNameUtils.discoverPersonNames(entry.getField(FieldName.AUTHOR).get()));
+            bibtex.setEditor(PersonNameUtils.discoverPersonNames(entry.getField(FieldName.EDITOR).get()));
         } catch (PersonListParserException e) {
             ExceptionUtils.logErrorAndThrowRuntimeException(log, e, "Could not convert person names");
         }
@@ -281,21 +297,22 @@ public class JabRefModelConverter {
         knownFields.add("author");
         knownFields.add("editor");
 
+        //TODO: Check differences between getAllFields() and getFieldsNames()
         // add unknown Properties to misc
-        for (final String field : entry.getAllFields()) {
+        entry.getFieldNames().forEach(field -> {
             if (!knownFields.contains(field) && !JabRefModelConverter.EXCLUDE_FIELDS.contains(field) && !field.startsWith("__")) {
-                bibtex.addMiscField(field, entry.getField(field));
+                bibtex.addMiscField(field, entry.getField(field).get());
             }
-        }
+        });
 
         bibtex.serializeMiscFields();
 
         // set the key
         bibtex.setBibtexKey(StringUtil.toUTF8(entry.getCiteKey()));
-        bibtex.setEntrytype(StringUtil.toUTF8(entry.getType().getName().toLowerCase()));
+        bibtex.setEntrytype(StringUtil.toUTF8(entry.getField(FieldName.TYPE).get().toLowerCase()));
 
         // set the date of the post
-        final String timestamp = StringUtil.toUTF8(entry.getField("timestamp"));
+        final String timestamp = StringUtil.toUTF8(entry.getField(FieldName.TIMESTAMP).get());
         if (present(timestamp)) {
             try {
                 post.setDate(bibsonomyDateFormat.parse(timestamp));
@@ -311,11 +328,11 @@ public class JabRefModelConverter {
             }
         }
 
-        final String abstractt = StringUtil.toUTF8(entry.getField("abstract"));
+        final String abstractt = StringUtil.toUTF8(entry.getField(FieldName.ABSTRACT).get());
         if (present(abstractt))
             bibtex.setAbstract(abstractt);
 
-        final String keywords = StringUtil.toUTF8(entry.getField("keywords"));
+        final String keywords = StringUtil.toUTF8(entry.getField(FieldName.KEYWORDS).get());
         if (present(keywords)) {
             for (String keyword : keywords.split(jabRefKeywordSeparator)) {
 
@@ -323,14 +340,15 @@ public class JabRefModelConverter {
             }
         }
 
+        //TODO: Find FieldName that equals username
         if (present(entry.getField("username")))
-            post.setUser(new User(StringUtil.toUTF8(entry.getField("username"))));
+            post.setUser(new User(StringUtil.toUTF8(entry.getField("username").get())));
 
         // Set the groups
-        if (present(entry.getField("groups"))) {
+        if (present(entry.getField(FieldName.GROUPS))) {
 
-            final String[] groupsArray = entry.getField("groups").split(" ");
-            final Set<Group> groups = new HashSet<Group>();
+            final String[] groupsArray = entry.getField(FieldName.GROUPS).get().split(" ");
+            final Set<Group> groups = new HashSet<>();
 
             for (final String group : groupsArray)
                 groups.add(new Group(StringUtil.toUTF8(group)));
@@ -338,15 +356,16 @@ public class JabRefModelConverter {
             post.setGroups(groups);
         }
 
-        final String description = StringUtil.toUTF8(entry.getField("description"));
+        //TODO: Find FieldName that equals description
+        final String description = StringUtil.toUTF8(entry.getField("description").get());
         if (present(description))
             post.setDescription(description);
 
-        final String comment = StringUtil.toUTF8(entry.getField("comment"));
+        final String comment = StringUtil.toUTF8(entry.getField(FieldName.COMMENTS).get());
         if (present(comment))
             post.setDescription(comment);
 
-        final String month = StringUtil.toUTF8(entry.getField("month"));
+        final String month = StringUtil.toUTF8(entry.getField(FieldName.MONTH).get());
         if (present(month))
             bibtex.setMonth(month);
 
@@ -359,7 +378,7 @@ public class JabRefModelConverter {
      * @return list of all copied property names
      */
     public static List<String> copyStringPropertiesToBibsonomyModel(final BibTex bibtex, final BibEntry entry) {
-        final List<String> knownFields = new ArrayList<String>(50);
+        final List<String> knownFields = new ArrayList<>(50);
 
         final BeanInfo info;
         try {
@@ -372,7 +391,7 @@ public class JabRefModelConverter {
 
         // set all known properties of the BibTex
         for (PropertyDescriptor pd : descriptors) {
-            if (String.class.equals(pd.getPropertyType()) == false) {
+            if (!String.class.equals(pd.getPropertyType())) {
                 continue;
             }
             if (present(entry.getField((pd.getName().toLowerCase()))) && !JabRefModelConverter.EXCLUDE_FIELDS.contains(pd.getName().toLowerCase())) {

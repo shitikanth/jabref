@@ -6,11 +6,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import net.sf.jabref.BibtexFields;
-
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.importer.ImportInspectionDialog;
 import net.sf.jabref.model.entry.BibEntry;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.common.enums.GroupingEntity;
@@ -52,7 +51,8 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 		this.type = type;
 		this.grouping = grouping;
 		this.groupingValue = groupingValue;
-		this.dialog = new ImportInspectionDialog(jabRefFrame, jabRefFrame.getCurrentBasePanel()), BibtexFields.DEFAULT_INSPECTION_FIELDS, "Import from BibSonomy", false);
+
+		this.dialog = new ImportInspectionDialog(jabRefFrame, jabRefFrame.getCurrentBasePanel(), "Import from BibSonomy", false);
 
 		this.ignoreRequestSize = ignoreRequestSize;
 

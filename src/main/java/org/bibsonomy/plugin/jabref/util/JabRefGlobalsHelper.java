@@ -1,6 +1,6 @@
 package org.bibsonomy.plugin.jabref.util;
 
-import java.util.Vector;
+import java.util.List;
 
 import net.sf.jabref.Globals;
 import net.sf.jabref.MetaData;
@@ -49,8 +49,9 @@ public class JabRefGlobalsHelper {
     }
 
     private static String getMetaDataValue(JabRefFrame jabRefFrame, String key) {
+        //TODO: Find Meta Data
         MetaData metaData = jabRefFrame.getCurrentBasePanel().metaData();
-        Vector<String> fileDI = metaData.getData(key);
+        List<String> fileDI = metaData.getData(key);
         if (fileDI != null && fileDI.size() >= 1) {
             return fileDI.get(0).trim();
         }
