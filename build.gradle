@@ -11,6 +11,7 @@ buildscript {
     }
 }
 
+
 plugins {
     id "com.install4j.gradle" version "6.1.2"
     id 'com.github.johnrengelman.shadow' version '1.2.3'
@@ -19,6 +20,11 @@ plugins {
     // If this is updated to 0.0.9, check configurations.errorprone
     id "net.ltgt.errorprone" version "0.0.8"
     id 'me.champeau.gradle.jmh' version '0.3.0'
+}
+
+// Add bibsonomy maven url for Bibsonomy integration
+repositories {
+    maven { url "http://dev.bibsonomy.org/maven2/" }
 }
 
 apply plugin: "java"
@@ -67,6 +73,9 @@ configurations {
 }
 
 dependencies {
+    // Added for the integration of Bibsonomy
+    compile 'org.bibsonomy:bibsonomy-rest-client:3.2.1'
+
     compile 'com.jgoodies:jgoodies-common:1.8.1'
     compile 'com.jgoodies:jgoodies-forms:1.9.0'
     compile 'com.jgoodies:jgoodies-looks:2.7.0'
