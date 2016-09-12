@@ -14,10 +14,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.jabref.BibEntryType;
-import net.sf.jabref.Globals;
 import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.model.entry.BibtexEntryType;
+import net.sf.jabref.model.entry.BibtexEntryTypes;
+import net.sf.jabref.model.entry.EntryType;
 import net.sf.jabref.model.entry.FieldName;
+import net.sf.jabref.model.entry.MonthUtil;
 import net.sf.jabref.preferences.JabRefPreferences;
 
 import org.apache.commons.logging.Log;
@@ -109,14 +111,14 @@ public class JabRefModelConverter {
             entry.setField("editor", PersonNameUtils.serializePersonNames(bibtex.getEditor()));
 
 			/*
-			 * convert entry type (Is never null but getType() returns null for
+             * convert entry type (Is never null but getType() returns null for
 			 * unknown types and JabRef knows less types than we.)
 			 * 
 			 * FIXME: a nicer solution would be to implement the corresponding
 			 * classes for the missing entrytypes.
 			 */
-            final BibEntryType entryType = BibEntryType.getType(bibtex.getEntrytype());
-            entry.setType(entryType == null ? BibEntryType.OTHER : entryType);
+            final EntryType entryType = BibtexEntryTypes.getType(bibtex.getEntrytype()).get();
+            entry.setType(entryType == null ? BibtexEntryTypes.MISC : entryType);
 
             copyMiscProperties(entry, bibtex);
 
@@ -193,22 +195,10 @@ public class JabRefModelConverter {
 			/*
 			 * try to convert the month abbrev like JabRef does it
 			 */
-            /**
-             TODO: Find MONTH_STRNGS
-             MONTH_STRINGS.put("jan", "January");
-             MONTH_STRINGS.put("feb", "February");
-             MONTH_STRINGS.put("mar", "March");
-             MONTH_STRINGS.put("apr", "April");
-             MONTH_STRINGS.put("may", "May");
-             MONTH_STRINGS.put("jun", "June");
-             MONTH_STRINGS.put("jul", "July");
-             MONTH_STRINGS.put("aug", "August");
-             MONTH_STRINGS.put("sep", "September");
-             MONTH_STRINGS.put("oct", "October");
-             MONTH_STRINGS.put("nov", "November");
-             MONTH_STRINGS.put("dec", "December");
-             */
-            final String longMonth = Globals.MONTH_STRINGS.get(month);
+
+            //TODO: Find MONTH_STRNGS
+            //Globals.MONTH_STRINGS.get(month);
+            final String longMonth = MonthUtil.getMonth(month).fullName;
             if (present(longMonth)) {
                 entry.setField("month", longMonth);
             } else {

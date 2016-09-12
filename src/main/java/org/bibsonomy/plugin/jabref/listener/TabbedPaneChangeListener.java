@@ -28,7 +28,7 @@ public class TabbedPaneChangeListener implements ChangeListener {
 			for (Component component : components) {
 				BasePanel basePanel = (BasePanel) component;
 				if (basePanel.getDatabase() != null) {
-					basePanel.getDatabase().addDatabaseChangeListener(databaseChangeListener);
+					basePanel.getDatabase().registerListener(databaseChangeListener);
 				} else {
 					log.warn("found tab-component without database");
 				}

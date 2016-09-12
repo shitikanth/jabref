@@ -1,6 +1,6 @@
 package org.bibsonomy.plugin.jabref.util;
 
-
+import net.sf.jabref.MetaData;
 import net.sf.jabref.gui.GUIGlobals;
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.model.entry.FieldName;
@@ -42,13 +42,18 @@ public class JabRefFileFactory extends MultiDirectoryFileFactory {
         if (fileDir != null) return fileDir;
 
         //TODO: Find MetaData
+        if(BibsonomyMetaData.getMetaData() != null) {
+            return BibsonomyMetaData.getMetaData().getDefaultFileDirectory().get();
+        }
+
+        /*
         String[] fileDirs = jabRefFrame.getCurrentBasePanel().metaData().getFileDirectory(FieldName.FILE);
         if ((fileDirs != null) && (fileDirs.length > 0)) {
             if (fileDirs[0] != null) {
                 return fileDirs[0];
             }
         }
-
+*/
         return PluginGlobals.PLUGIN_FILE_DIRECTORY;
     }
 

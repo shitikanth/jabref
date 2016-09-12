@@ -3,14 +3,10 @@ package org.bibsonomy.plugin.jabref.listener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import net.sf.jabref.DatabaseChangeEvent;
-import net.sf.jabref.DatabaseChangeListener;
 import net.sf.jabref.gui.JabRefFrame;
-import net.sf.jabref.model.entry.BibEntry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.bibsonomy.plugin.jabref.util.WorkerUtil;
 import org.bibsonomy.plugin.jabref.worker.DownloadDocumentsWorker;
 
 /**
@@ -19,9 +15,10 @@ import org.bibsonomy.plugin.jabref.worker.DownloadDocumentsWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class PluginDataBaseChangeListener implements DatabaseChangeListener {
+//public class PluginDataBaseChangeListener implements DatabaseChangeListener {
+public class PluginDataBaseChangeListener {
 
-    private static final Log LOG = LogFactory.getLog(PluginDataBaseChangeListener.class);
+    private static final Log LOGGER = LogFactory.getLog(PluginDataBaseChangeListener.class);
 
     private JabRefFrame jabRefFrame;
 
@@ -34,7 +31,7 @@ public class PluginDataBaseChangeListener implements DatabaseChangeListener {
         threadPool = Executors.newSingleThreadExecutor();
 
     }
-
+/*
     public void databaseChanged(final DatabaseChangeEvent event) {
 
         if (event.getType() == DatabaseChangeEvent.ChangeType.ADDED_ENTRY) {
@@ -56,15 +53,16 @@ public class PluginDataBaseChangeListener implements DatabaseChangeListener {
                         WorkerUtil.performAsynchronously(worker);
 
                     } catch (InterruptedException e) {
-                        LOG.warn("Interrupt while downloading private documents", e);
+                        LOGGER.warn("Interrupt while downloading private documents", e);
                         Thread.currentThread().interrupt();
                     } catch (Throwable e) {
-                        LOG.error("Error while downloading private documents", e);
+                        LOGGER.error("Error while downloading private documents", e);
                     }
                 }
             });
         }
 
     }
+    */
 
 }

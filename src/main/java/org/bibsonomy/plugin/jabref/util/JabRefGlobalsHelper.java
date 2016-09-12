@@ -50,8 +50,8 @@ public class JabRefGlobalsHelper {
 
     private static String getMetaDataValue(JabRefFrame jabRefFrame, String key) {
         //TODO: Find Meta Data
-        MetaData metaData = jabRefFrame.getCurrentBasePanel().metaData();
-        List<String> fileDI = metaData.getData(key);
+        //MetaData metaData = jabRefFrame.getCurrentBasePanel().metaData();
+        List<String> fileDI = BibsonomyMetaData.getMetaData().getData(key);
         if (fileDI != null && fileDI.size() >= 1) {
             return fileDI.get(0).trim();
         }
