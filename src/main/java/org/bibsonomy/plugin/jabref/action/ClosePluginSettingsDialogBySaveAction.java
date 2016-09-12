@@ -9,13 +9,13 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.plugin.jabref.gui.OrderComboBoxItem;
-import org.bibsonomy.plugin.jabref.gui.PluginSettingsDialog;
+import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
 /**
- * {@link ClosePluginSettingsDialogBySaveAction} saves the properties and closes the {@link PluginSettingsDialog}.
+ * {@link ClosePluginSettingsDialogBySaveAction} saves the properties and closes the {@link BibsonomySettingsDialog}.
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
@@ -36,41 +36,41 @@ public class ClosePluginSettingsDialogBySaveAction extends AbstractAction {
     private JComboBox<?> visibility;
     private JCheckBox morePosts;
     private JTextField extraFields;
-    private PluginSettingsDialog settingsDialog;
+    private BibsonomySettingsDialog settingsDialog;
     private JComboBox<?> order;
 
     public void actionPerformed(ActionEvent e) {
 
-        PluginProperties.setApiUrl(apiUrl.getText());
-        PluginProperties.setUsername(username.getText());
-        PluginProperties.setApiKey(apiKey.getText());
-        PluginProperties.setStoreApiKey(saveApiKey.isSelected());
-        PluginProperties.setNumberOfPostsPerRequest((Integer) numberOfPosts.getValue());
-        PluginProperties.setTagCloudSize((Integer) tagCloudSize.getValue());
-        PluginProperties.setIgnoreNoTagsAssigned(ignoreNoTagsAssigned.isSelected());
-        PluginProperties.setUpdateTagsOnStartup(updateTags.isSelected());
-        PluginProperties.setUploadDocumentsOnExport(uploadDocuments.isSelected());
-        PluginProperties.setDownloadDocumentsOnImport(downloadDocuments.isSelected());
-        PluginProperties.setIgnoreMorePostsWarning(morePosts.isSelected());
-        PluginProperties.setExtraFields(extraFields.getText());
-        PluginProperties.setTagCloudOrder(((OrderComboBoxItem) order.getSelectedItem()).getKey());
+        BibsonomyProperties.setApiUrl(apiUrl.getText());
+        BibsonomyProperties.setUsername(username.getText());
+        BibsonomyProperties.setApiKey(apiKey.getText());
+        BibsonomyProperties.setStoreApiKey(saveApiKey.isSelected());
+        BibsonomyProperties.setNumberOfPostsPerRequest((Integer) numberOfPosts.getValue());
+        BibsonomyProperties.setTagCloudSize((Integer) tagCloudSize.getValue());
+        BibsonomyProperties.setIgnoreNoTagsAssigned(ignoreNoTagsAssigned.isSelected());
+        BibsonomyProperties.setUpdateTagsOnStartup(updateTags.isSelected());
+        BibsonomyProperties.setUploadDocumentsOnExport(uploadDocuments.isSelected());
+        BibsonomyProperties.setDownloadDocumentsOnImport(downloadDocuments.isSelected());
+        BibsonomyProperties.setIgnoreMorePostsWarning(morePosts.isSelected());
+        BibsonomyProperties.setExtraFields(extraFields.getText());
+        BibsonomyProperties.setTagCloudOrder(((OrderComboBoxItem) order.getSelectedItem()).getKey());
 
         switch (((GroupingComboBoxItem) visibility.getSelectedItem()).getKey()) {
             case USER:
-                PluginProperties.setDefaultVisisbility("private");
+                BibsonomyProperties.setDefaultVisisbility("private");
                 break;
             case GROUP:
-                PluginProperties.setDefaultVisisbility(((GroupingComboBoxItem) visibility.getSelectedItem()).getValue());
+                BibsonomyProperties.setDefaultVisisbility(((GroupingComboBoxItem) visibility.getSelectedItem()).getValue());
                 break;
             default:
-                PluginProperties.setDefaultVisisbility("public");
+                BibsonomyProperties.setDefaultVisisbility("public");
         }
 
-        PluginProperties.save();
+        BibsonomyProperties.save();
         settingsDialog.setVisible(false);
     }
 
-    public ClosePluginSettingsDialogBySaveAction(PluginSettingsDialog settingsDialog, JTextField apiUrl, JTextField username, JTextField apiKey,
+    public ClosePluginSettingsDialogBySaveAction(BibsonomySettingsDialog settingsDialog, JTextField apiUrl, JTextField username, JTextField apiKey,
                                                  JCheckBox saveApiKey, JSpinner numberOfPosts,
                                                  JSpinner tagCloudSize, JCheckBox ignoreNoTagsAssigned,
                                                  JCheckBox updateTags, JCheckBox uploadDocuments,

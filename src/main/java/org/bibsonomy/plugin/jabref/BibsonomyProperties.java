@@ -11,15 +11,15 @@ import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.enums.Order;
 
 /**
- * {@link PluginProperties} read and write the plugin properties file.
+ * {@link BibsonomyProperties} read and write the plugin properties file.
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class PluginProperties extends Properties {
+public class BibsonomyProperties extends Properties {
 
     private static final long serialVersionUID = 5420450194355211249L;
 
-    private static final Log LOG = LogFactory.getLog(PluginProperties.class);
+    private static final Log LOGGER = LogFactory.getLog(BibsonomyProperties.class);
 
     /**
      * API properties
@@ -46,9 +46,9 @@ public class PluginProperties extends Properties {
     private static final String PLUGIN_TAG_CLOUD_ORDER = "plugin.tagcloud.order";
 
     /**
-     * Singleton of {@link PluginProperties}
+     * Singleton of {@link BibsonomyProperties}
      */
-    private static PluginProperties INSTANCE = null;
+    private static BibsonomyProperties INSTANCE = null;
 
     /**
      * location of properties file; JabRef stores the plugin itself also in this
@@ -58,15 +58,15 @@ public class PluginProperties extends Properties {
     private static final String PROPERTIES_FILE = PATH_TO_PROPERTIES_FILE + "bibsonomy-plugin.properties";
 
     /**
-     * Get the singleton of {@link PluginProperties}.
+     * Get the singleton of {@link BibsonomyProperties}.
      * Will create one if INSTANCE is null
      *
-     * @return singleton of {@link PluginProperties}
+     * @return singleton of {@link BibsonomyProperties}
      */
-    public static PluginProperties getInstance() {
+    public static BibsonomyProperties getInstance() {
 
         if (INSTANCE == null)
-            INSTANCE = new PluginProperties();
+            INSTANCE = new BibsonomyProperties();
 
         return INSTANCE;
     }
@@ -74,14 +74,14 @@ public class PluginProperties extends Properties {
     /**
      * The constructor reads the properties from the file system.
      */
-    private PluginProperties() {
+    private BibsonomyProperties() {
 
         try {
             File propertiesFile = new File(PROPERTIES_FILE);
             if (propertiesFile.exists() && propertiesFile.isFile())
                 load(new FileInputStream(propertiesFile));
         } catch (Exception e) {
-            LOG.error("Error loading properties file", e);
+            LOGGER.error("Error loading properties file", e);
         }
     }
 
@@ -92,7 +92,7 @@ public class PluginProperties extends Properties {
     public static void save() {
 
         String apiKey = getApiKey();
-        if (getStoreApiKey() == false)
+        if (!getStoreApiKey())
             setApiKey(""); //set the api key to empty string
         //if user does not want to save api key
         try {
@@ -100,7 +100,7 @@ public class PluginProperties extends Properties {
             getInstance().store(new FileOutputStream(PROPERTIES_FILE), "");
         } catch (Exception ex) {
 
-            LOG.error("Failed saving properties file");
+            LOGGER.error("Failed saving properties file");
         }
         //set api key back to its actual value
         setApiKey(apiKey);
@@ -113,17 +113,17 @@ public class PluginProperties extends Properties {
 
     public static String getUsername() {
 
-        return getInstance().getProperty(API_USERNAME, PluginGlobals.API_USERNAME);
+        return getInstance().getProperty(API_USERNAME, BibsonomyGlobals.API_USERNAME);
     }
 
     public static String getApiKey() {
 
-        return getInstance().getProperty(API_KEY, PluginGlobals.API_KEY);
+        return getInstance().getProperty(API_KEY, BibsonomyGlobals.API_KEY);
     }
 
     public static String getApiUrl() {
 
-        return getInstance().getProperty(API_URL, PluginGlobals.API_URL);
+        return getInstance().getProperty(API_URL, BibsonomyGlobals.API_URL);
     }
 
     public static boolean getDownloadDocumentsOnImport() {
@@ -133,7 +133,7 @@ public class PluginProperties extends Properties {
 
     public static int getNumberOfPostsPerRequest() {
 
-        return Integer.parseInt(getInstance().getProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, PluginGlobals.PLUGIN_NUMBER_OF_POSTS_PER_REQUEST));
+        return Integer.parseInt(getInstance().getProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, BibsonomyGlobals.PLUGIN_NUMBER_OF_POSTS_PER_REQUEST));
     }
 
     public static boolean getIgnoreMorePostsWarning() {

@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.model.Post;
 import org.bibsonomy.model.Resource;
 import org.bibsonomy.model.logic.LogicInterface;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.gui.CompareDialog;
 import org.bibsonomy.plugin.jabref.util.BibtexEntryUtil;
 import org.bibsonomy.plugin.jabref.util.JabRefModelConverter;
@@ -70,7 +70,7 @@ public class SynchronizationWorker extends AbstractPluginWorker {
 
             try {
                 // get the entry with the specific intrahash
-                final Post<? extends Resource> post = logic.getPostDetails(intrahash, PluginProperties.getUsername());
+                final Post<? extends Resource> post = logic.getPostDetails(intrahash, BibsonomyProperties.getUsername());
 
                 if (!BibtexEntryUtil.areEqual(entry, JabRefModelConverter.convertPost(post))) {
 

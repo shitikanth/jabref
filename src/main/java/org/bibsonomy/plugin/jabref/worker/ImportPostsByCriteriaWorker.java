@@ -16,11 +16,11 @@ import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Post;
 import org.bibsonomy.model.Resource;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.action.ShowSettingsDialogAction;
 import org.bibsonomy.plugin.jabref.gui.SearchType;
 import org.bibsonomy.plugin.jabref.util.JabRefModelConverter;
-import org.bibsonomy.plugin.jabref.util.PluginCallBack;
+import org.bibsonomy.plugin.jabref.util.BibsonomyCallBack;
 import org.bibsonomy.rest.exceptions.AuthenticationException;
 
 /**
@@ -57,7 +57,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 		this.ignoreRequestSize = ignoreRequestSize;
 
 		dialog.setLocationRelativeTo(jabRefFrame);
-		dialog.addCallBack(new PluginCallBack(this));
+		dialog.addCallBack(new BibsonomyCallBack(this));
 	}
 
 	public void run() {
@@ -65,7 +65,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 		dialog.setVisible(true);
 		dialog.setProgress(0, 0);
 
-		int numberOfPosts = 0, start = 0, end = PluginProperties.getNumberOfPostsPerRequest(), cycle = 0, numberOfPostsPerRequest = PluginProperties.getNumberOfPostsPerRequest();
+		int numberOfPosts = 0, start = 0, end = BibsonomyProperties.getNumberOfPostsPerRequest(), cycle = 0, numberOfPostsPerRequest = BibsonomyProperties.getNumberOfPostsPerRequest();
 		boolean continueFetching = false;
 		do {
 			numberOfPosts = 0;
@@ -94,7 +94,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 
 					// clear fields if the fetched posts does not belong to the
 					// user
-					if (!PluginProperties.getUsername().equals(entry.getField("username"))) {
+					if (!BibsonomyProperties.getUsername().equals(entry.getField("username"))) {
 						entry.clearField("intrahash");
 						entry.clearField("interhash");
 						entry.clearField("file");
@@ -106,10 +106,10 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 				if (!continueFetching) {
 					if (!ignoreRequestSize) {
 
-						if (!PluginProperties.getIgnoreMorePostsWarning()) {
+						if (!BibsonomyProperties.getIgnoreMorePostsWarning()) {
 
 							if (numberOfPosts == numberOfPostsPerRequest) {
-								int status = JOptionPane.showOptionDialog(dialog, "<html>There are probably more than " + PluginProperties.getNumberOfPostsPerRequest()
+								int status = JOptionPane.showOptionDialog(dialog, "<html>There are probably more than " + BibsonomyProperties.getNumberOfPostsPerRequest()
 										+ " posts available. Continue importing?<br>You can stop importing entries by hitting the Stop button on the import dialog.", "More posts available",
 										JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, JOptionPane.YES_OPTION);
 

@@ -11,7 +11,7 @@ import net.sf.jabref.gui.JabRefFrame;
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Tag;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 
 
 /**
@@ -47,13 +47,13 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
             keywords = metaData.getData(MetaData.SELECTOR_META_PREFIX + "keywords");
         }
 
-        int start = 0, end = PluginProperties.getTagCloudSize(), max = 1, min = 1;
+        int start = 0, end = BibsonomyProperties.getTagCloudSize(), max = 1, min = 1;
 
         //in case of fetching all tags we only get the first 100 most popular
-        if (grouping == GroupingEntity.ALL && PluginProperties.getTagCloudSize() > 100)
+        if (grouping == GroupingEntity.ALL && BibsonomyProperties.getTagCloudSize() > 100)
             end = 100;
 
-        final List<Tag> result = getLogic().getTags(BibTex.class, grouping, groupingValue, null, null, null, null, null, PluginProperties.getTagCloudOrder(), null, null, start, end);
+        final List<Tag> result = getLogic().getTags(BibTex.class, grouping, groupingValue, null, null, null, null, null, BibsonomyProperties.getTagCloudOrder(), null, null, start, end);
         tags.addAll(result);
 
         for (Tag tag : tags) {

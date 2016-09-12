@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.Group;
 import org.bibsonomy.model.User;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.action.ShowSettingsDialogAction;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.rest.exceptions.AuthenticationException;
@@ -45,7 +45,7 @@ public class UpdateVisibilityWorker extends AbstractPluginWorker {
         }
 
         try {
-            User user = getLogic().getUserDetails(PluginProperties.getUsername());
+            User user = getLogic().getUserDetails(BibsonomyProperties.getUsername());
 
             for (Group g : user.getGroups()) {
                 visibility.addItem(new GroupingComboBoxItem(GroupingEntity.GROUP, g.getName()));
@@ -65,7 +65,7 @@ public class UpdateVisibilityWorker extends AbstractPluginWorker {
         } catch (AuthenticationException ex) {
             (new ShowSettingsDialogAction(jabRefFrame)).actionPerformed(null);
         } catch (Exception ex) {
-            LOG.error("Failed to get user details for user: " + PluginProperties.getUsername(), ex);
+            LOG.error("Failed to get user details for user: " + BibsonomyProperties.getUsername(), ex);
         }
     }
 

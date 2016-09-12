@@ -5,7 +5,7 @@ package org.bibsonomy.plugin.jabref;
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  *
  */
-public class PluginGlobals {
+public class BibsonomyGlobals {
 
 	public static final String PLUGIN_NAME = "BibSonomy";
 

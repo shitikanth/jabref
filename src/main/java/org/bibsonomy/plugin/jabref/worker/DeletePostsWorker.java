@@ -7,7 +7,7 @@ import net.sf.jabref.model.entry.BibEntry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 
 /**
  * Delete a Post from the service
@@ -24,12 +24,12 @@ public class DeletePostsWorker extends AbstractPluginWorker {
         for (BibEntry entry : entries) {
             final String intrahash = entry.getField("intrahash").get();
             final String username = entry.getField("username").get();
-            if ((intrahash == null) || ("".equals(intrahash)) || ((intrahash != null) && !(PluginProperties.getUsername().equals(username)))) {
+            if ((intrahash == null) || ("".equals(intrahash)) || ((intrahash != null) && !(BibsonomyProperties.getUsername().equals(username)))) {
                 continue;
             }
 
             try {
-                getLogic().deletePosts(PluginProperties.getUsername(), Arrays.asList(intrahash));
+                getLogic().deletePosts(BibsonomyProperties.getUsername(), Arrays.asList(intrahash));
                 jabRefFrame.output("Deleting post " + intrahash);
                 entry.clearField("intrahash");
             } catch (Exception ex) {

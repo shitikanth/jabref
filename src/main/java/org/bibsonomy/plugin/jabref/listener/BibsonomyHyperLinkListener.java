@@ -16,12 +16,12 @@ import org.bibsonomy.plugin.jabref.gui.SearchType;
 import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
 
 /**
- * {@link PluginHyperLinkListener} runs the {@link ImportPostsByCriteriaWorker} as soon as
+ * {@link BibsonomyHyperLinkListener} runs the {@link ImportPostsByCriteriaWorker} as soon as
  * the user clicks on a hyperlink in the tag cloud
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class PluginHyperLinkListener extends AbstractPluginAction implements HyperlinkListener {
+public class BibsonomyHyperLinkListener extends AbstractPluginAction implements HyperlinkListener {
 
     private static final long serialVersionUID = -2030390936610286041L;
 
@@ -42,7 +42,7 @@ public class PluginHyperLinkListener extends AbstractPluginAction implements Hyp
         }
     }
 
-    public PluginHyperLinkListener(JabRefFrame jabRefFrame, JComboBox<?> visibilityComboBox) {
+    public BibsonomyHyperLinkListener(JabRefFrame jabRefFrame, JComboBox<?> visibilityComboBox) {
 
         super(jabRefFrame, null, null);
         this.visibilityComboBox = visibilityComboBox;

@@ -10,21 +10,21 @@ import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.plugin.jabref.worker.DownloadDocumentsWorker;
 
 /**
- * {@link PluginDataBaseChangeListener} runs the {@link DownloadDocumentsWorker} as soon as a new entry was added
+ * {@link BibsonomyDataBaseChangeListener} runs the {@link DownloadDocumentsWorker} as soon as a new entry was added
  * to the database
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-//public class PluginDataBaseChangeListener implements DatabaseChangeListener {
-public class PluginDataBaseChangeListener {
+//public class BibsonomyDataBaseChangeListener implements DatabaseChangeListener {
+public class BibsonomyDataBaseChangeListener {
 
-    private static final Log LOGGER = LogFactory.getLog(PluginDataBaseChangeListener.class);
+    private static final Log LOGGER = LogFactory.getLog(BibsonomyDataBaseChangeListener.class);
 
     private JabRefFrame jabRefFrame;
 
     private final ExecutorService threadPool;
 
-    public PluginDataBaseChangeListener(JabRefFrame jabRefFrame) {
+    public BibsonomyDataBaseChangeListener(JabRefFrame jabRefFrame) {
 
         this.jabRefFrame = jabRefFrame;
 

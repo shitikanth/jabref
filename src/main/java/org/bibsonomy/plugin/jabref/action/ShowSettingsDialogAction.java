@@ -7,11 +7,11 @@ import javax.swing.ImageIcon;
 
 import net.sf.jabref.gui.JabRefFrame;
 
-import org.bibsonomy.plugin.jabref.gui.PluginSettingsDialog;
+import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
 
 /**
- * {@link ShowSettingsDialogAction} creates and displays the {@link PluginSettingsDialog}
+ * {@link ShowSettingsDialogAction} creates and displays the {@link BibsonomySettingsDialog}
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
@@ -23,7 +23,7 @@ public class ShowSettingsDialogAction extends AbstractAction {
 
     public void actionPerformed(ActionEvent e) {
 
-        PluginSettingsDialog psd = new PluginSettingsDialog(jabRefFrame);
+        BibsonomySettingsDialog psd = new BibsonomySettingsDialog(jabRefFrame);
         psd.setVisible(true);
         psd.setLocationRelativeTo(jabRefFrame);
     }

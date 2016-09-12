@@ -4,7 +4,7 @@ import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.worker.AbstractWorker;
 
 import org.bibsonomy.model.logic.LogicInterface;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.util.JabRefFileFactory;
 import org.bibsonomy.rest.client.RestLogicFactory;
 import org.bibsonomy.rest.client.util.FileFactory;
@@ -36,6 +36,6 @@ public abstract class AbstractPluginWorker extends AbstractWorker {
     }
 
     protected LogicInterface getLogic() {
-        return new RestLogicFactory(PluginProperties.getApiUrl(), RestLogicFactory.DEFAULT_RENDERING_FORMAT, RestLogicFactory.DEFAULT_CALLBACK_FACTORY, fileFactory).getLogicAccess(PluginProperties.getUsername(), PluginProperties.getApiKey());
+        return new RestLogicFactory(BibsonomyProperties.getApiUrl(), RestLogicFactory.DEFAULT_RENDERING_FORMAT, RestLogicFactory.DEFAULT_CALLBACK_FACTORY, fileFactory).getLogicAccess(BibsonomyProperties.getUsername(), BibsonomyProperties.getApiKey());
     }
 }

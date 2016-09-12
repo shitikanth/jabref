@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import net.sf.jabref.gui.JabRefFrame;
 
 import org.bibsonomy.common.enums.GroupingEntity;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.gui.SearchType;
 import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
 
@@ -26,7 +26,7 @@ public class ImportAllMyPostsAction extends AbstractPluginAction {
 
     public void actionPerformed(ActionEvent e) {
 
-        ImportPostsByCriteriaWorker worker = new ImportPostsByCriteriaWorker(getJabRefFrame(), "", SearchType.FULL_TEXT, GroupingEntity.USER, PluginProperties.getUsername(), true);
+        ImportPostsByCriteriaWorker worker = new ImportPostsByCriteriaWorker(getJabRefFrame(), "", SearchType.FULL_TEXT, GroupingEntity.USER, BibsonomyProperties.getUsername(), true);
         performAsynchronously(worker);
     }
 

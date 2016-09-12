@@ -11,7 +11,7 @@ import javax.swing.JEditorPane;
 import net.sf.jabref.gui.JabRefFrame;
 
 import org.bibsonomy.common.enums.GroupingEntity;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.plugin.jabref.worker.RefreshTagListWorker;
 import org.bibsonomy.plugin.jabref.worker.UpdateVisibilityWorker;
@@ -54,7 +54,7 @@ public class RefreshTagListAction extends AbstractPluginAction {
         if (defaultGroupings == null) {
             defaultGroupings = new ArrayList<GroupingComboBoxItem>();
             defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.ALL, "all users"));
-            defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.USER, PluginProperties.getUsername()));
+            defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.USER, BibsonomyProperties.getUsername()));
         }
         return defaultGroupings;
     }

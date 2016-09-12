@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 public class TabbedPaneChangeListener implements ChangeListener {
 	private static final Log log = LogFactory.getLog(TabbedPaneChangeListener.class);
 
-	private PluginDataBaseChangeListener databaseChangeListener;
+	private BibsonomyDataBaseChangeListener databaseChangeListener;
 
 	public void stateChanged(ChangeEvent e) {
 		if(e.getSource() instanceof JTabbedPane) {
@@ -39,7 +39,7 @@ public class TabbedPaneChangeListener implements ChangeListener {
 		}
 	}
 	
-	public TabbedPaneChangeListener(PluginDataBaseChangeListener l) {
+	public TabbedPaneChangeListener(BibsonomyDataBaseChangeListener l) {
 		this.databaseChangeListener = l;
 	}
 

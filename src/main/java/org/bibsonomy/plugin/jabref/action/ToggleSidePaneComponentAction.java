@@ -8,11 +8,11 @@ import javax.swing.ImageIcon;
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.SidePaneManager;
 
-import org.bibsonomy.plugin.jabref.PluginSidePaneComponent;
-import org.bibsonomy.plugin.jabref.gui.PluginSidePanel;
+import org.bibsonomy.plugin.jabref.BibsonomySidePaneComponent;
+import org.bibsonomy.plugin.jabref.gui.BibsonomySidePanel;
 
 /**
- * Display or hide the {@link PluginSidePanel}
+ * Display or hide the {@link BibsonomySidePanel}
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
@@ -23,7 +23,7 @@ public class ToggleSidePaneComponentAction extends AbstractAction {
     private SidePaneManager manager;
     private JabRefFrame jabRefFrame;
 
-    private PluginSidePaneComponent sidePaneComponent;
+    private BibsonomySidePaneComponent sidePaneComponent;
 
     public void actionPerformed(ActionEvent e) {
 
@@ -35,7 +35,7 @@ public class ToggleSidePaneComponentAction extends AbstractAction {
 
     }
 
-    public ToggleSidePaneComponentAction(PluginSidePaneComponent sidePaneComponent) {
+    public ToggleSidePaneComponentAction(BibsonomySidePaneComponent sidePaneComponent) {
 
         super("Search entries", new ImageIcon(ToggleSidePaneComponentAction.class.getResource("/images/tag-label.png")));
 

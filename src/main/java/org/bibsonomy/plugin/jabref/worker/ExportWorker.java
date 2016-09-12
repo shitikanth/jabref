@@ -14,7 +14,7 @@ import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Post;
 import org.bibsonomy.model.Resource;
 import org.bibsonomy.model.User;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.action.ShowSettingsDialogAction;
 import org.bibsonomy.plugin.jabref.util.JabRefModelConverter;
 import org.bibsonomy.plugin.jabref.util.WorkerUtil;
@@ -39,16 +39,16 @@ public class ExportWorker extends AbstractPluginWorker {
 
                 // add private or public if groups is empty
                 if (entry.getField("groups") == null || "".equals(entry.getField(FieldName.GROUPS))) {
-                    entry.setField("groups", PluginProperties.getDefaultVisibilty());
+                    entry.setField("groups", BibsonomyProperties.getDefaultVisibilty());
                 }
 
-                entry.setField("username", PluginProperties.getUsername());
+                entry.setField("username", BibsonomyProperties.getUsername());
                 String owner = entry.getField(FieldName.OWNER).get();
                 entry.clearField(FieldName.OWNER);
 
                 Post<BibTex> post = JabRefModelConverter.convertEntry(entry);
                 if (post.getUser() == null) {
-                    post.setUser(new User(PluginProperties.getUsername()));
+                    post.setUser(new User(BibsonomyProperties.getUsername()));
                 }
 
                 if (intrahash != null && !"".equals(intrahash)) {

@@ -12,7 +12,7 @@ import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Document;
 import org.bibsonomy.model.Post;
 import org.bibsonomy.model.Resource;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.action.ShowSettingsDialogAction;
 import org.bibsonomy.rest.exceptions.AuthenticationException;
 import org.bibsonomy.util.file.FileUtil;
@@ -40,7 +40,7 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
 
     public void run() {
 
-        if (isImport && !PluginProperties.getDownloadDocumentsOnImport()) {
+        if (isImport && !BibsonomyProperties.getDownloadDocumentsOnImport()) {
             return;
         }
 
@@ -49,7 +49,7 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
         if (intrahash != null && !"".equals(intrahash)) {
             final Post<? extends Resource> post;
             try {
-                post = getLogic().getPostDetails(intrahash, PluginProperties.getUsername()); // client.executeQuery(getPostDetailsQuery);
+                post = getLogic().getPostDetails(intrahash, BibsonomyProperties.getUsername()); // client.executeQuery(getPostDetailsQuery);
             } catch (AuthenticationException e) {
                 (new ShowSettingsDialogAction(jabRefFrame)).actionPerformed(null);
                 return;
@@ -67,7 +67,7 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
             for (Document document : ((BibTex) r).getDocuments()) {
                 jabRefFrame.output("Downloading: " + document.getFileName());
                 try {
-                    getLogic().getDocument(PluginProperties.getUsername(), intrahash, URLEncoder.encode(document.getFileName(), "UTF-8"));
+                    getLogic().getDocument(BibsonomyProperties.getUsername(), intrahash, URLEncoder.encode(document.getFileName(), "UTF-8"));
                 } catch (Exception ex) {
                     LOG.error("Failed downloading file: " + document.getFileName(), ex);
                 }

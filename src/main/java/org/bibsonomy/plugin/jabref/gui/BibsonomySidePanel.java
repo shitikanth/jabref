@@ -21,15 +21,15 @@ import javax.swing.border.TitledBorder;
 import net.sf.jabref.gui.JabRefFrame;
 
 import org.bibsonomy.common.enums.GroupingEntity;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.action.RefreshTagListAction;
 import org.bibsonomy.plugin.jabref.action.SearchAction;
 import org.bibsonomy.plugin.jabref.action.ShowSettingsDialogAction;
 import org.bibsonomy.plugin.jabref.action.UpdateVisibilityAction;
-import org.bibsonomy.plugin.jabref.listener.PluginHyperLinkListener;
+import org.bibsonomy.plugin.jabref.listener.BibsonomyHyperLinkListener;
 import org.bibsonomy.plugin.jabref.listener.VisibilityItemListener;
 
-public class PluginSidePanel extends JPanel {
+public class BibsonomySidePanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private JPanel controlsPanel = null;
@@ -45,7 +45,7 @@ public class PluginSidePanel extends JPanel {
     private JButton settingsButton = null;
     private JEditorPane tagCloudPanel = null;
 
-    public PluginSidePanel(JabRefFrame jabRefFrame) {
+    public BibsonomySidePanel(JabRefFrame jabRefFrame) {
         super();
         this.jabRefFrame = jabRefFrame;
         initialize();
@@ -254,7 +254,7 @@ public class PluginSidePanel extends JPanel {
             //Set Default Values
             List<GroupingComboBoxItem> defaultGroupings = new ArrayList<>();
             defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.ALL, "all users"));
-            defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.USER, PluginProperties.getUsername()));
+            defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.USER, BibsonomyProperties.getUsername()));
 
             (new UpdateVisibilityAction(jabRefFrame, visibilityComboBox, defaultGroupings)).actionPerformed(null);
             visibilityComboBox.addItemListener(new VisibilityItemListener());
@@ -301,9 +301,9 @@ public class PluginSidePanel extends JPanel {
             tagCloudPanel.setEditable(false);
             tagCloudPanel.setFont(new Font("SansSerif", Font.PLAIN, 12));
             tagCloudPanel.setBackground(SystemColor.control);
-            tagCloudPanel.addHyperlinkListener(new PluginHyperLinkListener(jabRefFrame, getVisibilityComboBox()));
+            tagCloudPanel.addHyperlinkListener(new BibsonomyHyperLinkListener(jabRefFrame, getVisibilityComboBox()));
 
-            if (PluginProperties.getUpdateTagsOnStartUp()) {
+            if (BibsonomyProperties.getUpdateTagsOnStartUp()) {
 
                 (new RefreshTagListAction(jabRefFrame, tagCloudPanel, getVisibilityComboBox())).actionPerformed(null);
             }

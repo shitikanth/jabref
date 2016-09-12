@@ -698,6 +698,9 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         generalFetcher = new GeneralFetcher(sidePaneManager, this);
 
         sidePaneManager.register("groups", groupSelector);
+
+        //TODO: Add bibsonomy here?
+        //sidePaneManager.register("", null);
     }
 
     /**
@@ -1131,19 +1134,6 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         JMenu newSpec = JabRefFrame.subMenu(Localization.menuTitle("New entry by type..."));
         JMenu helpMenu = JabRefFrame.subMenu(Localization.menuTitle("Help"));
 
-
-        //TODO: Bibsonomy
-        JMenu moreMenu = JabRefFrame.subMenu(Localization.menuTitle("More"));
-        JMenuItem bibsonomy = new JMenuItem("Bibsonomy");
-        moreMenu.add(bibsonomy);
-
-        moreMenu.add(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Bibsonomy");
-            }
-        });
-
         file.add(newBibtexDatabaseAction);
         file.add(newBiblatexDatabaseAction);
         file.add(getOpenDatabaseAction());
@@ -1373,6 +1363,15 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         helpMenu.add(webMenu);
         helpMenu.add(about);
         mb.add(helpMenu);
+
+
+        //TODO: Bibsonomy
+        JMenu moreMenu = JabRefFrame.subMenu(Localization.menuTitle("More"));
+        JMenuItem bibsonomy = new JMenuItem("Bibsonomy");
+        moreMenu.add(bibsonomy);
+
+        bibsonomy.addActionListener(action -> System.out.println("Bibsonomy"));
+        mb.add(moreMenu);
 
         createDisabledIconsForMenuEntries(mb);
     }

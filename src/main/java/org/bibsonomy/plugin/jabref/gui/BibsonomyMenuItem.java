@@ -3,8 +3,8 @@ package org.bibsonomy.plugin.jabref.gui;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import org.bibsonomy.plugin.jabref.PluginGlobals;
-import org.bibsonomy.plugin.jabref.PluginSidePaneComponent;
+import org.bibsonomy.plugin.jabref.BibsonomyGlobals;
+import org.bibsonomy.plugin.jabref.BibsonomySidePaneComponent;
 import org.bibsonomy.plugin.jabref.action.DeleteSelectedEntriesAction;
 import org.bibsonomy.plugin.jabref.action.DownloadDocumentsAction;
 import org.bibsonomy.plugin.jabref.action.ExportSelectedEntriesAction;
@@ -14,20 +14,20 @@ import org.bibsonomy.plugin.jabref.action.SynchronizeAction;
 import org.bibsonomy.plugin.jabref.action.ToggleSidePaneComponentAction;
 
 /**
- * {@link PluginMenuItem} is the plugins menu item
+ * {@link BibsonomyMenuItem} is the plugins menu item
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class PluginMenuItem extends JMenu {
+public class BibsonomyMenuItem extends JMenu {
 
 
     private static final long serialVersionUID = -9004684574235429985L;
 
-    private PluginSidePaneComponent sidePaneComponent;
+    private BibsonomySidePaneComponent sidePaneComponent;
 
-    public PluginMenuItem(PluginSidePaneComponent sidePaneComponent) {
+    public BibsonomyMenuItem(BibsonomySidePaneComponent sidePaneComponent) {
 
-        super(PluginGlobals.PLUGIN_NAME);
+        super(BibsonomyGlobals.PLUGIN_NAME);
 
         this.sidePaneComponent = sidePaneComponent;
 

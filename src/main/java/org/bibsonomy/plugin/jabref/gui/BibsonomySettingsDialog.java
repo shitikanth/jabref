@@ -29,14 +29,14 @@ import net.sf.jabref.gui.JabRefFrame;
 
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.enums.Order;
-import org.bibsonomy.plugin.jabref.PluginGlobals;
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyGlobals;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.action.ClosePluginSettingsDialogByCancelAction;
 import org.bibsonomy.plugin.jabref.action.ClosePluginSettingsDialogBySaveAction;
 import org.bibsonomy.plugin.jabref.action.OpenDatabasePropertiesAction;
 import org.bibsonomy.plugin.jabref.action.UpdateVisibilityAction;
 
-public class PluginSettingsDialog extends JDialog {
+public class BibsonomySettingsDialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
@@ -71,10 +71,10 @@ public class PluginSettingsDialog extends JDialog {
     private JComboBox<?> tagCloudOrderComboBox = null;
     private JButton openDatabasePropertiesButton = null;
 
-    public PluginSettingsDialog(JabRefFrame jabRefFrame) {
+    public BibsonomySettingsDialog(JabRefFrame jabRefFrame) {
         super(jabRefFrame);
         this.jabRefFrame = jabRefFrame;
-        if (PluginProperties.getUsername().equals(PluginGlobals.API_USERNAME))
+        if (BibsonomyProperties.getUsername().equals(BibsonomyGlobals.API_USERNAME))
             JOptionPane.showMessageDialog(this, "<html>PLEASE NOTE: the current API access data is for testing purposes only.\n"
                     + "You can up- and download entries, and after logging in you can see and\n"
                     + "edit your entries on www.bibsonomy.org. Do not use this account for\n"
@@ -534,7 +534,7 @@ public class PluginSettingsDialog extends JDialog {
 
     private JTextField getUsernameTextField() {
         if (usernameTextField == null) {
-            usernameTextField = new JTextField(PluginProperties.getUsername());
+            usernameTextField = new JTextField(BibsonomyProperties.getUsername());
         }
         return usernameTextField;
     }
@@ -546,7 +546,7 @@ public class PluginSettingsDialog extends JDialog {
      */
     private JTextField getApiKeyTextField() {
         if (apiKeyTextField == null) {
-            apiKeyTextField = new JTextField(PluginProperties.getApiKey());
+            apiKeyTextField = new JTextField(BibsonomyProperties.getApiKey());
         }
         return apiKeyTextField;
     }
@@ -559,7 +559,7 @@ public class PluginSettingsDialog extends JDialog {
      */
     private JTextField getApiUrlTextField() {
         if (apiUrlTextField == null) {
-            apiUrlTextField = new JTextField(PluginProperties.getApiUrl());
+            apiUrlTextField = new JTextField(BibsonomyProperties.getApiUrl());
         }
         return apiUrlTextField;
     }
@@ -573,7 +573,7 @@ public class PluginSettingsDialog extends JDialog {
         if (storeAPIKeyCheckBox == null) {
             storeAPIKeyCheckBox = new JCheckBox();
             storeAPIKeyCheckBox.setText("Store API key");
-            storeAPIKeyCheckBox.setSelected(PluginProperties.getStoreApiKey());
+            storeAPIKeyCheckBox.setSelected(BibsonomyProperties.getStoreApiKey());
         }
         return storeAPIKeyCheckBox;
     }
@@ -587,7 +587,7 @@ public class PluginSettingsDialog extends JDialog {
         if (ignoreOneTagWarningCheckBox == null) {
             ignoreOneTagWarningCheckBox = new JCheckBox();
             ignoreOneTagWarningCheckBox.setText("Do not warn me, if a post has no tags assigned");
-            ignoreOneTagWarningCheckBox.setSelected(PluginProperties.ignoreNoTagsAssigned());
+            ignoreOneTagWarningCheckBox.setSelected(BibsonomyProperties.ignoreNoTagsAssigned());
         }
         return ignoreOneTagWarningCheckBox;
     }
@@ -601,7 +601,7 @@ public class PluginSettingsDialog extends JDialog {
         if (updateTagsCheckBox == null) {
             updateTagsCheckBox = new JCheckBox();
             updateTagsCheckBox.setText("Update tags on startup");
-            updateTagsCheckBox.setSelected(PluginProperties.getUpdateTagsOnStartUp());
+            updateTagsCheckBox.setSelected(BibsonomyProperties.getUpdateTagsOnStartUp());
         }
         return updateTagsCheckBox;
     }
@@ -615,7 +615,7 @@ public class PluginSettingsDialog extends JDialog {
         if (uploadDocumentsCheckBox == null) {
             uploadDocumentsCheckBox = new JCheckBox();
             uploadDocumentsCheckBox.setText("Upload documents on export");
-            uploadDocumentsCheckBox.setSelected(PluginProperties.getUploadDocumentsOnExport());
+            uploadDocumentsCheckBox.setSelected(BibsonomyProperties.getUploadDocumentsOnExport());
         }
         return uploadDocumentsCheckBox;
     }
@@ -629,7 +629,7 @@ public class PluginSettingsDialog extends JDialog {
         if (downloadDocumentsCheckBox == null) {
             downloadDocumentsCheckBox = new JCheckBox();
             downloadDocumentsCheckBox.setText("Download documents on import");
-            downloadDocumentsCheckBox.setSelected(PluginProperties.getDownloadDocumentsOnImport());
+            downloadDocumentsCheckBox.setSelected(BibsonomyProperties.getDownloadDocumentsOnImport());
         }
         return downloadDocumentsCheckBox;
     }
@@ -652,7 +652,7 @@ public class PluginSettingsDialog extends JDialog {
             //Set selected Value
             int itemCount = defaultVisibilityComboBox.getItemCount();
             for (int i = 0; i < itemCount; i++) {
-                if ((defaultVisibilityComboBox.getItemAt(i)).getValue().equals(PluginProperties.getDefaultVisibilty())) {
+                if ((defaultVisibilityComboBox.getItemAt(i)).getValue().equals(BibsonomyProperties.getDefaultVisibilty())) {
                     defaultVisibilityComboBox.setSelectedItem(defaultVisibilityComboBox.getItemAt(i));
                 }
             }
@@ -668,7 +668,7 @@ public class PluginSettingsDialog extends JDialog {
     private JTextField getExtraFieldsTextField() {
         if (extraFieldsTextField == null) {
             extraFieldsTextField = new JTextField();
-            extraFieldsTextField.setText(PluginProperties.getExtraTabFields());
+            extraFieldsTextField.setText(BibsonomyProperties.getExtraTabFields());
         }
         return extraFieldsTextField;
     }
@@ -693,7 +693,7 @@ public class PluginSettingsDialog extends JDialog {
      */
     private JSpinner getNumberOfPostsSpinner() {
         if (numberOfPostsSpinner == null) {
-            numberOfPostsSpinner = new JSpinner(new SpinnerNumberModel(PluginProperties.getNumberOfPostsPerRequest(), 1, 500, 1));
+            numberOfPostsSpinner = new JSpinner(new SpinnerNumberModel(BibsonomyProperties.getNumberOfPostsPerRequest(), 1, 500, 1));
         }
         return numberOfPostsSpinner;
     }
@@ -707,7 +707,7 @@ public class PluginSettingsDialog extends JDialog {
         if (noWarningOnMorePostsCheckBox == null) {
             noWarningOnMorePostsCheckBox = new JCheckBox();
             noWarningOnMorePostsCheckBox.setText("Do not warn me, if more posts are available");
-            noWarningOnMorePostsCheckBox.setSelected(PluginProperties.getIgnoreMorePostsWarning());
+            noWarningOnMorePostsCheckBox.setSelected(BibsonomyProperties.getIgnoreMorePostsWarning());
         }
         return noWarningOnMorePostsCheckBox;
     }
@@ -716,7 +716,7 @@ public class PluginSettingsDialog extends JDialog {
 
         if (tagCloudSizeSpinner == null) {
 
-            tagCloudSizeSpinner = new JSpinner(new SpinnerNumberModel(PluginProperties.getTagCloudSize(), 20, 1000, 1));
+            tagCloudSizeSpinner = new JSpinner(new SpinnerNumberModel(BibsonomyProperties.getTagCloudSize(), 20, 1000, 1));
         }
 
         return tagCloudSizeSpinner;
@@ -742,7 +742,7 @@ public class PluginSettingsDialog extends JDialog {
 
             int itemCount = tagCloudOrderComboBox.getItemCount();
             for (int i = 0; i < itemCount; i++) {
-                if (((OrderComboBoxItem) tagCloudOrderComboBox.getItemAt(i)).getKey() == PluginProperties.getTagCloudOrder())
+                if (((OrderComboBoxItem) tagCloudOrderComboBox.getItemAt(i)).getKey() == BibsonomyProperties.getTagCloudOrder())
                     tagCloudOrderComboBox.setSelectedItem(tagCloudOrderComboBox.getItemAt(i));
             }
         }

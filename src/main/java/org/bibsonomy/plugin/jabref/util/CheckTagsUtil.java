@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.model.entry.BibEntry;
 
-import org.bibsonomy.plugin.jabref.PluginProperties;
+import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 
 import static org.bibsonomy.util.ValidationUtils.present;
 
@@ -51,7 +51,7 @@ public class CheckTagsUtil {
                  * if the user has chosen to not to be warned when exporting
 				 * entries without keywords, we add the default tag silently.
 				 */
-                if (PluginProperties.ignoreNoTagsAssigned()) {
+                if (BibsonomyProperties.ignoreNoTagsAssigned()) {
                     assignDefaultTag(entry);
                 } else {
                     numPostsMissingTags++;

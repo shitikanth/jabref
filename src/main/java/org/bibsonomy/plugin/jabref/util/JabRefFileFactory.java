@@ -1,11 +1,8 @@
 package org.bibsonomy.plugin.jabref.util;
 
-import net.sf.jabref.MetaData;
-import net.sf.jabref.gui.GUIGlobals;
 import net.sf.jabref.gui.JabRefFrame;
-import net.sf.jabref.model.entry.FieldName;
 
-import org.bibsonomy.plugin.jabref.PluginGlobals;
+import org.bibsonomy.plugin.jabref.BibsonomyGlobals;
 import org.bibsonomy.rest.client.util.MultiDirectoryFileFactory;
 
 public class JabRefFileFactory extends MultiDirectoryFileFactory {
@@ -54,7 +51,7 @@ public class JabRefFileFactory extends MultiDirectoryFileFactory {
             }
         }
 */
-        return PluginGlobals.PLUGIN_FILE_DIRECTORY;
+        return BibsonomyGlobals.PLUGIN_FILE_DIRECTORY;
     }
 
 }

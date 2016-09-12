@@ -10,21 +10,21 @@ import javax.swing.JToolBar;
 
 import net.sf.jabref.gui.JabRefFrame;
 
-import org.bibsonomy.plugin.jabref.PluginGlobals;
-import org.bibsonomy.plugin.jabref.PluginSidePaneComponent;
+import org.bibsonomy.plugin.jabref.BibsonomyGlobals;
+import org.bibsonomy.plugin.jabref.BibsonomySidePaneComponent;
 import org.bibsonomy.plugin.jabref.action.DeleteSelectedEntriesAction;
 import org.bibsonomy.plugin.jabref.action.ExportSelectedEntriesAction;
 import org.bibsonomy.plugin.jabref.action.ToggleSidePaneComponentAction;
 
 
 /**
- * {@link PluginToolBarExtender} add the service specific buttons to the tool bar
+ * {@link BibsonomyToolBarExtender} add the service specific buttons to the tool bar
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class PluginToolBarExtender {
+public class BibsonomyToolBarExtender {
 
-    public static void extend(JabRefFrame jabRefFrame, PluginSidePaneComponent sidePaneComponent) {
+    public static void extend(JabRefFrame jabRefFrame, BibsonomySidePaneComponent sidePaneComponent) {
 
         for (Component rp : jabRefFrame.getComponents()) {
 
@@ -45,7 +45,7 @@ public class PluginToolBarExtender {
                                         JToolBar toolBar = (JToolBar) tb;
 
                                         JButton searchEntries = new JButton(new ToggleSidePaneComponentAction(sidePaneComponent));
-                                        searchEntries.setText(PluginGlobals.PLUGIN_NAME);
+                                        searchEntries.setText(BibsonomyGlobals.PLUGIN_NAME);
                                         toolBar.add(searchEntries, 5);
 
                                         JButton exportEntries = new JButton(new ExportSelectedEntriesAction(jabRefFrame));
