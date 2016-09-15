@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.SidePaneManager;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.plugin.jabref.BibsonomySidePaneComponent;
 import org.bibsonomy.plugin.jabref.gui.BibsonomySidePanel;
@@ -33,7 +34,7 @@ public class ToggleSidePaneComponentAction extends AbstractAction {
     }
 
     public ToggleSidePaneComponentAction(BibsonomySidePaneComponent sidePaneComponent) {
-        super("Search entries", new ImageIcon(ToggleSidePaneComponentAction.class.getResource("/images/images/tag-label.png")));
+        super(Localization.lang("Search entries"), new ImageIcon(ToggleSidePaneComponentAction.class.getResource("/images/images/tag-label.png")));
 
         this.sidePaneComponent = sidePaneComponent;
         this.manager = sidePaneComponent.getSidePaneManager();

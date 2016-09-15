@@ -14,14 +14,12 @@ public class BibsonomyCallBack implements ImportInspectionDialog.CallBack {
     private AbstractBibsonomyWorker worker;
 
     public void stopFetching() {
-
         if (worker != null)
             worker.stopFetching();
 
     }
 
     public BibsonomyCallBack(AbstractBibsonomyWorker pluginWorker) {
-
         this.worker = pluginWorker;
     }
 }

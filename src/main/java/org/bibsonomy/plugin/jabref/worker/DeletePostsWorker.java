@@ -17,7 +17,7 @@ import org.bibsonomy.plugin.jabref.BibsonomyProperties;
  */
 public class DeletePostsWorker extends AbstractBibsonomyWorker {
 
-    private static final Log LOG = LogFactory.getLog(DeletePostsWorker.class);
+    private static final Log LOGGER = LogFactory.getLog(DeletePostsWorker.class);
 
     private BibEntry[] entries;
 
@@ -34,7 +34,7 @@ public class DeletePostsWorker extends AbstractBibsonomyWorker {
                 jabRefFrame.output(Localization.lang("Deleting post %0", intrahash));
                 entry.clearField("intrahash");
             } catch (Exception ex) {
-                LOG.error(Localization.lang("Failed deleting post %0", intrahash));
+                LOGGER.error(Localization.lang("Failed deleting post %0", intrahash));
             }
         }
         jabRefFrame.output(Localization.lang("Done"));

@@ -731,10 +731,10 @@ public class BibsonomySettingsDialog extends JDialog {
         if (tagCloudOrderComboBox == null) {
 
             OrderComboBoxItem[] items = new OrderComboBoxItem[]{
-                    new OrderComboBoxItem(Order.FREQUENCY, "Frequency"),
-                    new OrderComboBoxItem(Order.ALPH, "Alphabethical"),
-                    new OrderComboBoxItem(Order.FOLKRANK, "Folkrank"),
-                    new OrderComboBoxItem(Order.ADDED, "Date")
+                    new OrderComboBoxItem(Order.FREQUENCY, Localization.lang("Frequency")),
+                    new OrderComboBoxItem(Order.ALPH, Localization.lang("Alphabethical")),
+                    new OrderComboBoxItem(Order.FOLKRANK, Localization.lang("FolkRank")),
+                    new OrderComboBoxItem(Order.ADDED, Localization.lang("Date"))
             };
 
             tagCloudOrderComboBox = new JComboBox<Object>(items);

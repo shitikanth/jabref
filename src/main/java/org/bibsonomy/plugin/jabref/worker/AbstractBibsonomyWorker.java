@@ -26,12 +26,10 @@ public abstract class AbstractBibsonomyWorker extends AbstractWorker {
     }
 
     public synchronized void stopFetching() {
-
         fetchNext = false;
     }
 
     protected synchronized boolean fetchNext() {
-
         return fetchNext;
     }
 

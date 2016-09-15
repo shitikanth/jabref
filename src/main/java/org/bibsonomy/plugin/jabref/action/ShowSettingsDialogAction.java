@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
@@ -26,7 +27,7 @@ public class ShowSettingsDialogAction extends AbstractAction {
     }
 
     public ShowSettingsDialogAction(JabRefFrame jabRefFrame) {
-        super("Settings", new ImageIcon(ShowSettingsDialogAction.class.getResource("/images/images/wrench-screwdriver.png")));
+        super(Localization.lang("Settings"), new ImageIcon(ShowSettingsDialogAction.class.getResource("/images/images/wrench-screwdriver.png")));
         this.jabRefFrame = jabRefFrame;
     }
 }
