@@ -21,7 +21,7 @@ public class DownloadDocumentsAction extends AbstractPluginAction {
     private static final long serialVersionUID = 4623437071801648348L;
 
     public DownloadDocumentsAction(JabRefFrame jabRefFrame) {
-        super(jabRefFrame, "Download my documents", new ImageIcon(DownloadDocumentsAction.class.getResource("/images/document-pdf-text.png")));
+        super(jabRefFrame, "Download my documents", new ImageIcon("/images/document-pdf-text.png"));
 
     }
 

@@ -30,18 +30,18 @@ public class SearchAction extends AbstractPluginAction {
 
     public void actionPerformed(ActionEvent e) {
 
-        SearchType st = ((SearchTypeComboBoxItem) searchTypeComboBox.getSelectedItem()).getKey();
+        SearchType searchType = ((SearchTypeComboBoxItem) searchTypeComboBox.getSelectedItem()).getKey();
         String criteria = searchTextField.getText();
 
         if (criteria != null) {
-            ImportPostsByCriteriaWorker worker = new ImportPostsByCriteriaWorker(getJabRefFrame(), criteria, st, ((GroupingComboBoxItem) groupingComboBox.getSelectedItem()).getKey(), ((GroupingComboBoxItem) groupingComboBox.getSelectedItem()).getValue(), false);
+            ImportPostsByCriteriaWorker worker = new ImportPostsByCriteriaWorker(getJabRefFrame(), criteria, searchType, ((GroupingComboBoxItem) groupingComboBox.getSelectedItem()).getKey(), ((GroupingComboBoxItem) groupingComboBox.getSelectedItem()).getValue(), false);
             performAsynchronously(worker);
         }
     }
 
     public SearchAction(JabRefFrame jabRefFrame, JTextField searchTextField, JComboBox<?> searchTypeComboBox, JComboBox<?> groupingComboBox) {
 
-        super(jabRefFrame, "", new ImageIcon(SearchAction.class.getResource("/images/magnifier.png")));
+        super(jabRefFrame, "bibsonomySearchAction", new ImageIcon("/images/magnifier.png"));
 
         this.searchTextField = searchTextField;
         this.searchTypeComboBox = searchTypeComboBox;

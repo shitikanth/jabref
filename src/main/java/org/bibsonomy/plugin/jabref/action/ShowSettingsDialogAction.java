@@ -30,7 +30,7 @@ public class ShowSettingsDialogAction extends AbstractAction {
 
     public ShowSettingsDialogAction(JabRefFrame jabRefFrame) {
 
-        super("Settings", new ImageIcon(ShowSettingsDialogAction.class.getResource("/images/wrench-screwdriver.png")));
+        super("Settings", new ImageIcon("/images/wrench-screwdriver.png"));
         this.jabRefFrame = jabRefFrame;
     }
 }

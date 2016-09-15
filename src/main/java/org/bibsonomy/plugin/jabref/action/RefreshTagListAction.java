@@ -44,7 +44,7 @@ public class RefreshTagListAction extends AbstractPluginAction {
 
     public RefreshTagListAction(JabRefFrame jabRefFrame, JEditorPane tagCloud, JComboBox<? super GroupingComboBoxItem> groupingComboBox) {
 
-        super(jabRefFrame, "Refresh", new ImageIcon(RefreshTagListAction.class.getResource("/images/arrow-circle-225.png")));
+        super(jabRefFrame, "Refresh", new ImageIcon("/images/arrow-circle-225.png"));
         this.tagCloud = tagCloud;
 
         this.groupingComboBox = groupingComboBox;
@@ -52,7 +52,7 @@ public class RefreshTagListAction extends AbstractPluginAction {
 
     private static List<GroupingComboBoxItem> getDefaultGroupings() {
         if (defaultGroupings == null) {
-            defaultGroupings = new ArrayList<GroupingComboBoxItem>();
+            defaultGroupings = new ArrayList<>();
             defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.ALL, "all users"));
             defaultGroupings.add(new GroupingComboBoxItem(GroupingEntity.USER, BibsonomyProperties.getUsername()));
         }

@@ -26,6 +26,6 @@ public class DeleteSelectedEntriesAction extends AbstractPluginAction {
 
     public DeleteSelectedEntriesAction(JabRefFrame jabRefFrame) {
 
-        super(jabRefFrame, "Delete selected entries", new ImageIcon(DeleteSelectedEntriesAction.class.getResource("/images/document--minus.png")));
+        super(jabRefFrame, "Delete selected entries", new ImageIcon("/images/document--minus.png"));
     }
 }

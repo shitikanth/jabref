@@ -20,7 +20,7 @@ public abstract class AbstractPluginAction extends AbstractAction {
 
     private static final long serialVersionUID = -5607100284690271238L;
 
-    private static final Log LOG = LogFactory.getLog(SearchAction.class);
+    private static final Log LOGGER = LogFactory.getLog(SearchAction.class);
 
     /**
      * the jabRefFrame
@@ -59,12 +59,10 @@ public abstract class AbstractPluginAction extends AbstractAction {
     protected void performAsynchronously(AbstractWorker worker) {
 
         try {
-
             WorkerUtil.performAsynchronously(worker);
         } catch (Throwable t) {
-
             jabRefFrame.unblock();
-            LOG.error("Failed to initialize Worker", t);
+            LOGGER.error("Failed to initialize Worker", t);
             t.printStackTrace();
         }
     }

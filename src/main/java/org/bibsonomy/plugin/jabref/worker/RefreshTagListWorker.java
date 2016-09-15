@@ -12,6 +12,7 @@ import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Tag;
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
+import org.bibsonomy.plugin.jabref.util.BibsonomyMetaData;
 
 
 /**
@@ -29,6 +30,8 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
     private String groupingValue;
     private List<Tag> tags;
 
+    private MetaData metaData = BibsonomyMetaData.getMetaData();
+
     public RefreshTagListWorker(JabRefFrame jabRefFrame, JEditorPane tagCloud, GroupingEntity grouping, String groupingValue) {
         super(jabRefFrame);
         this.tagCloud = tagCloud;
@@ -39,7 +42,7 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
 
     public void run() {
 
-        MetaData metaData = null;
+        //MetaData metaData = null;
         List<String> keywords = null;
         if (jabRefFrame.getCurrentBasePanel() != null) {
             //TODO: find MetaData - zellerdev

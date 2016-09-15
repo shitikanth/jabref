@@ -37,7 +37,7 @@ public class ToggleSidePaneComponentAction extends AbstractAction {
 
     public ToggleSidePaneComponentAction(BibsonomySidePaneComponent sidePaneComponent) {
 
-        super("Search entries", new ImageIcon(ToggleSidePaneComponentAction.class.getResource("/images/tag-label.png")));
+        super("Search entries", new ImageIcon("/images/tag-label.png"));
 
         this.sidePaneComponent = sidePaneComponent;
 

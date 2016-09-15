@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref;
 import javax.swing.JMenuItem;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.gui.SidePane;
 import net.sf.jabref.gui.SidePaneComponent;
 import net.sf.jabref.gui.SidePaneManager;
 

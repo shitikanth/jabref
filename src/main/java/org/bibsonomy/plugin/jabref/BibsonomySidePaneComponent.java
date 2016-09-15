@@ -30,7 +30,7 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
      */
     private JabRefFrame jabRefFrame;
 
-    BibsonomySidePaneComponent(SidePaneManager manager, JabRefFrame jabRefFrame) {
+    public BibsonomySidePaneComponent(SidePaneManager manager, JabRefFrame jabRefFrame) {
         // set the icon and the name
         super(manager, new ImageIcon("/images/tag-label.png"), "BibSonomy");
 

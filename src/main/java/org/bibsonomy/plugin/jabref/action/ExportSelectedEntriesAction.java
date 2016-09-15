@@ -22,7 +22,7 @@ import org.bibsonomy.plugin.jabref.worker.ExportWorker;
  */
 public class ExportSelectedEntriesAction extends AbstractPluginAction {
 
-    private static final Log LOG = LogFactory
+    private static final Log LOGGER = LogFactory
             .getLog(ExportSelectedEntriesAction.class);
 
     private static final long serialVersionUID = -3680150888244016437L;
@@ -47,15 +47,13 @@ public class ExportSelectedEntriesAction extends AbstractPluginAction {
                 break;
             default:
                 // happens when tags are missing, and user wants to cancel export
-                LOG.debug("Selected post have no tags assigned");
+                LOGGER.debug("Selected post have no tags assigned");
         }
 
     }
 
     public ExportSelectedEntriesAction(JabRefFrame jabRefFrame) {
 
-        super(jabRefFrame, "Export selected entries", new ImageIcon(
-                ExportSelectedEntriesAction.class
-                        .getResource("/images/document--arrow.png")));
+        super(jabRefFrame, "Export selected entries", new ImageIcon("/images/document--arrow.png"));
     }
 }
