@@ -14,7 +14,7 @@ import org.bibsonomy.plugin.jabref.worker.DeletePostsWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class DeleteSelectedEntriesAction extends AbstractPluginAction {
+public class DeleteSelectedEntriesAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = 7650355756937904531L;
 

@@ -20,7 +20,7 @@ import org.bibsonomy.plugin.jabref.worker.ExportWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ExportSelectedEntriesAction extends AbstractPluginAction {
+public class ExportSelectedEntriesAction extends AbstractBibsonomyAction {
 
     private static final Log LOGGER = LogFactory
             .getLog(ExportSelectedEntriesAction.class);

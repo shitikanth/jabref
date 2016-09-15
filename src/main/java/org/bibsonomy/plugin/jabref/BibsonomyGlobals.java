@@ -3,7 +3,6 @@ package org.bibsonomy.plugin.jabref;
 /**
  * Provide some default values for configuration of the plugin.
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
- *
  */
 public class BibsonomyGlobals {
 

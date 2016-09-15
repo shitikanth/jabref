@@ -15,7 +15,7 @@ import org.bibsonomy.plugin.jabref.worker.UpdateVisibilityWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class UpdateVisibilityAction extends AbstractPluginAction {
+public class UpdateVisibilityAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = 2487196975142597818L;
 

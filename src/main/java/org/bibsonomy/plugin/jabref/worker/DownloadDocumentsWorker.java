@@ -22,7 +22,7 @@ import org.bibsonomy.util.file.FileUtil;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class DownloadDocumentsWorker extends AbstractPluginWorker {
+public class DownloadDocumentsWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOG = LogFactory.getLog(DownloadDocumentsWorker.class);
 

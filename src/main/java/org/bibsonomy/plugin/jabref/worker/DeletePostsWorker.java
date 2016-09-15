@@ -14,7 +14,7 @@ import org.bibsonomy.plugin.jabref.BibsonomyProperties;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class DeletePostsWorker extends AbstractPluginWorker {
+public class DeletePostsWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOG = LogFactory.getLog(DeletePostsWorker.class);
 

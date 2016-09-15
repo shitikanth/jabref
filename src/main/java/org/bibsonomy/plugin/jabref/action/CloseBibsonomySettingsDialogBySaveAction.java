@@ -15,11 +15,11 @@ import org.bibsonomy.plugin.jabref.gui.OrderComboBoxItem;
 import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
 /**
- * {@link ClosePluginSettingsDialogBySaveAction} saves the properties and closes the {@link BibsonomySettingsDialog}.
+ * {@link CloseBibsonomySettingsDialogBySaveAction} saves the properties and closes the {@link BibsonomySettingsDialog}.
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ClosePluginSettingsDialogBySaveAction extends AbstractAction {
+public class CloseBibsonomySettingsDialogBySaveAction extends AbstractAction {
 
 
     private static final long serialVersionUID = 2629139512763809317L;
@@ -70,14 +70,14 @@ public class ClosePluginSettingsDialogBySaveAction extends AbstractAction {
         settingsDialog.setVisible(false);
     }
 
-    public ClosePluginSettingsDialogBySaveAction(BibsonomySettingsDialog settingsDialog, JTextField apiUrl, JTextField username, JTextField apiKey,
-                                                 JCheckBox saveApiKey, JSpinner numberOfPosts,
-                                                 JSpinner tagCloudSize, JCheckBox ignoreNoTagsAssigned,
-                                                 JCheckBox updateTags, JCheckBox uploadDocuments,
-                                                 JCheckBox downloadDocuments, JComboBox<?> visibility,
-                                                 JCheckBox morePosts, JTextField extraFields, JComboBox<?> order) {
+    public CloseBibsonomySettingsDialogBySaveAction(BibsonomySettingsDialog settingsDialog, JTextField apiUrl, JTextField username, JTextField apiKey,
+                                                    JCheckBox saveApiKey, JSpinner numberOfPosts,
+                                                    JSpinner tagCloudSize, JCheckBox ignoreNoTagsAssigned,
+                                                    JCheckBox updateTags, JCheckBox uploadDocuments,
+                                                    JCheckBox downloadDocuments, JComboBox<?> visibility,
+                                                    JCheckBox morePosts, JTextField extraFields, JComboBox<?> order) {
 
-        super("Save", new ImageIcon(ClosePluginSettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
+        super("Save", new ImageIcon(CloseBibsonomySettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
         this.apiUrl = apiUrl;
         this.settingsDialog = settingsDialog;
         this.username = username;

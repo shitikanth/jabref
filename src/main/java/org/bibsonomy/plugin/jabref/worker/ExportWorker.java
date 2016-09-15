@@ -25,7 +25,7 @@ import org.bibsonomy.rest.exceptions.AuthenticationException;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ExportWorker extends AbstractPluginWorker {
+public class ExportWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOG = LogFactory.getLog(ExportWorker.class);
 

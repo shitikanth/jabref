@@ -3,12 +3,18 @@ package org.bibsonomy.plugin.jabref;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.SidePaneComponent;
 import net.sf.jabref.gui.SidePaneManager;
 
+import org.bibsonomy.plugin.jabref.gui.BibsonomyMenuItem;
 import org.bibsonomy.plugin.jabref.gui.BibsonomySidePanel;
+import org.bibsonomy.plugin.jabref.gui.BibsonomyToolBarExtender;
+import org.bibsonomy.plugin.jabref.gui.EntryEditorTabExtender;
+import org.bibsonomy.plugin.jabref.listener.BibsonomyDataBaseChangeListener;
+import org.bibsonomy.plugin.jabref.listener.TabbedPaneChangeListener;
 
 /**
  * {@link BibsonomySidePaneComponent} holds the dimension of the {@link BibsonomySidePanel}.
@@ -18,16 +24,7 @@ import org.bibsonomy.plugin.jabref.gui.BibsonomySidePanel;
  */
 public class BibsonomySidePaneComponent extends SidePaneComponent {
 
-    private static final long serialVersionUID = 8823318411871094917L;
-
-    /**
-     * the side pane manager
-     */
     private SidePaneManager manager;
-
-    /**
-     * the jabref frame
-     */
     private JabRefFrame jabRefFrame;
 
     public BibsonomySidePaneComponent(SidePaneManager manager, JabRefFrame jabRefFrame) {
@@ -37,6 +34,8 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
         this.manager = manager;
         this.jabRefFrame = jabRefFrame;
 
+        init();
+
         // add the sidepanel
         super.add(new BibsonomySidePanel(jabRefFrame));
     }
@@ -44,7 +43,7 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
     /**
      * get the jabRefFrame
      *
-     * @return the {@link JabRefFrame}
+     * @return The {@link JabRefFrame}
      */
     public JabRefFrame getJabRefFrame() {
 
@@ -54,16 +53,12 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
     /**
      * get the sidePaneManager
      *
-     * @return the {@link SidePaneManager}
+     * @return The {@link SidePaneManager}
      */
     public SidePaneManager getSidePaneManager() {
-
         return manager;
     }
 
-    /**
-     * set the preferred size to 550 pixels
-     */
     @Override
     public Dimension getPreferredSize() {
         //TODO: Previous location was in GUIGlobals. Check alternatives - zellerdev
@@ -71,17 +66,38 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
         return new Dimension(SPLIT_PANE_DIVIDER_LOCATION, 550);
     }
 
-    /**
-     * set the maximum size to 550 pixels
-     */
     @Override
     public Dimension getMaximumSize() {
-
         return getPreferredSize();
     }
 
     @Override
     public int getRescalingWeight() {
         return 0;
+    }
+
+    public void init() {
+
+        // create a ChangeListener to react on newly added entries.
+        BibsonomyDataBaseChangeListener bibsonomyDataBaseChangeListener = new BibsonomyDataBaseChangeListener(jabRefFrame);
+
+        // set a ChangeListener of the Tabbed Pane which registers the databasechangelistener to all database tabs that are added later
+        jabRefFrame.getTabbedPane().addChangeListener(new TabbedPaneChangeListener(bibsonomyDataBaseChangeListener));
+        // ...but maybe we were too late: Tabs are created by another (swing)thread so the initial tab change event after tab(and database) creation may be over already.
+        // Therefore add the listener to the database of the current tab if it is already present.
+        if (jabRefFrame.getCurrentBasePanel() != null && jabRefFrame.getCurrentBasePanel().getDatabase() != null) {
+            jabRefFrame.getCurrentBasePanel().getDatabase().registerListener(bibsonomyDataBaseChangeListener);
+        }
+
+        BibsonomyToolBarExtender.extend(jabRefFrame, this);
+        EntryEditorTabExtender.extend();
+    }
+
+    /**
+     * Returns a JMenuItem to use Bibsonomy methods
+     * @return A JMenuItem containing the Menu of Bibsonomy
+     */
+    public JMenuItem getMenuItem() {
+        return new BibsonomyMenuItem(this);
     }
 }

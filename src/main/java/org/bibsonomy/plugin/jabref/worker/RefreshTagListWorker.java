@@ -20,7 +20,7 @@ import org.bibsonomy.plugin.jabref.util.BibsonomyMetaData;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class RefreshTagListWorker extends AbstractPluginWorker {
+public class RefreshTagListWorker extends AbstractBibsonomyWorker {
 
 //	private static final Log LOG = LogFactory.getLog(RefreshTagListWorker.class);
 

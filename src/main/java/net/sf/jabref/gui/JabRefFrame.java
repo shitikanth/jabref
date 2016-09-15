@@ -137,7 +137,6 @@ import com.jgoodies.looks.Options;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.plugin.jabref.BibsonomySidePaneComponent;
-import org.bibsonomy.plugin.jabref.PublicationSharingSidePanePlugin;
 import osx.macadapter.MacAdapter;
 
 /**
@@ -471,7 +470,6 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
     private GroupSelector groupSelector;
 
     private BibsonomySidePaneComponent bibsonomySidePaneComponent;
-    private PublicationSharingSidePanePlugin publicationSharingSidePanePlugin = new PublicationSharingSidePanePlugin();
 
     private int previousTabCount = -1;
 
@@ -705,7 +703,6 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         sidePaneManager.register("groups", groupSelector);
 
         //TODO: Add bibsonomy here?
-        publicationSharingSidePanePlugin.init(this, sidePaneManager);
         bibsonomySidePaneComponent = new BibsonomySidePaneComponent(sidePaneManager, this);
         sidePaneManager.register("bibsonomy", bibsonomySidePaneComponent);
     }
@@ -1371,13 +1368,8 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         helpMenu.add(about);
         mb.add(helpMenu);
 
-
-        //TODO: Bibsonomy
         JMenu moreMenu = JabRefFrame.subMenu(Localization.menuTitle("More"));
-        //JMenuItem bibsonomy = new JMenuItem("Bibsonomy");
-        moreMenu.add(publicationSharingSidePanePlugin.getMenuItem());
-
-        //bibsonomy.addActionListener(action -> System.out.println("Bibsonomy"));
+        moreMenu.add(bibsonomySidePaneComponent.getMenuItem());
         mb.add(moreMenu);
 
         createDisabledIconsForMenuEntries(mb);

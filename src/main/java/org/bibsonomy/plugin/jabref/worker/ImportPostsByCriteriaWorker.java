@@ -30,7 +30,7 @@ import org.bibsonomy.rest.exceptions.AuthenticationException;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
+public class ImportPostsByCriteriaWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOGGER = LogFactory.getLog(ImportPostsByCriteriaWorker.class);
 

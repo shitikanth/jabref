@@ -16,7 +16,7 @@ import org.bibsonomy.plugin.jabref.BibsonomyProperties;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class UploadDocumentsWorker extends AbstractPluginWorker {
+public class UploadDocumentsWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOG = LogFactory.getLog(ExportWorker.class);
 

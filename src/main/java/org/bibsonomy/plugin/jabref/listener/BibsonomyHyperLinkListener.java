@@ -10,7 +10,7 @@ import javax.swing.event.HyperlinkListener;
 
 import net.sf.jabref.gui.JabRefFrame;
 
-import org.bibsonomy.plugin.jabref.action.AbstractPluginAction;
+import org.bibsonomy.plugin.jabref.action.AbstractBibsonomyAction;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.plugin.jabref.gui.SearchType;
 import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
@@ -21,7 +21,7 @@ import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class BibsonomyHyperLinkListener extends AbstractPluginAction implements HyperlinkListener {
+public class BibsonomyHyperLinkListener extends AbstractBibsonomyAction implements HyperlinkListener {
 
     private static final long serialVersionUID = -2030390936610286041L;
 

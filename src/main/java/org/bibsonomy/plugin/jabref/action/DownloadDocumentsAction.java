@@ -16,7 +16,7 @@ import org.bibsonomy.plugin.jabref.worker.DownloadDocumentsWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class DownloadDocumentsAction extends AbstractPluginAction {
+public class DownloadDocumentsAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = 4623437071801648348L;
 

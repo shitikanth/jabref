@@ -17,20 +17,15 @@ import org.bibsonomy.model.enums.Order;
  */
 public class BibsonomyProperties extends Properties {
 
-    private static final long serialVersionUID = 5420450194355211249L;
-
     private static final Log LOGGER = LogFactory.getLog(BibsonomyProperties.class);
 
-    /**
-     * API properties
-     */
+    //API properties
     private static final String API_URL = "api.url";
     private static final String API_USERNAME = "api.username";
     private static final String API_KEY = "api.key";
 
-    /**
-     * Plugin properties
-     */
+
+    //Plugin properties
     private static final String PLUGIN_SAVE_API_KEY = "plugin.saveapikey";
     private static final String PLUGIN_DOCUMENTS_IMPORT = "plugin.documents.import";
     private static final String PLUGIN_DOCUMENTS_EXPORT = "plugin.documents.export";

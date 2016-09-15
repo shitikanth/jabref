@@ -26,7 +26,7 @@ import org.bibsonomy.plugin.jabref.util.WorkerUtil;
  *
  * @author Waldemar Biller <wbi@cs.uni-kassel.de>
  */
-public class SynchronizationWorker extends AbstractPluginWorker {
+public class SynchronizationWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOGGER = LogFactory.getLog(SynchronizationWorker.class);
 

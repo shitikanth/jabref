@@ -21,7 +21,7 @@ import org.bibsonomy.rest.exceptions.AuthenticationException;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class UpdateVisibilityWorker extends AbstractPluginWorker {
+public class UpdateVisibilityWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOG = LogFactory.getLog(UpdateVisibilityWorker.class);
 

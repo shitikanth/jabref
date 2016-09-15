@@ -21,7 +21,7 @@ import org.bibsonomy.plugin.jabref.worker.UpdateVisibilityWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class RefreshTagListAction extends AbstractPluginAction {
+public class RefreshTagListAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = 3285344367883492911L;
 

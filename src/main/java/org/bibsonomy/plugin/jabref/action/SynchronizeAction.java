@@ -14,7 +14,7 @@ import org.bibsonomy.plugin.jabref.worker.SynchronizationWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class SynchronizeAction extends AbstractPluginAction {
+public class SynchronizeAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = 5463500412046057018L;
 

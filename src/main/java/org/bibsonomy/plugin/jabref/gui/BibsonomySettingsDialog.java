@@ -31,8 +31,8 @@ import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.enums.Order;
 import org.bibsonomy.plugin.jabref.BibsonomyGlobals;
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
-import org.bibsonomy.plugin.jabref.action.ClosePluginSettingsDialogByCancelAction;
-import org.bibsonomy.plugin.jabref.action.ClosePluginSettingsDialogBySaveAction;
+import org.bibsonomy.plugin.jabref.action.CloseBibsonomySettingsDialogByCancelAction;
+import org.bibsonomy.plugin.jabref.action.CloseBibsonomySettingsDialogBySaveAction;
 import org.bibsonomy.plugin.jabref.action.OpenDatabasePropertiesAction;
 import org.bibsonomy.plugin.jabref.action.UpdateVisibilityAction;
 
@@ -149,7 +149,7 @@ public class BibsonomySettingsDialog extends JDialog {
      */
     private JButton getSaveButton() {
         if (saveButton == null) {
-            saveButton = new JButton(new ClosePluginSettingsDialogBySaveAction(this, getApiUrlTextField(), getUsernameTextField(), getApiKeyTextField(), getStoreAPIKeyCheckBox(), getNumberOfPostsSpinner(), getTagCloudSizeSpinner(), getIgnoreOneTagWarningCheckBox(), getUpdateTagsCheckBox(), getUploadDocumentsCheckBox(), getDownloadDocumentsCheckBox(), getDefaultVisibilityComboBox(), getNoWarningOnMorePostsCheckBox(), getExtraFieldsTextField(), getTagCloudOrderComboBox()));
+            saveButton = new JButton(new CloseBibsonomySettingsDialogBySaveAction(this, getApiUrlTextField(), getUsernameTextField(), getApiKeyTextField(), getStoreAPIKeyCheckBox(), getNumberOfPostsSpinner(), getTagCloudSizeSpinner(), getIgnoreOneTagWarningCheckBox(), getUpdateTagsCheckBox(), getUploadDocumentsCheckBox(), getDownloadDocumentsCheckBox(), getDefaultVisibilityComboBox(), getNoWarningOnMorePostsCheckBox(), getExtraFieldsTextField(), getTagCloudOrderComboBox()));
         }
         return saveButton;
     }
@@ -174,7 +174,7 @@ public class BibsonomySettingsDialog extends JDialog {
      */
     private JButton getCancelButton() {
         if (cancelButton == null) {
-            cancelButton = new JButton(new ClosePluginSettingsDialogByCancelAction(this));
+            cancelButton = new JButton(new CloseBibsonomySettingsDialogByCancelAction(this));
         }
         return cancelButton;
     }

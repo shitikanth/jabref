@@ -15,7 +15,7 @@ import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ImportAllMyPostsAction extends AbstractPluginAction {
+public class ImportAllMyPostsAction extends AbstractBibsonomyAction {
 
     public ImportAllMyPostsAction(JabRefFrame jabRefFrame) {
 

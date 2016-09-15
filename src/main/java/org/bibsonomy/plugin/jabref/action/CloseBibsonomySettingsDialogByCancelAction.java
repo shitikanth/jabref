@@ -8,12 +8,12 @@ import javax.swing.ImageIcon;
 import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
 /**
- * {@link ClosePluginSettingsDialogByCancelAction} closes the {@link BibsonomySettingsDialog}
+ * {@link CloseBibsonomySettingsDialogByCancelAction} closes the {@link BibsonomySettingsDialog}
  * without saving the properties
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ClosePluginSettingsDialogByCancelAction extends AbstractAction {
+public class CloseBibsonomySettingsDialogByCancelAction extends AbstractAction {
 
     private static final long serialVersionUID = -6587488658676754916L;
 
@@ -24,9 +24,9 @@ public class ClosePluginSettingsDialogByCancelAction extends AbstractAction {
         settingsDialog.setVisible(false);
     }
 
-    public ClosePluginSettingsDialogByCancelAction(BibsonomySettingsDialog settingsDialog) {
+    public CloseBibsonomySettingsDialogByCancelAction(BibsonomySettingsDialog settingsDialog) {
 
-        super("Cancel", new ImageIcon(ClosePluginSettingsDialogByCancelAction.class.getResource("/images/images/cross.png")));
+        super("Cancel", new ImageIcon(CloseBibsonomySettingsDialogByCancelAction.class.getResource("/images/images/cross.png")));
         this.settingsDialog = settingsDialog;
     }
 

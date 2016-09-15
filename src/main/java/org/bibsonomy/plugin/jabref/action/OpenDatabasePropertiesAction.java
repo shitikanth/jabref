@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.dbproperties.DatabasePropertiesDialog;
 
-public class OpenDatabasePropertiesAction extends AbstractPluginAction {
+public class OpenDatabasePropertiesAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = -5243052886812863636L;
 

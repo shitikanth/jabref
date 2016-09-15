@@ -18,7 +18,7 @@ import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class SearchAction extends AbstractPluginAction {
+public class SearchAction extends AbstractBibsonomyAction {
 
     private static final long serialVersionUID = -2051315699879554553L;
 

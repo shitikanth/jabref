@@ -11,20 +11,15 @@ import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.plugin.jabref.util.WorkerUtil;
 
 /**
- * {@link AbstractPluginAction} is the base class for all actions.
+ * {@link AbstractBibsonomyAction} is the base class for all actions.
  * Provides a method to run workers asynchronously.
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public abstract class AbstractPluginAction extends AbstractAction {
-
-    private static final long serialVersionUID = -5607100284690271238L;
+public abstract class AbstractBibsonomyAction extends AbstractAction {
 
     private static final Log LOGGER = LogFactory.getLog(SearchAction.class);
 
-    /**
-     * the jabRefFrame
-     */
     private JabRefFrame jabRefFrame;
 
     /**
@@ -34,8 +29,7 @@ public abstract class AbstractPluginAction extends AbstractAction {
      * @param text
      * @param icon
      */
-    public AbstractPluginAction(JabRefFrame jabRefFrame, String text, Icon icon) {
-
+    public AbstractBibsonomyAction(JabRefFrame jabRefFrame, String text, Icon icon) {
         super(text, icon);
         this.jabRefFrame = jabRefFrame;
     }
@@ -45,8 +39,7 @@ public abstract class AbstractPluginAction extends AbstractAction {
      *
      * @param jabRefFrame
      */
-    public AbstractPluginAction(JabRefFrame jabRefFrame) {
-
+    public AbstractBibsonomyAction(JabRefFrame jabRefFrame) {
         super();
         this.jabRefFrame = jabRefFrame;
     }
@@ -57,7 +50,6 @@ public abstract class AbstractPluginAction extends AbstractAction {
      * @param worker the worker to be run asynchronously
      */
     protected void performAsynchronously(AbstractWorker worker) {
-
         try {
             WorkerUtil.performAsynchronously(worker);
         } catch (Throwable t) {
@@ -67,13 +59,7 @@ public abstract class AbstractPluginAction extends AbstractAction {
         }
     }
 
-    /**
-     * get the jabRefFrame
-     *
-     * @return the {@link JabRefFrame}
-     */
     protected JabRefFrame getJabRefFrame() {
-
         return jabRefFrame;
     }
 }
