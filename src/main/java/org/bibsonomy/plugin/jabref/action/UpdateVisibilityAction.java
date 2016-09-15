@@ -17,8 +17,6 @@ import org.bibsonomy.plugin.jabref.worker.UpdateVisibilityWorker;
  */
 public class UpdateVisibilityAction extends AbstractBibsonomyAction {
 
-    private static final long serialVersionUID = 2487196975142597818L;
-
     private JComboBox<GroupingComboBoxItem> visibility;
     private List<GroupingComboBoxItem> defaultGroupings;
 

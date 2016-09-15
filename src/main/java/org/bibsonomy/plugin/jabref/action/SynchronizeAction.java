@@ -16,16 +16,12 @@ import org.bibsonomy.plugin.jabref.worker.SynchronizationWorker;
  */
 public class SynchronizeAction extends AbstractBibsonomyAction {
 
-    private static final long serialVersionUID = 5463500412046057018L;
-
     public void actionPerformed(ActionEvent e) {
-
         SynchronizationWorker worker = new SynchronizationWorker(getJabRefFrame());
         performAsynchronously(worker);
     }
 
     public SynchronizeAction(JabRefFrame jabRefFrame) {
-
         super(jabRefFrame, "Synchronize", new ImageIcon(SynchronizeAction.class.getResource("/images/images/arrow-circle-double-135.png")));
 
     }

@@ -9,6 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import net.sf.jabref.logic.l10n.Localization;
+
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.plugin.jabref.gui.OrderComboBoxItem;
@@ -21,8 +23,6 @@ import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
  */
 public class CloseBibsonomySettingsDialogBySaveAction extends AbstractAction {
 
-
-    private static final long serialVersionUID = 2629139512763809317L;
     private JTextField apiUrl;
     private JTextField username;
     private JTextField apiKey;
@@ -77,7 +77,7 @@ public class CloseBibsonomySettingsDialogBySaveAction extends AbstractAction {
                                                     JCheckBox downloadDocuments, JComboBox<?> visibility,
                                                     JCheckBox morePosts, JTextField extraFields, JComboBox<?> order) {
 
-        super("Save", new ImageIcon(CloseBibsonomySettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
+        super(Localization.lang("Save"), new ImageIcon(CloseBibsonomySettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
         this.apiUrl = apiUrl;
         this.settingsDialog = settingsDialog;
         this.username = username;

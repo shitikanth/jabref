@@ -17,19 +17,15 @@ import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
  */
 public class ShowSettingsDialogAction extends AbstractAction {
 
-    private static final long serialVersionUID = -953537334224313648L;
-
     private JabRefFrame jabRefFrame;
 
     public void actionPerformed(ActionEvent e) {
-
         BibsonomySettingsDialog psd = new BibsonomySettingsDialog(jabRefFrame);
         psd.setVisible(true);
         psd.setLocationRelativeTo(jabRefFrame);
     }
 
     public ShowSettingsDialogAction(JabRefFrame jabRefFrame) {
-
         super("Settings", new ImageIcon(ShowSettingsDialogAction.class.getResource("/images/images/wrench-screwdriver.png")));
         this.jabRefFrame = jabRefFrame;
     }
