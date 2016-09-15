@@ -15,7 +15,6 @@ import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 public class EntryEditorTabExtender {
 
 	public static void extend() {
-		
 		boolean generalTab = false, bibsonomyTab = false, extraTab = false;
 		int lastTabId = 0, extraTabID = -1;
 		

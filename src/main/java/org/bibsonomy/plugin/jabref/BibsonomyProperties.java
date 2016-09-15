@@ -85,16 +85,13 @@ public class BibsonomyProperties extends Properties {
      * Checks if the option to store the API is checked.
      */
     public static void save() {
-
         String apiKey = getApiKey();
         if (!getStoreApiKey())
             setApiKey(""); //set the api key to empty string
         //if user does not want to save api key
         try {
-
             getInstance().store(new FileOutputStream(PROPERTIES_FILE), "");
         } catch (Exception ex) {
-
             LOGGER.error("Failed saving properties file");
         }
         //set api key back to its actual value
@@ -102,42 +99,34 @@ public class BibsonomyProperties extends Properties {
     }
 
     public static boolean ignoreNoTagsAssigned() {
-
         return Boolean.valueOf(getInstance().getProperty(PLUGIN_TAGS_IGNORE_NO_TAGS, "false"));
     }
 
     public static String getUsername() {
-
         return getInstance().getProperty(API_USERNAME, BibsonomyGlobals.API_USERNAME);
     }
 
     public static String getApiKey() {
-
         return getInstance().getProperty(API_KEY, BibsonomyGlobals.API_KEY);
     }
 
     public static String getApiUrl() {
-
         return getInstance().getProperty(API_URL, BibsonomyGlobals.API_URL);
     }
 
     public static boolean getDownloadDocumentsOnImport() {
-
         return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_DOCUMENTS_IMPORT, "true"));
     }
 
     public static int getNumberOfPostsPerRequest() {
-
         return Integer.parseInt(getInstance().getProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, BibsonomyGlobals.PLUGIN_NUMBER_OF_POSTS_PER_REQUEST));
     }
 
     public static boolean getIgnoreMorePostsWarning() {
-
         return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_IGNORE_WARNING_MORE_POSTS, "false"));
     }
 
     public static String getExtraTabFields() {
-
         return getInstance().getProperty(PLUGIN_EXTRA_TAB_FIELDS, "issn;isbn");
     }
 

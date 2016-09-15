@@ -3,6 +3,8 @@ package org.bibsonomy.plugin.jabref.gui;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import net.sf.jabref.logic.l10n.Localization;
+
 import org.bibsonomy.plugin.jabref.BibsonomyGlobals;
 import org.bibsonomy.plugin.jabref.BibsonomySidePaneComponent;
 import org.bibsonomy.plugin.jabref.action.DeleteSelectedEntriesAction;
@@ -20,13 +22,9 @@ import org.bibsonomy.plugin.jabref.action.ToggleSidePaneComponentAction;
  */
 public class BibsonomyMenuItem extends JMenu {
 
-
-    private static final long serialVersionUID = -9004684574235429985L;
-
     private BibsonomySidePaneComponent sidePaneComponent;
 
     public BibsonomyMenuItem(BibsonomySidePaneComponent sidePaneComponent) {
-
         super(BibsonomyGlobals.PLUGIN_NAME);
 
         this.sidePaneComponent = sidePaneComponent;
@@ -43,38 +41,32 @@ public class BibsonomyMenuItem extends JMenu {
     }
 
     private JMenuItem getSidePaneComponentToggleMenuItem() {
-
         return new JMenuItem(new ToggleSidePaneComponentAction(sidePaneComponent));
     }
 
     private JMenuItem getExportSelectedEntriesMenuItem() {
-
         return new JMenuItem(new ExportSelectedEntriesAction(sidePaneComponent.getJabRefFrame()));
     }
 
     private JMenuItem getDeleteSelectedEntriesMenuItem() {
-
         return new JMenuItem(new DeleteSelectedEntriesAction(sidePaneComponent.getJabRefFrame()));
     }
 
     private JMenuItem getSynchronizeMenuItem() {
-
         return new JMenuItem(new SynchronizeAction(sidePaneComponent.getJabRefFrame()));
     }
 
     private JMenuItem getSettingsMenuItem() {
-
         return new JMenuItem(new ShowSettingsDialogAction(sidePaneComponent.getJabRefFrame()));
     }
 
     private JMenuItem getAllMyPostsMenuItem() {
         JMenuItem item = new JMenuItem(new ImportAllMyPostsAction(sidePaneComponent.getJabRefFrame()));
-        item.setText("Import all my posts");
+        item.setText(Localization.lang("Import all my posts"));
         return item;
     }
 
     private JMenuItem getDownloadDocumentsMenuItem() {
-
         return new JMenuItem(new DownloadDocumentsAction(sidePaneComponent.getJabRefFrame()));
     }
 }

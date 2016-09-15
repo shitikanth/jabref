@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FieldName;
 
@@ -56,7 +57,6 @@ public class CompareDialog extends JDialog {
 
     public static int showCompareDialog(JabRefFrame jabRefFrame, BibEntry entry,
                                         Post<? extends Resource> post) {
-
         CompareDialog compareDialog = new CompareDialog(jabRefFrame);
         compareDialog.setLocationRelativeTo(jabRefFrame);
 
@@ -141,7 +141,7 @@ public class CompareDialog extends JDialog {
     private JButton getKeepLocal() {
         if (keepLocal == null) {
             keepLocal = new JButton();
-            keepLocal.setText("Keep Local");
+            keepLocal.setText(Localization.lang("Keep Local"));
             keepLocal.addActionListener(action -> {
                 status = KEEP_LOCAL;
                 CompareDialog.this.setVisible(false);
@@ -158,7 +158,7 @@ public class CompareDialog extends JDialog {
     private JButton getKeepRemote() {
         if (keepRemote == null) {
             keepRemote = new JButton();
-            keepRemote.setText("Keep Remote");
+            keepRemote.setText(Localization.lang("Keep Remote"));
             keepRemote.addActionListener(action -> {
                     status = KEEP_REMOTE;
                     CompareDialog.this.setVisible(false);
@@ -175,7 +175,7 @@ public class CompareDialog extends JDialog {
     private JButton getKeepLocalAlways() {
         if (keepLocalAlways == null) {
             keepLocalAlways = new JButton();
-            keepLocalAlways.setText("Always Keep Local");
+            keepLocalAlways.setText(Localization.lang("Always Keep Local"));
             keepLocalAlways
                     .addActionListener(action -> {
                             status = KEEP_LOCAL_ALWAYS;
@@ -193,7 +193,7 @@ public class CompareDialog extends JDialog {
     private JButton getKeepRemoteAlways() {
         if (keepRemoteAlways == null) {
             keepRemoteAlways = new JButton();
-            keepRemoteAlways.setText("Always Keep Remote");
+            keepRemoteAlways.setText(Localization.lang("Always Keep Remote"));
             keepRemoteAlways
                     .addActionListener(action -> {
 
@@ -213,7 +213,7 @@ public class CompareDialog extends JDialog {
     private JButton getCancel() {
         if (cancel == null) {
             cancel = new JButton();
-            cancel.setText("Cancel");
+            cancel.setText(Localization.lang("Cancel"));
             cancel.addActionListener(action -> {
                     status = JOptionPane.CANCEL_OPTION;
                     CompareDialog.this.setVisible(false);
@@ -251,13 +251,13 @@ public class CompareDialog extends JDialog {
             gridBagConstraints21.insets = new Insets(0, 0, 3, 0);
             gridBagConstraints21.gridy = 0;
             remoteLabel = new JLabel();
-            remoteLabel.setText("Remote");
+            remoteLabel.setText(Localization.lang("Remote"));
             final GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
             gridBagConstraints11.gridx = 0;
             gridBagConstraints11.insets = new Insets(0, 0, 3, 0);
             gridBagConstraints11.gridy = 0;
             localLabel = new JLabel();
-            localLabel.setText("Local");
+            localLabel.setText(Localization.lang("Local"));
             final GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
             gridBagConstraints2.fill = GridBagConstraints.BOTH;
             gridBagConstraints2.gridy = 2;

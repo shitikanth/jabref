@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.SidePaneComponent;
 import net.sf.jabref.gui.SidePaneManager;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.plugin.jabref.gui.BibsonomyMenuItem;
 import org.bibsonomy.plugin.jabref.gui.BibsonomySidePanel;
@@ -29,7 +30,7 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
 
     public BibsonomySidePaneComponent(SidePaneManager manager, JabRefFrame jabRefFrame) {
         // set the icon and the name
-        super(manager, new ImageIcon(BibsonomySidePaneComponent.class.getResource("/images/images/tag-label.png")), "BibSonomy");
+        super(manager, new ImageIcon(BibsonomySidePaneComponent.class.getResource("/images/images/tag-label.png")), Localization.lang("BibSonomy"));
 
         this.manager = manager;
         this.jabRefFrame = jabRefFrame;
@@ -46,7 +47,6 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
      * @return The {@link JabRefFrame}
      */
     public JabRefFrame getJabRefFrame() {
-
         return jabRefFrame;
     }
 
@@ -77,7 +77,6 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
     }
 
     public void init() {
-
         // create a ChangeListener to react on newly added entries.
         BibsonomyDataBaseChangeListener bibsonomyDataBaseChangeListener = new BibsonomyDataBaseChangeListener(jabRefFrame);
 

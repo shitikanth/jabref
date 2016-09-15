@@ -26,6 +26,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.enums.Order;
@@ -37,8 +38,6 @@ import org.bibsonomy.plugin.jabref.action.OpenDatabasePropertiesAction;
 import org.bibsonomy.plugin.jabref.action.UpdateVisibilityAction;
 
 public class BibsonomySettingsDialog extends JDialog {
-
-    private static final long serialVersionUID = 1L;
 
     private final JabRefFrame jabRefFrame;
 
@@ -187,7 +186,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JTabbedPane getSettingsPane() {
         if (settingsPane == null) {
             settingsPane = new JTabbedPane();
-            settingsPane.addTab("General", new ImageIcon(BibsonomySettingsDialog.class.getResource("/images/images/wrench-screwdriver.png")), getGeneralSettingsPanel(), null);
+            settingsPane.addTab(Localization.lang("General"), new ImageIcon(BibsonomySettingsDialog.class.getResource("/images/images/wrench-screwdriver.png")), getGeneralSettingsPanel(), null);
         }
         return settingsPane;
     }
@@ -210,43 +209,43 @@ public class BibsonomySettingsDialog extends JDialog {
         if (generalSettingsPanel == null) {
 
             tagCloudOrderHintLabel = new JLabel();
-            tagCloudOrderHintLabel.setText("Tag cloud ordering is not available when importing posts from all users");
+            tagCloudOrderHintLabel.setText(Localization.lang("Tag cloud ordering is not available when importing posts from all users"));
             tagCloudOrderHintLabel.setFont(new Font("Dialog", Font.ITALIC, 10));
 
             tagCloudOrderLabel = new JLabel();
-            tagCloudOrderLabel.setText("Tag cloud order");
+            tagCloudOrderLabel.setText(Localization.lang("Tag cloud order"));
 
             tagSizeLabel = new JLabel();
-            tagSizeLabel.setText("Tag cloud size");
+            tagSizeLabel.setText(Localization.lang("Tag cloud size"));
 
             numberOfPostsLabel = new JLabel();
-            numberOfPostsLabel.setText("Number of Posts to fetch per Request");
+            numberOfPostsLabel.setText(Localization.lang("Number of Posts to fetch per Request"));
 
 
             extraFieldsHintLabel = new JLabel();
-            extraFieldsHintLabel.setText("You have to restart JabRef in order to see newly added or removed extra fields.");
+            extraFieldsHintLabel.setText(Localization.lang("You have to restart JabRef in order to see newly added or removed extra fields."));
             extraFieldsHintLabel.setFont(new Font("Dialog", Font.ITALIC, 10));
 
             extraFieldsLabel = new JLabel();
-            extraFieldsLabel.setText("Extra fields");
+            extraFieldsLabel.setText(Localization.lang("Extra fields"));
 
             defaultVisibilityLabel = new JLabel();
-            defaultVisibilityLabel.setText("Default visibility");
+            defaultVisibilityLabel.setText(Localization.lang("Default visibility"));
 
             apiKeyHintLabel = new JLabel();
-            apiKeyHintLabel.setText("You can find your API key at the settings page at http://www.bibsonomy.org");
+            apiKeyHintLabel.setText(Localization.lang("You can find your API key at the settings page at http://www.bibsonomy.org"));
             apiKeyHintLabel.setFont(new Font("Dialog", Font.ITALIC, 10));
 
             apiKeyLabel = new JLabel();
-            apiKeyLabel.setText("API key");
+            apiKeyLabel.setText(Localization.lang("API key"));
 
             userNameLabel = new JLabel();
-            userNameLabel.setText("Username");
+            userNameLabel.setText(Localization.lang("Username"));
             apiUrlLabel = new JLabel();
-            apiUrlLabel.setText("Application URL");
+            apiUrlLabel.setText(Localization.lang("Application URL"));
 
             openDatabasePropertiesLabel = new JLabel();
-            openDatabasePropertiesLabel.setText("Set file directories");
+            openDatabasePropertiesLabel.setText(Localization.lang("Set file directories"));
 
 
             //y = 0
@@ -483,7 +482,7 @@ public class BibsonomySettingsDialog extends JDialog {
 
         credentialsPanel = new JPanel();
         credentialsPanel.setLayout(new GridBagLayout());
-        credentialsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, "Credentials", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
+        credentialsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, Localization.lang("Credentials"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
 
         final GridBagConstraints leftConstr = new GridBagConstraints();
         leftConstr.anchor = GridBagConstraints.WEST;
@@ -526,7 +525,7 @@ public class BibsonomySettingsDialog extends JDialog {
         rightConstr.gridy++;
 
         changingCredentialsHintLabel = new JLabel();
-        changingCredentialsHintLabel.setText("Don't forget to hit the refresh button after changing credentials!");
+        changingCredentialsHintLabel.setText(Localization.lang("Don't forget to hit the refresh button after changing credentials!"));
         changingCredentialsHintLabel.setFont(new Font("Dialog", Font.ITALIC, 10));
         credentialsPanel.add(changingCredentialsHintLabel, rightConstr);
 
@@ -573,7 +572,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JCheckBox getStoreAPIKeyCheckBox() {
         if (storeAPIKeyCheckBox == null) {
             storeAPIKeyCheckBox = new JCheckBox();
-            storeAPIKeyCheckBox.setText("Store API key");
+            storeAPIKeyCheckBox.setText(Localization.lang("Store API key"));
             storeAPIKeyCheckBox.setSelected(BibsonomyProperties.getStoreApiKey());
         }
         return storeAPIKeyCheckBox;
@@ -587,7 +586,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JCheckBox getIgnoreOneTagWarningCheckBox() {
         if (ignoreOneTagWarningCheckBox == null) {
             ignoreOneTagWarningCheckBox = new JCheckBox();
-            ignoreOneTagWarningCheckBox.setText("Do not warn me, if a post has no tags assigned");
+            ignoreOneTagWarningCheckBox.setText(Localization.lang("Do not warn me, if a post has no tags assigned"));
             ignoreOneTagWarningCheckBox.setSelected(BibsonomyProperties.ignoreNoTagsAssigned());
         }
         return ignoreOneTagWarningCheckBox;
@@ -601,7 +600,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JCheckBox getUpdateTagsCheckBox() {
         if (updateTagsCheckBox == null) {
             updateTagsCheckBox = new JCheckBox();
-            updateTagsCheckBox.setText("Update tags on startup");
+            updateTagsCheckBox.setText(Localization.lang("Update tags on startup"));
             updateTagsCheckBox.setSelected(BibsonomyProperties.getUpdateTagsOnStartUp());
         }
         return updateTagsCheckBox;
@@ -615,7 +614,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JCheckBox getUploadDocumentsCheckBox() {
         if (uploadDocumentsCheckBox == null) {
             uploadDocumentsCheckBox = new JCheckBox();
-            uploadDocumentsCheckBox.setText("Upload documents on export");
+            uploadDocumentsCheckBox.setText(Localization.lang("Upload documents on export"));
             uploadDocumentsCheckBox.setSelected(BibsonomyProperties.getUploadDocumentsOnExport());
         }
         return uploadDocumentsCheckBox;
@@ -629,7 +628,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JCheckBox getDownloadDocumentsCheckBox() {
         if (downloadDocumentsCheckBox == null) {
             downloadDocumentsCheckBox = new JCheckBox();
-            downloadDocumentsCheckBox.setText("Download documents on import");
+            downloadDocumentsCheckBox.setText(Localization.lang("Download documents on import"));
             downloadDocumentsCheckBox.setSelected(BibsonomyProperties.getDownloadDocumentsOnImport());
         }
         return downloadDocumentsCheckBox;
@@ -707,7 +706,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JCheckBox getNoWarningOnMorePostsCheckBox() {
         if (noWarningOnMorePostsCheckBox == null) {
             noWarningOnMorePostsCheckBox = new JCheckBox();
-            noWarningOnMorePostsCheckBox.setText("Do not warn me, if more posts are available");
+            noWarningOnMorePostsCheckBox.setText(Localization.lang("Do not warn me, if more posts are available"));
             noWarningOnMorePostsCheckBox.setSelected(BibsonomyProperties.getIgnoreMorePostsWarning());
         }
         return noWarningOnMorePostsCheckBox;
@@ -732,7 +731,6 @@ public class BibsonomySettingsDialog extends JDialog {
         if (tagCloudOrderComboBox == null) {
 
             OrderComboBoxItem[] items = new OrderComboBoxItem[]{
-
                     new OrderComboBoxItem(Order.FREQUENCY, "Frequency"),
                     new OrderComboBoxItem(Order.ALPH, "Alphabethical"),
                     new OrderComboBoxItem(Order.FOLKRANK, "Folkrank"),
@@ -756,7 +754,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JButton getOpenDatabasePropertiesButton() {
         if (openDatabasePropertiesButton == null) {
             openDatabasePropertiesButton = new JButton(new OpenDatabasePropertiesAction(jabRefFrame));
-            openDatabasePropertiesButton.setText("Database properties");
+            openDatabasePropertiesButton.setText(Localization.lang("Database properties"));
         }
         return openDatabasePropertiesButton;
     }
