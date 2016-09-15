@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.database.BibDatabase;
 import net.sf.jabref.model.entry.BibEntry;
 
@@ -51,10 +52,10 @@ public class SynchronizationWorker extends AbstractBibsonomyWorker {
         final BibDatabase bibDatabase = this.jabRefFrame.getCurrentBasePanel().getDatabase();
 
         // Set for the entries we have fetched from Bibsonomy
-        final HashSet<BibEntry> newEntries = new HashSet<BibEntry>();
+        final HashSet<BibEntry> newEntries = new HashSet<>();
 
         // Set of id to be removed from the database
-        final HashSet<BibEntry> removeIds = new HashSet<BibEntry>();
+        final HashSet<BibEntry> removeIds = new HashSet<>();
 
         LogicInterface logic = getLogic();
         // Iterate over all entries in the database
@@ -122,8 +123,7 @@ public class SynchronizationWorker extends AbstractBibsonomyWorker {
             } catch (Throwable throwable) {
                 LOGGER.error("error during synchronization", throwable);
             }
-
-            this.jabRefFrame.output("Synchronized " + entry.getCiteKey());
+            this.jabRefFrame.output(Localization.lang("Synchronized %0", entry.getCiteKeyOptional().get()));
 
         }
 
@@ -136,6 +136,6 @@ public class SynchronizationWorker extends AbstractBibsonomyWorker {
         this.keepAllRemote = false;
         this.keepAllLocal = false;
 
-        this.jabRefFrame.output("Done.");
+        this.jabRefFrame.output(Localization.lang("Done"));
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.BibtexEntryTypes;
 import net.sf.jabref.model.entry.EntryType;
@@ -169,8 +170,8 @@ public class JabRefModelConverter {
 
                 return entry;
             }
-        } catch (final Exception e) {
-            LOGGER.error("Could not convert BibSonomy post into a JabRef BibTeX entry.", e);
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
+            LOGGER.error(Localization.lang("Could not convert BibSonomy post into a JabRef BibTeX entry."), e);
         }
 
         return null;
@@ -301,7 +302,7 @@ public class JabRefModelConverter {
             bibtex.setAuthor(PersonNameUtils.discoverPersonNames(entry.getField(FieldName.AUTHOR).get()));
             bibtex.setEditor(PersonNameUtils.discoverPersonNames(entry.getField(FieldName.EDITOR).get()));
         } catch (PersonListParserException e) {
-            ExceptionUtils.logErrorAndThrowRuntimeException(LOGGER, e, "Could not convert person names");
+            ExceptionUtils.logErrorAndThrowRuntimeException(LOGGER, e, Localization.lang("Could not convert person names"));
         }
 
         knownFields.add("author");

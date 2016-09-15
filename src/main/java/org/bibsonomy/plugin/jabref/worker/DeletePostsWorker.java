@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref.worker;
 import java.util.Arrays;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 
 import org.apache.commons.logging.Log;
@@ -30,13 +31,13 @@ public class DeletePostsWorker extends AbstractBibsonomyWorker {
 
             try {
                 getLogic().deletePosts(BibsonomyProperties.getUsername(), Arrays.asList(intrahash));
-                jabRefFrame.output("Deleting post " + intrahash);
+                jabRefFrame.output(Localization.lang("Deleting post %0", intrahash));
                 entry.clearField("intrahash");
             } catch (Exception ex) {
-                LOG.error("Failed deleting post " + intrahash);
+                LOG.error(Localization.lang("Failed deleting post %0", intrahash));
             }
         }
-        jabRefFrame.output("Done.");
+        jabRefFrame.output(Localization.lang("Done"));
     }
 
     public DeletePostsWorker(JabRefFrame jabRefFrame, BibEntry[] entries) {

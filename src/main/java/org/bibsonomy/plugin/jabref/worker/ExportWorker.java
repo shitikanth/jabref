@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FieldName;
 
@@ -27,7 +28,7 @@ import org.bibsonomy.rest.exceptions.AuthenticationException;
  */
 public class ExportWorker extends AbstractBibsonomyWorker {
 
-    private static final Log LOG = LogFactory.getLog(ExportWorker.class);
+    private static final Log LOGGER = LogFactory.getLog(ExportWorker.class);
 
     private List<BibEntry> entries;
 
@@ -69,11 +70,11 @@ public class ExportWorker extends AbstractBibsonomyWorker {
         } catch (AuthenticationException ex) {
             (new ShowSettingsDialogAction(jabRefFrame)).actionPerformed(null);
         } catch (Exception ex) {
-            LOG.error("Failed to export post ", ex);
+            LOGGER.error("Failed to export post ", ex);
         } catch (Throwable ex) {
-            LOG.error("Failed to export post ", ex);
+            LOGGER.error("Failed to export post ", ex);
         }
-        jabRefFrame.output("Failed.");
+        jabRefFrame.output(Localization.lang("Failed"));
     }
 
     private void changePost(Post<? extends Resource> post) throws Exception {

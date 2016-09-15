@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref.worker;
 import java.io.File;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.preferences.JabRefPreferences;
 
 import org.apache.commons.logging.Log;
@@ -18,7 +19,7 @@ import org.bibsonomy.plugin.jabref.BibsonomyProperties;
  */
 public class UploadDocumentsWorker extends AbstractBibsonomyWorker {
 
-    private static final Log LOG = LogFactory.getLog(ExportWorker.class);
+    private static final Log LOGGER = LogFactory.getLog(ExportWorker.class);
 
     private static final String DEFAULT_FILE_DIRECTORY = System.getProperty("user.dir");
 
@@ -48,36 +49,27 @@ public class UploadDocumentsWorker extends AbstractBibsonomyWorker {
             int lastColonPosition = file.lastIndexOf(":");
             String fileName = file.substring(firstColonPosition + 1, lastColonPosition);
 
-            try {
+            for (String location : fileLocations) {
 
-                for (String location : fileLocations) {
+                // replace all \: in the file name with : - this issues the windows file names
+                fileName = fileName.replaceAll("\\\\:", ":");
 
-                    // replace all \: in the file name with : - this issues the windows file names
-                    fileName = fileName.replaceAll("\\\\:", ":");
+                File f = new File(location + fileName);
+                if (f.exists()) {
 
-                    File f = new File(location + fileName);
-                    if (f.exists()) {
+                    // upload the document
+                    final Document doc = new Document();
+                    doc.setFile(f);
+                    doc.setUserName(BibsonomyProperties.getUsername());
+                    logic.createDocument(doc, intrahash);
 
-                        // upload the document
+                    jabRefFrame.output(Localization.lang("Uploading document %0", fileName));
 
-
-                        final Document doc = new Document();
-                        doc.setFile(f);
-                        doc.setUserName(BibsonomyProperties.getUsername());
-                        logic.createDocument(doc, intrahash);
-
-                        jabRefFrame.output("Uploading document " + fileName);
-
-                        break;
-                    }
-
+                    break;
                 }
-            } catch (Exception ex) {
-
-                LOG.error("Failed to upload document " + fileName);
             }
         }
-        jabRefFrame.output("Done.");
+        jabRefFrame.output(Localization.lang("Done"));
     }
 
     public UploadDocumentsWorker(JabRefFrame jabRefFrame, String intrahash, String files) {

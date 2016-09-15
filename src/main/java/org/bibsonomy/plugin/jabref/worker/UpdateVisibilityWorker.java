@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,7 +66,7 @@ public class UpdateVisibilityWorker extends AbstractBibsonomyWorker {
         } catch (AuthenticationException ex) {
             (new ShowSettingsDialogAction(jabRefFrame)).actionPerformed(null);
         } catch (Exception ex) {
-            LOG.error("Failed to get user details for user: " + BibsonomyProperties.getUsername(), ex);
+            LOG.error(Localization.lang("Failed to get user details for user: %0", BibsonomyProperties.getUsername()), ex);
         }
     }
 

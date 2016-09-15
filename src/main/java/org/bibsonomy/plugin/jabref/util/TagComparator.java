@@ -11,7 +11,6 @@ public class TagComparator implements Comparator<Tag> {
     private GroupingEntity grouping;
 
     public TagComparator(GroupingEntity grouping) {
-
         this.grouping = grouping;
     }
 

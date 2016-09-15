@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.importer.ImportInspectionDialog;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FieldName;
 
@@ -53,7 +54,7 @@ public class ImportPostsByCriteriaWorker extends AbstractBibsonomyWorker {
         this.grouping = grouping;
         this.groupingValue = groupingValue;
 
-        this.dialog = new ImportInspectionDialog(jabRefFrame, jabRefFrame.getCurrentBasePanel(), "Import from BibSonomy", false);
+        this.dialog = new ImportInspectionDialog(jabRefFrame, jabRefFrame.getCurrentBasePanel(), Localization.lang("Import from BibSonomy"), false);
 
         this.ignoreRequestSize = ignoreRequestSize;
 
