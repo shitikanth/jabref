@@ -23,15 +23,12 @@ import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
  */
 public class BibsonomyHyperLinkListener extends AbstractBibsonomyAction implements HyperlinkListener {
 
-    private static final long serialVersionUID = -2030390936610286041L;
-
     private JComboBox<?> visibilityComboBox;
 
     public void hyperlinkUpdate(HyperlinkEvent e) {
 
         if (e.getEventType() == EventType.ACTIVATED) {
             StringTokenizer tokenizer = new StringTokenizer(e.getDescription(), " ");
-
             if (tokenizer.hasMoreElements()) {
 
                 String criteria = tokenizer.nextToken();
@@ -43,12 +40,10 @@ public class BibsonomyHyperLinkListener extends AbstractBibsonomyAction implemen
     }
 
     public BibsonomyHyperLinkListener(JabRefFrame jabRefFrame, JComboBox<?> visibilityComboBox) {
-
         super(jabRefFrame, null, null);
         this.visibilityComboBox = visibilityComboBox;
     }
 
-    public void actionPerformed(ActionEvent e) {
-    }
+    public void actionPerformed(ActionEvent e) {}
 
 }

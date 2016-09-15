@@ -14,7 +14,6 @@ import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 public class VisibilityItemListener implements ItemListener {
 
     public void itemStateChanged(ItemEvent e) {
-
         GroupingComboBoxItem item = (GroupingComboBoxItem) e.getItem();
         BibsonomyProperties.setSidePaneVisibilityType(item.getKey());
         BibsonomyProperties.setSidePaneVisibilityName(item.getValue());
