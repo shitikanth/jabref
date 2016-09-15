@@ -32,7 +32,7 @@ public class BibsonomySidePaneComponent extends SidePaneComponent {
 
     public BibsonomySidePaneComponent(SidePaneManager manager, JabRefFrame jabRefFrame) {
         // set the icon and the name
-        super(manager, new ImageIcon("/images/tag-label.png"), "BibSonomy");
+        super(manager, new ImageIcon(BibsonomySidePaneComponent.class.getResource("/images/images/tag-label.png")), "BibSonomy");
 
         this.manager = manager;
         this.jabRefFrame = jabRefFrame;

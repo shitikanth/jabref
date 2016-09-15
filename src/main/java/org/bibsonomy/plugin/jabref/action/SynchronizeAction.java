@@ -26,7 +26,7 @@ public class SynchronizeAction extends AbstractPluginAction {
 
     public SynchronizeAction(JabRefFrame jabRefFrame) {
 
-        super(jabRefFrame, "Synchronize", new ImageIcon("/images/arrow-circle-double-135.png"));
+        super(jabRefFrame, "Synchronize", new ImageIcon(SynchronizeAction.class.getResource("/images/arrow-circle-double-135.png")));
 
     }
 }

@@ -26,7 +26,7 @@ public class ClosePluginSettingsDialogByCancelAction extends AbstractAction {
 
     public ClosePluginSettingsDialogByCancelAction(BibsonomySettingsDialog settingsDialog) {
 
-        super("Cancel", new ImageIcon("/images/cross.png"));
+        super("Cancel", new ImageIcon(ClosePluginSettingsDialogByCancelAction.class.getResource("/images/cross.png")));
         this.settingsDialog = settingsDialog;
     }
 

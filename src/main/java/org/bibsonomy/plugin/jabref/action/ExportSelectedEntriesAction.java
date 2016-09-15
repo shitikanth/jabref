@@ -54,6 +54,6 @@ public class ExportSelectedEntriesAction extends AbstractPluginAction {
 
     public ExportSelectedEntriesAction(JabRefFrame jabRefFrame) {
 
-        super(jabRefFrame, "Export selected entries", new ImageIcon("/images/document--arrow.png"));
+        super(jabRefFrame, "Export selected entries", new ImageIcon(ExportSelectedEntriesAction.class.getResource("/images/images/document--arrow.png")));
     }
 }

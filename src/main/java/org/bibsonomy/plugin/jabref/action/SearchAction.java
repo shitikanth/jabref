@@ -41,7 +41,7 @@ public class SearchAction extends AbstractPluginAction {
 
     public SearchAction(JabRefFrame jabRefFrame, JTextField searchTextField, JComboBox<?> searchTypeComboBox, JComboBox<?> groupingComboBox) {
 
-        super(jabRefFrame, "bibsonomySearchAction", new ImageIcon("/images/magnifier.png"));
+        super(jabRefFrame, "", new ImageIcon(SearchAction.class.getResource("/images/images/magnifier.png")));
 
         this.searchTextField = searchTextField;
         this.searchTypeComboBox = searchTypeComboBox;

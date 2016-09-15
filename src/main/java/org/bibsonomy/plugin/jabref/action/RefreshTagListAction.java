@@ -44,7 +44,7 @@ public class RefreshTagListAction extends AbstractPluginAction {
 
     public RefreshTagListAction(JabRefFrame jabRefFrame, JEditorPane tagCloud, JComboBox<? super GroupingComboBoxItem> groupingComboBox) {
 
-        super(jabRefFrame, "Refresh", new ImageIcon("/images/arrow-circle-225.png"));
+        super(jabRefFrame, "Refresh", new ImageIcon(RefreshTagListAction.class.getResource("/images/images/arrow-circle-225.png")));
         this.tagCloud = tagCloud;
 
         this.groupingComboBox = groupingComboBox;

@@ -92,6 +92,7 @@ public class BibsonomySettingsDialog extends JDialog {
         this.setMaximumSize(new Dimension(700, 460));
         this.setMinimumSize(new Dimension(700, 460));
         this.setContentPane(getJContentPane());
+        this.setLocationRelativeTo(jabRefFrame);
     }
 
     /**
@@ -186,7 +187,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JTabbedPane getSettingsPane() {
         if (settingsPane == null) {
             settingsPane = new JTabbedPane();
-            settingsPane.addTab("General", new ImageIcon("/images/wrench-screwdriver.png"), getGeneralSettingsPanel(), null);
+            settingsPane.addTab("General", new ImageIcon(BibsonomySettingsDialog.class.getResource("/images/wrench-screwdriver.png")), getGeneralSettingsPanel(), null);
         }
         return settingsPane;
     }
