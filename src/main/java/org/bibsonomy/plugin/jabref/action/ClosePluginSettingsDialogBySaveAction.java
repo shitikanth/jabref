@@ -77,7 +77,7 @@ public class ClosePluginSettingsDialogBySaveAction extends AbstractAction {
                                                  JCheckBox downloadDocuments, JComboBox<?> visibility,
                                                  JCheckBox morePosts, JTextField extraFields, JComboBox<?> order) {
 
-        super("Save", new ImageIcon(ClosePluginSettingsDialogBySaveAction.class.getResource("/images/disk-black.png")));
+        super("Save", new ImageIcon(ClosePluginSettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
         this.apiUrl = apiUrl;
         this.settingsDialog = settingsDialog;
         this.username = username;

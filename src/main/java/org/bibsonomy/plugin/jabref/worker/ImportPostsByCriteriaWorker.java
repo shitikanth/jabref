@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.importer.ImportInspectionDialog;
 import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.model.entry.FieldName;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -94,10 +95,10 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 
                     // clear fields if the fetched posts does not belong to the user
                     Optional<String> optUserName = entry.getField("username");
-                    if(optUserName.isPresent()){
+                    if (optUserName.isPresent()) {
                         if (!BibsonomyProperties.getUsername().equals(optUserName.get())) {
                             entry.clearField("intrahash");
-                            entry.clearField("file");
+                            entry.clearField(FieldName.FILE);
                             entry.clearField("owner");
                         }
                     }

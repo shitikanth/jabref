@@ -187,7 +187,7 @@ public class BibsonomySettingsDialog extends JDialog {
     private JTabbedPane getSettingsPane() {
         if (settingsPane == null) {
             settingsPane = new JTabbedPane();
-            settingsPane.addTab("General", new ImageIcon(BibsonomySettingsDialog.class.getResource("/images/wrench-screwdriver.png")), getGeneralSettingsPanel(), null);
+            settingsPane.addTab("General", new ImageIcon(BibsonomySettingsDialog.class.getResource("/images/images/wrench-screwdriver.png")), getGeneralSettingsPanel(), null);
         }
         return settingsPane;
     }
