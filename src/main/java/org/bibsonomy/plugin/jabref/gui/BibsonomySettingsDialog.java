@@ -74,12 +74,12 @@ public class BibsonomySettingsDialog extends JDialog {
         super(jabRefFrame);
         this.jabRefFrame = jabRefFrame;
         if (BibsonomyProperties.getUsername().equals(BibsonomyGlobals.API_USERNAME))
-            JOptionPane.showMessageDialog(this, "<html>PLEASE NOTE: the current API access data is for testing purposes only.\n"
-                    + "You can up- and download entries, and after logging in you can see and\n"
-                    + "edit your entries on www.bibsonomy.org. Do not use this account for\n"
-                    + "personal data, as it is accessible by everyone.\n\n"
-                    + "To obtain your own personal API key,\n"
-                    + "visit http://www.bibsonomy.org/help/doc/gettingaccess.html.", "Demo mode", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, Localization.lang("PLEASE NOTE: the current API access data is for testing purposes only.") +"\n"
+                    + Localization.lang("You can up- and download entries.")+"\n"
+                    + Localization.lang("After logging in you can see and_edit your entries on www.bibsonomy.org.")+"\n"
+                    + Localization.lang("Do not use this account for_personal data, as it is accessible by everyone.")+"\n\n"
+                    + Localization.lang("To obtain your own personal API key, visit")+"\n"
+                    + "http://www.bibsonomy.org/help/doc/gettingaccess.html.", Localization.lang("Demo mode"), JOptionPane.INFORMATION_MESSAGE);
         initialize();
     }
 
@@ -94,11 +94,6 @@ public class BibsonomySettingsDialog extends JDialog {
         this.setLocationRelativeTo(jabRefFrame);
     }
 
-    /**
-     * This method initializes jContentPane
-     *
-     * @return javax.swing.JPanel
-     */
     private JPanel getJContentPane() {
         if (jContentPane == null) {
             BorderLayout borderLayout = new BorderLayout();
@@ -113,11 +108,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return jContentPane;
     }
 
-    /**
-     * This method initializes buttonsPanel
-     *
-     * @return javax.swing.JPanel
-     */
     private JPanel getButtonsPanel() {
         if (buttonsPanel == null) {
             GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
@@ -141,11 +131,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return buttonsPanel;
     }
 
-    /**
-     * This method initializes saveButton
-     *
-     * @return javax.swing.JButton
-     */
     private JButton getSaveButton() {
         if (saveButton == null) {
             saveButton = new JButton(new CloseBibsonomySettingsDialogBySaveAction(this, getApiUrlTextField(), getUsernameTextField(), getApiKeyTextField(), getStoreAPIKeyCheckBox(), getNumberOfPostsSpinner(), getTagCloudSizeSpinner(), getIgnoreOneTagWarningCheckBox(), getUpdateTagsCheckBox(), getUploadDocumentsCheckBox(), getDownloadDocumentsCheckBox(), getDefaultVisibilityComboBox(), getNoWarningOnMorePostsCheckBox(), getExtraFieldsTextField(), getTagCloudOrderComboBox()));
@@ -153,11 +138,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return saveButton;
     }
 
-    /**
-     * This method initializes whitespacePanel
-     *
-     * @return javax.swing.JPanel
-     */
     private JPanel getWhitespacePanel() {
         if (whitespacePanel == null) {
             whitespacePanel = new JPanel();
@@ -166,11 +146,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return whitespacePanel;
     }
 
-    /**
-     * This method initializes cancelButton
-     *
-     * @return javax.swing.JButton
-     */
     private JButton getCancelButton() {
         if (cancelButton == null) {
             cancelButton = new JButton(new CloseBibsonomySettingsDialogByCancelAction(this));
@@ -178,11 +153,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return cancelButton;
     }
 
-    /**
-     * This method initializes settingsPane
-     *
-     * @return javax.swing.JTabbedPane
-     */
     private JTabbedPane getSettingsPane() {
         if (settingsPane == null) {
             settingsPane = new JTabbedPane();
@@ -191,11 +161,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return settingsPane;
     }
 
-    /**
-     * This method initializes generalSettingsPanel
-     *
-     * @return javax.swing.JPanel
-     */
     private JPanel getGeneralSettingsPanel() {
         JLabel tagSizeLabel;
         JLabel tagCloudOrderLabel;
@@ -468,11 +433,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return generalSettingsPanel;
     }
 
-    /**
-     * This method initializes credentialsPanel
-     *
-     * @return javax.swing.JPanel
-     */
     private JPanel getCredentialsPanel() {
         JLabel changingCredentialsHintLabel;
 
@@ -539,11 +499,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return usernameTextField;
     }
 
-    /**
-     * This method initializes apiKeyTextField
-     *
-     * @return javax.swing.JTextField
-     */
     private JTextField getApiKeyTextField() {
         if (apiKeyTextField == null) {
             apiKeyTextField = new JTextField(BibsonomyProperties.getApiKey());
@@ -552,11 +507,6 @@ public class BibsonomySettingsDialog extends JDialog {
     }
 
 
-    /**
-     * This method initializes apiUrlTextField
-     *
-     * @return javax.swing.JTextField
-     */
     private JTextField getApiUrlTextField() {
         if (apiUrlTextField == null) {
             apiUrlTextField = new JTextField(BibsonomyProperties.getApiUrl());
@@ -564,11 +514,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return apiUrlTextField;
     }
 
-    /**
-     * This method initializes storeAPIKeyCheckBox
-     *
-     * @return javax.swing.JCheckBox
-     */
     private JCheckBox getStoreAPIKeyCheckBox() {
         if (storeAPIKeyCheckBox == null) {
             storeAPIKeyCheckBox = new JCheckBox();
@@ -578,11 +523,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return storeAPIKeyCheckBox;
     }
 
-    /**
-     * This method initializes ignoreOneTagWarningCheckBox
-     *
-     * @return javax.swing.JCheckBox
-     */
     private JCheckBox getIgnoreOneTagWarningCheckBox() {
         if (ignoreOneTagWarningCheckBox == null) {
             ignoreOneTagWarningCheckBox = new JCheckBox();
@@ -592,11 +532,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return ignoreOneTagWarningCheckBox;
     }
 
-    /**
-     * This method initializes updateTagsCheckBox
-     *
-     * @return javax.swing.JCheckBox
-     */
     private JCheckBox getUpdateTagsCheckBox() {
         if (updateTagsCheckBox == null) {
             updateTagsCheckBox = new JCheckBox();
@@ -606,11 +541,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return updateTagsCheckBox;
     }
 
-    /**
-     * This method initializes uploadDocumentsCheckBox
-     *
-     * @return javax.swing.JCheckBox
-     */
     private JCheckBox getUploadDocumentsCheckBox() {
         if (uploadDocumentsCheckBox == null) {
             uploadDocumentsCheckBox = new JCheckBox();
@@ -620,11 +550,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return uploadDocumentsCheckBox;
     }
 
-    /**
-     * This method initializes downloadDocumentsCheckBox
-     *
-     * @return javax.swing.JCheckBox
-     */
     private JCheckBox getDownloadDocumentsCheckBox() {
         if (downloadDocumentsCheckBox == null) {
             downloadDocumentsCheckBox = new JCheckBox();
@@ -634,11 +559,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return downloadDocumentsCheckBox;
     }
 
-    /**
-     * This method initializes defaultVisibilityComboBox
-     *
-     * @return javax.swing.JComboBox
-     */
     private JComboBox<GroupingComboBoxItem> getDefaultVisibilityComboBox() {
         if (defaultVisibilityComboBox == null) {
 
@@ -660,11 +580,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return defaultVisibilityComboBox;
     }
 
-    /**
-     * This method initializes extraFieldsTextField
-     *
-     * @return javax.swing.JTextField
-     */
     private JTextField getExtraFieldsTextField() {
         if (extraFieldsTextField == null) {
             extraFieldsTextField = new JTextField();
@@ -673,11 +588,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return extraFieldsTextField;
     }
 
-    /**
-     * This method initializes generalSettingsWhitespacePanel
-     *
-     * @return javax.swing.JPanel
-     */
     private JPanel getGeneralSettingsWhitespacePanel() {
         if (generalSettingsWhitespacePanel == null) {
             generalSettingsWhitespacePanel = new JPanel();
@@ -686,11 +596,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return generalSettingsWhitespacePanel;
     }
 
-    /**
-     * This method initializes numberOfPostsTextField
-     *
-     * @return javax.swing.JTextField
-     */
     private JSpinner getNumberOfPostsSpinner() {
         if (numberOfPostsSpinner == null) {
             numberOfPostsSpinner = new JSpinner(new SpinnerNumberModel(BibsonomyProperties.getNumberOfPostsPerRequest(), 1, 500, 1));
@@ -698,11 +603,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return numberOfPostsSpinner;
     }
 
-    /**
-     * This method initializes noWarningOnMorePostsCheckBox
-     *
-     * @return javax.swing.JCheckBox
-     */
     private JCheckBox getNoWarningOnMorePostsCheckBox() {
         if (noWarningOnMorePostsCheckBox == null) {
             noWarningOnMorePostsCheckBox = new JCheckBox();
@@ -722,11 +622,6 @@ public class BibsonomySettingsDialog extends JDialog {
         return tagCloudSizeSpinner;
     }
 
-    /**
-     * This method initializes tagCloudOrderComboBox
-     *
-     * @return javax.swing.JComboBox
-     */
     private JComboBox<?> getTagCloudOrderComboBox() {
         if (tagCloudOrderComboBox == null) {
 

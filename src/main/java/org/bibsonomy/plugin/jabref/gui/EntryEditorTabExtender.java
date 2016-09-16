@@ -47,7 +47,7 @@ public class EntryEditorTabExtender {
 		
 		if (!bibsonomyTab) {
 			preferences.put(JabRefPreferences.CUSTOM_TAB_FIELDS + lastTabId, "interhash;intrahash;keywords;groups;privnote");
-			preferences.put(JabRefPreferences.CUSTOM_TAB_NAME + lastTabId, "Bibsonomy");
+			preferences.put(JabRefPreferences.CUSTOM_TAB_NAME + lastTabId, "BibSonomy");
 			lastTabId++;
 		}
 

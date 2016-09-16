@@ -5,7 +5,6 @@ import javax.swing.Icon;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.gui.worker.AbstractWorker;
-import net.sf.jabref.logic.l10n.Localization;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -55,7 +54,7 @@ public abstract class AbstractBibsonomyAction extends AbstractAction {
             WorkerUtil.performAsynchronously(worker);
         } catch (Throwable t) {
             jabRefFrame.unblock();
-            LOGGER.error(Localization.lang("Failed to initialize Worker"), t);
+            LOGGER.error("Failed to initialize Worker", t);
             t.printStackTrace();
         }
     }

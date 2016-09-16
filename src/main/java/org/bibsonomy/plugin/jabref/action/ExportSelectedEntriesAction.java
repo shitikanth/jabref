@@ -26,13 +26,9 @@ public class ExportSelectedEntriesAction extends AbstractBibsonomyAction {
     private static final Log LOGGER = LogFactory.getLog(ExportSelectedEntriesAction.class);
 
     public void actionPerformed(ActionEvent e) {
-        /*
-         * fetch selected entries
-		 */
+
         List<BibEntry> entries = getJabRefFrame().getCurrentBasePanel().getSelectedEntries();
-		/*
-		 * check if they all have keywords
-		 */
+
         CheckTagsUtil ctu = new CheckTagsUtil(entries, getJabRefFrame());
         switch (ctu.hasAPostNoTagsAssigned()) {
             case JOptionPane.YES_OPTION:

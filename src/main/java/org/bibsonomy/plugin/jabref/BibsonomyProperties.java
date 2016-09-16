@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -59,10 +60,8 @@ public class BibsonomyProperties extends Properties {
      * @return singleton of {@link BibsonomyProperties}
      */
     public static BibsonomyProperties getInstance() {
-
         if (INSTANCE == null)
             INSTANCE = new BibsonomyProperties();
-
         return INSTANCE;
     }
 
@@ -70,7 +69,6 @@ public class BibsonomyProperties extends Properties {
      * The constructor reads the properties from the file system.
      */
     private BibsonomyProperties() {
-
         try {
             File propertiesFile = new File(PROPERTIES_FILE);
             if (propertiesFile.exists() && propertiesFile.isFile())
@@ -91,7 +89,8 @@ public class BibsonomyProperties extends Properties {
         //if user does not want to save api key
         try {
             getInstance().store(new FileOutputStream(PROPERTIES_FILE), "");
-        } catch (Exception ex) {
+        } catch (IOException e) {
+            //TODO: C:\Users\Sascha\.jabref\plugins\bibsonomy-plugin.properties (Das System kann den angegebenen Pfad nicht finden)
             LOGGER.error("Failed saving properties file");
         }
         //set api key back to its actual value
