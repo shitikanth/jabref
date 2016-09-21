@@ -74,7 +74,7 @@ configurations {
 
 dependencies {
     // Added for the integration of Bibsonomy
-    compile 'org.bibsonomy:bibsonomy-rest-client:3.2.1'
+    compile 'org.bibsonomy:bibsonomy-rest-client:3.6.3'
 
     compile 'com.jgoodies:jgoodies-common:1.8.1'
     compile 'com.jgoodies:jgoodies-forms:1.9.0'

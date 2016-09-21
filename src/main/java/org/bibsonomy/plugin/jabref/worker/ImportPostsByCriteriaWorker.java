@@ -88,7 +88,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 
             try {
 
-                final Collection<Post<BibTex>> result = getLogic().getPosts(BibTex.class, grouping, groupingValue, tags, null, search, null, null, null, null, start, end);
+                final Collection<Post<BibTex>> result = getLogic().getPosts(BibTex.class, grouping, groupingValue, tags, null, search, null, null, null, null, null, start, end);
                 for (Post<? extends Resource> post : result) {
                     dialog.setProgress(numberOfPosts++, numberOfPostsPerRequest);
                     BibEntry entry = JabRefModelConverter.convertPost(post);
