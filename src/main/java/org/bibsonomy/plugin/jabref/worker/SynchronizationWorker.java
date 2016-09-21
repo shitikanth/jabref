@@ -119,7 +119,12 @@ public class SynchronizationWorker extends AbstractPluginWorker {
                 LOGGER.error("error during synchronization", throwable);
             }
 
-            this.jabRefFrame.output("Synchronized " + entry.getCiteKey());
+            Optional<String> citeKeyOpt = entry.getCiteKeyOptional();
+            if(citeKeyOpt.isPresent()){
+                this.jabRefFrame.output("Synchronized " + citeKeyOpt.get());
+            }else{
+                this.jabRefFrame.output("Synchronized");
+            }
 
         }
 

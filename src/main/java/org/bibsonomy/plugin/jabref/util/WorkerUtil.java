@@ -12,7 +12,7 @@ import net.sf.jabref.gui.worker.Worker;
 public class WorkerUtil {
 
 	/**
-	 * Duplicate code.
+	 * @deprecated Duplicate code.
 	 * See {@link net.sf.jabref.gui.exporter.SaveDatabaseAction}
 	 */
 	@Deprecated
