@@ -171,7 +171,7 @@ public class JabRefModelConverter {
                 // set comment + description
                 final String description = post.getDescription();
                 if (present(description)) {
-                    entry.setField("description", post.getDescription());
+                    entry.setField(FieldName.DESCRIPTION, post.getDescription());
                     entry.setField(FieldName.COMMENTS, post.getDescription());
                 }
 
@@ -390,7 +390,7 @@ public class JabRefModelConverter {
         }
 
         //TODO: Find FieldName that equals description
-        final String description = StringUtil.toUTF8(entry.getField("description").get());
+        final String description = StringUtil.toUTF8(entry.getField(FieldName.DESCRIPTION).get());
         if (present(description))
             post.setDescription(description);
 

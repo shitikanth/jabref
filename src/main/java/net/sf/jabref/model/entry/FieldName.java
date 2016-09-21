@@ -96,12 +96,17 @@ public class FieldName {
     public static final String URI = "uri";
     public static final String URL = "url";
     public static final String URLDATE = "urldate";
-    public static final String USERNAME = "username";
     public static final String VERSION = "version";
     public static final String VOLUME = "volume";
     public static final String VOLUMES = "volumes";
     public static final String YEAR = "year";
     public static final String YEARFILED = "yearfiled";
+
+    // Additional BibSonomy fields
+    public static final String DESCRIPTION = "description";
+    public static final String INTERHASH = "interhash";
+    public static final String INTRAHASH = "intrahash";
+    public static final String USERNAME = "username";
 
     // IEEE BSTctl fields
     public static final String CTLALT_STRETCH_FACTOR = "ctlalt_stretch_factor";

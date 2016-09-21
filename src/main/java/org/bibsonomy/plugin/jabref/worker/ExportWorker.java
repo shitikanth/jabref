@@ -34,7 +34,7 @@ public class ExportWorker extends AbstractPluginWorker {
     public void run() {
         try {
             for (BibEntry entry : entries) {
-                String intrahash = entry.getField("intrahash").get();
+                String intrahash = entry.getField(FieldName.INTRAHASH).get();
                 jabRefFrame.output("Exporting post " + entry.getCiteKey());
 
                 // add private or public if groups is empty
@@ -56,12 +56,12 @@ public class ExportWorker extends AbstractPluginWorker {
                 } else {
                     createPost(post);
                 }
-                entry.setField("intrahash", post.getResource().getIntraHash());
+                entry.setField(FieldName.INTRAHASH, post.getResource().getIntraHash());
                 entry.setField(FieldName.OWNER, owner);
 
                 String files = entry.getField(FieldName.FILE).get();
                 if (files != null && !"".equals(files)) {
-                    WorkerUtil.performAsynchronously(new UploadDocumentsWorker(jabRefFrame, entry.getField("intrahash").get(), files));
+                    WorkerUtil.performAsynchronously(new UploadDocumentsWorker(jabRefFrame, entry.getField(FieldName.INTRAHASH).get(), files));
                 }
             }
             jabRefFrame.output("Done.");

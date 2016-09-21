@@ -23,7 +23,7 @@ public class DeletePostsWorker extends AbstractPluginWorker {
 
     public void run() {
         for (BibEntry entry : entries) {
-            final String intrahash = entry.getField("intrahash").get();
+            final String intrahash = entry.getField(FieldName.INTRAHASH).get();
             final String username = entry.getField(FieldName.USERNAME).get();
             if ((intrahash == null) || ("".equals(intrahash)) || ((intrahash != null) && !(BibsonomyProperties.getUsername().equals(username)))) {
                 continue;
@@ -32,7 +32,7 @@ public class DeletePostsWorker extends AbstractPluginWorker {
             try {
                 getLogic().deletePosts(BibsonomyProperties.getUsername(), Arrays.asList(intrahash));
                 jabRefFrame.output("Deleting post " + intrahash);
-                entry.clearField("intrahash");
+                entry.clearField(FieldName.INTRAHASH);
             } catch (Exception ex) {
                 LOG.error("Failed deleting post " + intrahash);
             }

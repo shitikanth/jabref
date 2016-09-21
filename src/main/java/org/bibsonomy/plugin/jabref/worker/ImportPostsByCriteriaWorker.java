@@ -70,8 +70,6 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
         int numberOfPosts = 0, start = 0, end = BibsonomyProperties.getNumberOfPostsPerRequest(), cycle = 0, numberOfPostsPerRequest = BibsonomyProperties.getNumberOfPostsPerRequest();
         boolean continueFetching = false;
         do {
-            numberOfPosts = 0;
-
             List<String> tags = null;
             String search = null;
             switch (type) {
@@ -100,9 +98,9 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
                         Optional<String> optUserName = bibEntry.getField(FieldName.USERNAME);
                         if (optUserName.isPresent()) {
                             if (!BibsonomyProperties.getUsername().equals(optUserName.get())) {
-                                bibEntry.clearField("intrahash");
+                                bibEntry.clearField(FieldName.INTRAHASH);
                                 bibEntry.clearField(FieldName.FILE);
-                                bibEntry.clearField("owner");
+                                bibEntry.clearField(FieldName.OWNER);
                             }
                         }
                         dialog.addEntry(bibEntry);

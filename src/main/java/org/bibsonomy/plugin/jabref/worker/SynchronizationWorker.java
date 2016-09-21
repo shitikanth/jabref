@@ -3,12 +3,14 @@ package org.bibsonomy.plugin.jabref.worker;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JOptionPane;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.model.database.BibDatabase;
 import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.model.entry.FieldName;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,27 +42,22 @@ public class SynchronizationWorker extends AbstractPluginWorker {
         super(jabRefFrame);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see net.sf.jabref.Worker#run()
-     */
     public void run() {
 
         // Database Object. All operations are performed on this
         final BibDatabase bibDatabase = this.jabRefFrame.getCurrentBasePanel().getDatabase();
 
         // Set for the entries we have fetched from Bibsonomy
-        final HashSet<BibEntry> newEntries = new HashSet<BibEntry>();
+        final HashSet<BibEntry> newEntries = new HashSet<>();
 
         // Set of id to be removed from the database
-        final HashSet<BibEntry> removeIds = new HashSet<BibEntry>();
+        final HashSet<BibEntry> removeIds = new HashSet<>();
 
         LogicInterface logic = getLogic();
         // Iterate over all entries in the database
         for (final BibEntry entry : bibDatabase.getEntries()) {
 
-            final String intrahash = entry.getField("intrahash").get();
+            final String intrahash = entry.getField(FieldName.INTRAHASH).get();
 
             // check if intrahash is present, otherwise go to next entry
             if ((intrahash == null) || (intrahash.length() == 0)) {
@@ -89,9 +86,8 @@ public class SynchronizationWorker extends AbstractPluginWorker {
                         case CompareDialog.KEEP_LOCAL:
 
                             //We have to take intrahash of the incoming Post from Bibsonomy to export entries
-                            entry.setField("intrahash", post.getResource().getIntraHash());
-                            //FIXME - also Interhash?
-                            entry.setField("interhash", post.getResource().getInterHash());
+                            entry.setField(FieldName.INTRAHASH, post.getResource().getIntraHash());
+                            entry.setField(FieldName.INTERHASH, post.getResource().getInterHash());
 
                             final List<BibEntry> entries = new LinkedList<BibEntry>();
                             entries.add(entry);

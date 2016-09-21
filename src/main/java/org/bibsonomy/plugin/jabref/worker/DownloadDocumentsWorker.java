@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.model.entry.FieldName;
 
 import ca.odell.glazedlists.BasicEventList;
 import org.apache.commons.logging.Log;
@@ -45,7 +46,7 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
         }
 
 
-        String intrahash = entry.getField("intrahash").get();
+        String intrahash = entry.getField(FieldName.INTRAHASH).get();
         if (intrahash != null && !"".equals(intrahash)) {
             final Post<? extends Resource> post;
             try {
