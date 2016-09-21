@@ -90,9 +90,16 @@ public class JabRefModelConverter {
         return entries;
     }
 
-    public static Optional<BibEntry> converPostOptional(final Post<? extends Resource> post){
+    /**
+     * Converts a BibSonomy post into a JabRef BibEntry
+     *
+     * @param post A Post you need to convert
+     * @return An optional BibEntry
+     * @since 3.7
+     */
+    public static Optional<BibEntry> converPostOptional(final Post<? extends Resource> post) {
         BibEntry entry = convertPost(post);
-        if(entry != null){
+        if (entry != null) {
             return Optional.of(entry);
         }
         return Optional.empty();
@@ -103,7 +110,7 @@ public class JabRefModelConverter {
      *
      * @param post
      * @return
-     * @deprecated Use Optionals
+     * @deprecated Use {@link #converPostOptional(Post)}
      */
     @Deprecated
     public static BibEntry convertPost(final Post<? extends Resource> post) {
@@ -111,31 +118,30 @@ public class JabRefModelConverter {
         try {
             // what we have
             final BibTex bibtex = (BibTex) post.getResource();
+
             // what we want
             final BibEntry entry = new BibEntry();
-            /*
-             * each entry needs an ID (otherwise we get a NPE) ... let JabRef
-			 * generate it
-			 */
+
+            // JabRef generates an ID for the entry
             copyStringProperties(entry, bibtex);
 
             List<String> authorString = new LinkedList<>();
-            for(PersonName person : bibtex.getAuthor()){
+            for (PersonName person : bibtex.getAuthor()) {
                 authorString.add(person.toString());
             }
-            if(!authorString.isEmpty()){
+            if (!authorString.isEmpty()) {
                 entry.setField(FieldName.AUTHOR, net.sf.jabref.logic.util.strings.StringUtil.stripBrackets(authorString.toString()));
-            }else{
+            } else {
                 entry.clearField(FieldName.AUTHOR);
             }
 
             List<String> editorString = new LinkedList<>();
-            for(PersonName person : bibtex.getEditor()){
+            for (PersonName person : bibtex.getEditor()) {
                 editorString.add(person.toString());
             }
-            if(!editorString.isEmpty()){
+            if (!editorString.isEmpty()) {
                 entry.setField(FieldName.EDITOR, net.sf.jabref.logic.util.strings.StringUtil.stripBrackets(editorString.toString()));
-            }else{
+            } else {
                 entry.clearField(FieldName.EDITOR);
             }
 
@@ -146,7 +152,7 @@ public class JabRefModelConverter {
 			 * FIXME: a nicer solution would be to implement the corresponding classes for the missing entrytypes.
 			 */
             Optional<EntryType> optEntryType = BibtexEntryTypes.getType(bibtex.getEntrytype());
-            if(optEntryType.isPresent()) {
+            if (optEntryType.isPresent()) {
                 final EntryType entryType = optEntryType.get();
                 entry.setType(entryType == null ? BibtexEntryTypes.MISC : entryType);
 
@@ -174,7 +180,7 @@ public class JabRefModelConverter {
                 }
 
                 if (present(post.getUser()))
-                    entry.setField("username", post.getUser().getName());
+                    entry.setField(FieldName.USERNAME, post.getUser().getName());
 
                 return entry;
             }
@@ -200,7 +206,7 @@ public class JabRefModelConverter {
     }
 
     public static void copyTags(final BibEntry entry, final Post<? extends Resource> post) {
-		/*
+        /*
 		 * concatenate tags using the JabRef keyword separator
 		 */
         final Set<Tag> tags = post.getTags();
@@ -306,9 +312,18 @@ public class JabRefModelConverter {
 
         final List<String> knownFields = copyStringPropertiesToBibsonomyModel(bibtex, entry);
 
+        Optional<String> authorName = entry.getField(FieldName.AUTHOR);
+        Optional<String> editorName = entry.getField(FieldName.EDITOR);
+
+
         try {
-            bibtex.setAuthor(PersonNameUtils.discoverPersonNames(entry.getField(FieldName.AUTHOR).get()));
-            bibtex.setEditor(PersonNameUtils.discoverPersonNames(entry.getField(FieldName.EDITOR).get()));
+            if (authorName.isPresent()) {
+                bibtex.setAuthor(PersonNameUtils.discoverPersonNames(authorName.get()));
+            }
+
+            if (editorName.isPresent()) {
+                bibtex.setEditor(PersonNameUtils.discoverPersonNames(editorName.get()));
+            }
         } catch (PersonListParserException e) {
             ExceptionUtils.logErrorAndThrowRuntimeException(LOGGER, e, "Could not convert person names");
         }
@@ -319,8 +334,9 @@ public class JabRefModelConverter {
         //TODO: Check differences between getAllFields() and getFieldsNames()
         // add unknown Properties to misc
         entry.getFieldNames().forEach(field -> {
-            if (!knownFields.contains(field) && !JabRefModelConverter.EXCLUDE_FIELDS.contains(field) && !field.startsWith("__")) {
-                bibtex.addMiscField(field, entry.getField(field).get());
+            Optional<String> fieldName = entry.getField(field);
+            if (!knownFields.contains(field) && !JabRefModelConverter.EXCLUDE_FIELDS.contains(field) && !field.startsWith("__") && fieldName.isPresent()) {
+                bibtex.addMiscField(field, fieldName.get());
             }
         });
 
@@ -342,8 +358,7 @@ public class JabRefModelConverter {
                 post.setDate(jabrefDateFormat.parse(timestamp));
             } catch (ParseException ex) {
                 LOGGER.debug("Could not parse Jabref date format - set date to NULL");
-                post.setDate(null); // this is null anyway, but just to make
-                // it clear
+                post.setDate(null); // this is null anyway, but just to make it clear
             }
         }
 
@@ -359,9 +374,8 @@ public class JabRefModelConverter {
             }
         }
 
-        //TODO: Find FieldName that equals username
-        if (present(entry.getField("username")))
-            post.setUser(new User(StringUtil.toUTF8(entry.getField("username").get())));
+        if (present(entry.getField(FieldName.USERNAME)))
+            post.setUser(new User(StringUtil.toUTF8(entry.getField(FieldName.USERNAME).get())));
 
         // Set the groups
         if (present(entry.getField(FieldName.GROUPS))) {

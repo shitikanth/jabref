@@ -2,6 +2,7 @@ package org.bibsonomy.plugin.jabref.worker;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +79,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
                     if (criteria.contains(" ")) {
                         tags = Arrays.asList(criteria.split("\\s"));
                     } else {
-                        tags = Arrays.asList(criteria);
+                        tags = Collections.singletonList(criteria);
                     }
                     break;
                 case FULL_TEXT:
@@ -96,7 +97,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
                     if(entry.isPresent()){
                         BibEntry bibEntry = entry.get();
                         // clear fields if the fetched posts does not belong to the user
-                        Optional<String> optUserName = bibEntry.getField("username");
+                        Optional<String> optUserName = bibEntry.getField(FieldName.USERNAME);
                         if (optUserName.isPresent()) {
                             if (!BibsonomyProperties.getUsername().equals(optUserName.get())) {
                                 bibEntry.clearField("intrahash");

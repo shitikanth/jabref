@@ -3,7 +3,6 @@ package org.bibsonomy.plugin.jabref.util;
 import java.util.List;
 
 import net.sf.jabref.Globals;
-import net.sf.jabref.MetaData;
 import net.sf.jabref.gui.JabRefFrame;
 
 public class JabRefGlobalsHelper {

@@ -42,7 +42,7 @@ public class ExportWorker extends AbstractPluginWorker {
                     entry.setField("groups", BibsonomyProperties.getDefaultVisibilty());
                 }
 
-                entry.setField("username", BibsonomyProperties.getUsername());
+                entry.setField(FieldName.USERNAME, BibsonomyProperties.getUsername());
                 String owner = entry.getField(FieldName.OWNER).get();
                 entry.clearField(FieldName.OWNER);
 

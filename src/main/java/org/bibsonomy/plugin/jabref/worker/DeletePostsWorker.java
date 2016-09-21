@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import net.sf.jabref.gui.JabRefFrame;
 import net.sf.jabref.model.entry.BibEntry;
+import net.sf.jabref.model.entry.FieldName;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,7 +24,7 @@ public class DeletePostsWorker extends AbstractPluginWorker {
     public void run() {
         for (BibEntry entry : entries) {
             final String intrahash = entry.getField("intrahash").get();
-            final String username = entry.getField("username").get();
+            final String username = entry.getField(FieldName.USERNAME).get();
             if ((intrahash == null) || ("".equals(intrahash)) || ((intrahash != null) && !(BibsonomyProperties.getUsername().equals(username)))) {
                 continue;
             }

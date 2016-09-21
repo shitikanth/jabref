@@ -10,9 +10,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
+import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.plugin.jabref.gui.OrderComboBoxItem;
-import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
 /**
  * {@link ClosePluginSettingsDialogBySaveAction} saves the properties and closes the {@link BibsonomySettingsDialog}.

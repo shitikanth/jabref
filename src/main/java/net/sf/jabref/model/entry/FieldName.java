@@ -96,6 +96,7 @@ public class FieldName {
     public static final String URI = "uri";
     public static final String URL = "url";
     public static final String URLDATE = "urldate";
+    public static final String USERNAME = "username";
     public static final String VERSION = "version";
     public static final String VOLUME = "volume";
     public static final String VOLUMES = "volumes";
