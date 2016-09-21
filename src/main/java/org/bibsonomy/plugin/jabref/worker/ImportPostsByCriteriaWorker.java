@@ -91,19 +91,21 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
                 final Collection<Post<BibTex>> result = getLogic().getPosts(BibTex.class, grouping, groupingValue, tags, null, search, null, null, null, null, null, start, end);
                 for (Post<? extends Resource> post : result) {
                     dialog.setProgress(numberOfPosts++, numberOfPostsPerRequest);
-                    BibEntry entry = JabRefModelConverter.convertPost(post);
+                    Optional<BibEntry> entry = JabRefModelConverter.converPostOptional(post);
 
-                    // clear fields if the fetched posts does not belong to the user
-                    Optional<String> optUserName = entry.getField("username");
-                    if (optUserName.isPresent()) {
-                        if (!BibsonomyProperties.getUsername().equals(optUserName.get())) {
-                            entry.clearField("intrahash");
-                            entry.clearField(FieldName.FILE);
-                            entry.clearField("owner");
+                    if(entry.isPresent()){
+                        BibEntry bibEntry = entry.get();
+                        // clear fields if the fetched posts does not belong to the user
+                        Optional<String> optUserName = bibEntry.getField("username");
+                        if (optUserName.isPresent()) {
+                            if (!BibsonomyProperties.getUsername().equals(optUserName.get())) {
+                                bibEntry.clearField("intrahash");
+                                bibEntry.clearField(FieldName.FILE);
+                                bibEntry.clearField("owner");
+                            }
                         }
+                        dialog.addEntry(bibEntry);
                     }
-
-                    dialog.addEntry(entry);
                 }
 
                 if (!continueFetching) {
@@ -136,6 +138,7 @@ public class ImportPostsByCriteriaWorker extends AbstractPluginWorker {
 
                 cycle++;
             } catch (AuthenticationException ex) {
+                LOGGER.warn(ex.getLocalizedMessage(), ex);
                 (new ShowSettingsDialogAction((JabRefFrame) dialog.getOwner())).actionPerformed(null);
             }
         } while (fetchNext() && numberOfPosts >= numberOfPostsPerRequest);

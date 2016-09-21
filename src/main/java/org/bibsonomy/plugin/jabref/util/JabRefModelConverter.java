@@ -90,12 +90,22 @@ public class JabRefModelConverter {
         return entries;
     }
 
+    public static Optional<BibEntry> converPostOptional(final Post<? extends Resource> post){
+        BibEntry entry = convertPost(post);
+        if(entry != null){
+            return Optional.of(entry);
+        }
+        return Optional.empty();
+    }
+
     /**
      * Converts a BibSonomy post into a JabRef BibEntry
      *
      * @param post
      * @return
+     * @deprecated Use Optionals
      */
+    @Deprecated
     public static BibEntry convertPost(final Post<? extends Resource> post) {
 
         try {
@@ -133,8 +143,7 @@ public class JabRefModelConverter {
              * convert entry type (Is never null but getType() returns null for
 			 * unknown types and JabRef knows less types than we.)
 			 * 
-			 * FIXME: a nicer solution would be to implement the corresponding
-			 * classes for the missing entrytypes.
+			 * FIXME: a nicer solution would be to implement the corresponding classes for the missing entrytypes.
 			 */
             Optional<EntryType> optEntryType = BibtexEntryTypes.getType(bibtex.getEntrytype());
             if(optEntryType.isPresent()) {
