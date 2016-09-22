@@ -15,17 +15,13 @@ import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ImportAllMyPostsAction extends AbstractPluginAction {
+public class ImportAllMyPostsAction extends AbstractBibsonomyAction {
 
     public ImportAllMyPostsAction(JabRefFrame jabRefFrame) {
-
         super(jabRefFrame);
     }
 
-    private static final long serialVersionUID = -6627950788884668738L;
-
     public void actionPerformed(ActionEvent e) {
-
         ImportPostsByCriteriaWorker worker = new ImportPostsByCriteriaWorker(getJabRefFrame(), "", SearchType.FULL_TEXT, GroupingEntity.USER, BibsonomyProperties.getUsername(), true);
         performAsynchronously(worker);
     }

@@ -35,7 +35,6 @@ class ComboBoxItem<K> {
 
     @Override
     public String toString() {
-
         return getValue();
     }
 

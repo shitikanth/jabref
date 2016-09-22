@@ -2,7 +2,7 @@ package org.bibsonomy.plugin.jabref.util;
 
 import net.sf.jabref.gui.importer.ImportInspectionDialog;
 
-import org.bibsonomy.plugin.jabref.worker.AbstractPluginWorker;
+import org.bibsonomy.plugin.jabref.worker.AbstractBibsonomyWorker;
 
 /**
  * {@link BibsonomyCallBack} is a util to stop execution of workers
@@ -11,17 +11,15 @@ import org.bibsonomy.plugin.jabref.worker.AbstractPluginWorker;
  */
 public class BibsonomyCallBack implements ImportInspectionDialog.CallBack {
 
-    private AbstractPluginWorker worker;
+    private AbstractBibsonomyWorker worker;
 
     public void stopFetching() {
-
         if (worker != null)
             worker.stopFetching();
 
     }
 
-    public BibsonomyCallBack(AbstractPluginWorker pluginWorker) {
-
+    public BibsonomyCallBack(AbstractBibsonomyWorker pluginWorker) {
         this.worker = pluginWorker;
     }
 }

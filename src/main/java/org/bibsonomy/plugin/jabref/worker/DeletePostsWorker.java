@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref.worker;
 import java.util.Arrays;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FieldName;
 
@@ -15,9 +16,9 @@ import org.bibsonomy.plugin.jabref.BibsonomyProperties;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class DeletePostsWorker extends AbstractPluginWorker {
+public class DeletePostsWorker extends AbstractBibsonomyWorker {
 
-    private static final Log LOG = LogFactory.getLog(DeletePostsWorker.class);
+    private static final Log LOGGER = LogFactory.getLog(DeletePostsWorker.class);
 
     private BibEntry[] entries;
 
@@ -31,13 +32,13 @@ public class DeletePostsWorker extends AbstractPluginWorker {
 
             try {
                 getLogic().deletePosts(BibsonomyProperties.getUsername(), Arrays.asList(intrahash));
-                jabRefFrame.output("Deleting post " + intrahash);
+                jabRefFrame.output(Localization.lang("Deleting post %0", intrahash));
                 entry.clearField(FieldName.INTRAHASH);
             } catch (Exception ex) {
-                LOG.error("Failed deleting post " + intrahash);
+                LOGGER.error(Localization.lang("Failed deleting post %0", intrahash));
             }
         }
-        jabRefFrame.output("Done.");
+        jabRefFrame.output(Localization.lang("Done"));
     }
 
     public DeletePostsWorker(JabRefFrame jabRefFrame, BibEntry[] entries) {

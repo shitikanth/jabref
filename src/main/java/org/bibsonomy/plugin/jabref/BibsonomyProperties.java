@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.commons.logging.Log;
@@ -17,20 +18,15 @@ import org.bibsonomy.model.enums.Order;
  */
 public class BibsonomyProperties extends Properties {
 
-    private static final long serialVersionUID = 5420450194355211249L;
-
     private static final Log LOGGER = LogFactory.getLog(BibsonomyProperties.class);
 
-    /**
-     * API properties
-     */
+    //API properties
     private static final String API_URL = "api.url";
     private static final String API_USERNAME = "api.username";
     private static final String API_KEY = "api.key";
 
-    /**
-     * Plugin properties
-     */
+
+    //Plugin properties
     private static final String PLUGIN_SAVE_API_KEY = "plugin.saveapikey";
     private static final String PLUGIN_DOCUMENTS_IMPORT = "plugin.documents.import";
     private static final String PLUGIN_DOCUMENTS_EXPORT = "plugin.documents.export";
@@ -64,10 +60,8 @@ public class BibsonomyProperties extends Properties {
      * @return singleton of {@link BibsonomyProperties}
      */
     public static BibsonomyProperties getInstance() {
-
         if (INSTANCE == null)
             INSTANCE = new BibsonomyProperties();
-
         return INSTANCE;
     }
 
@@ -75,7 +69,6 @@ public class BibsonomyProperties extends Properties {
      * The constructor reads the properties from the file system.
      */
     private BibsonomyProperties() {
-
         try {
             File propertiesFile = new File(PROPERTIES_FILE);
             if (propertiesFile.exists() && propertiesFile.isFile())
@@ -90,16 +83,14 @@ public class BibsonomyProperties extends Properties {
      * Checks if the option to store the API is checked.
      */
     public static void save() {
-
         String apiKey = getApiKey();
         if (!getStoreApiKey())
             setApiKey(""); //set the api key to empty string
         //if user does not want to save api key
         try {
-
             getInstance().store(new FileOutputStream(PROPERTIES_FILE), "");
-        } catch (Exception ex) {
-
+        } catch (IOException e) {
+            //TODO: C:\Users\Sascha\.jabref\plugins\bibsonomy-plugin.properties (Das System kann den angegebenen Pfad nicht finden)
             LOGGER.error("Failed saving properties file");
         }
         //set api key back to its actual value
@@ -107,42 +98,34 @@ public class BibsonomyProperties extends Properties {
     }
 
     public static boolean ignoreNoTagsAssigned() {
-
         return Boolean.valueOf(getInstance().getProperty(PLUGIN_TAGS_IGNORE_NO_TAGS, "false"));
     }
 
     public static String getUsername() {
-
         return getInstance().getProperty(API_USERNAME, BibsonomyGlobals.API_USERNAME);
     }
 
     public static String getApiKey() {
-
         return getInstance().getProperty(API_KEY, BibsonomyGlobals.API_KEY);
     }
 
     public static String getApiUrl() {
-
         return getInstance().getProperty(API_URL, BibsonomyGlobals.API_URL);
     }
 
     public static boolean getDownloadDocumentsOnImport() {
-
         return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_DOCUMENTS_IMPORT, "true"));
     }
 
     public static int getNumberOfPostsPerRequest() {
-
         return Integer.parseInt(getInstance().getProperty(PLUGIN_NUMBER_OF_POSTS_PER_REQUEST, BibsonomyGlobals.PLUGIN_NUMBER_OF_POSTS_PER_REQUEST));
     }
 
     public static boolean getIgnoreMorePostsWarning() {
-
         return Boolean.parseBoolean(getInstance().getProperty(PLUGIN_IGNORE_WARNING_MORE_POSTS, "false"));
     }
 
     public static String getExtraTabFields() {
-
         return getInstance().getProperty(PLUGIN_EXTRA_TAB_FIELDS, "issn;isbn");
     }
 

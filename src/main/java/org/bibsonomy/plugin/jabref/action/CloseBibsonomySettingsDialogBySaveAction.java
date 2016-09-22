@@ -9,20 +9,20 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import net.sf.jabref.logic.l10n.Localization;
+
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
 import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 import org.bibsonomy.plugin.jabref.gui.GroupingComboBoxItem;
 import org.bibsonomy.plugin.jabref.gui.OrderComboBoxItem;
 
 /**
- * {@link ClosePluginSettingsDialogBySaveAction} saves the properties and closes the {@link BibsonomySettingsDialog}.
+ * {@link CloseBibsonomySettingsDialogBySaveAction} saves the properties and closes the {@link BibsonomySettingsDialog}.
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ClosePluginSettingsDialogBySaveAction extends AbstractAction {
+public class CloseBibsonomySettingsDialogBySaveAction extends AbstractAction {
 
-
-    private static final long serialVersionUID = 2629139512763809317L;
     private JTextField apiUrl;
     private JTextField username;
     private JTextField apiKey;
@@ -70,14 +70,14 @@ public class ClosePluginSettingsDialogBySaveAction extends AbstractAction {
         settingsDialog.setVisible(false);
     }
 
-    public ClosePluginSettingsDialogBySaveAction(BibsonomySettingsDialog settingsDialog, JTextField apiUrl, JTextField username, JTextField apiKey,
-                                                 JCheckBox saveApiKey, JSpinner numberOfPosts,
-                                                 JSpinner tagCloudSize, JCheckBox ignoreNoTagsAssigned,
-                                                 JCheckBox updateTags, JCheckBox uploadDocuments,
-                                                 JCheckBox downloadDocuments, JComboBox<?> visibility,
-                                                 JCheckBox morePosts, JTextField extraFields, JComboBox<?> order) {
+    public CloseBibsonomySettingsDialogBySaveAction(BibsonomySettingsDialog settingsDialog, JTextField apiUrl, JTextField username, JTextField apiKey,
+                                                    JCheckBox saveApiKey, JSpinner numberOfPosts,
+                                                    JSpinner tagCloudSize, JCheckBox ignoreNoTagsAssigned,
+                                                    JCheckBox updateTags, JCheckBox uploadDocuments,
+                                                    JCheckBox downloadDocuments, JComboBox<?> visibility,
+                                                    JCheckBox morePosts, JTextField extraFields, JComboBox<?> order) {
 
-        super("Save", new ImageIcon(ClosePluginSettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
+        super(Localization.lang("Save"), new ImageIcon(CloseBibsonomySettingsDialogBySaveAction.class.getResource("/images/images/disk-black.png")));
         this.apiUrl = apiUrl;
         this.settingsDialog = settingsDialog;
         this.username = username;

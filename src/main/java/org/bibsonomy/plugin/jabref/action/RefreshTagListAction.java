@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
@@ -21,9 +22,7 @@ import org.bibsonomy.plugin.jabref.worker.UpdateVisibilityWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class RefreshTagListAction extends AbstractPluginAction {
-
-    private static final long serialVersionUID = 3285344367883492911L;
+public class RefreshTagListAction extends AbstractBibsonomyAction {
 
     private static List<GroupingComboBoxItem> defaultGroupings;
 
@@ -32,7 +31,6 @@ public class RefreshTagListAction extends AbstractPluginAction {
     private JComboBox<? super GroupingComboBoxItem> groupingComboBox;
 
     public void actionPerformed(ActionEvent e) {
-
         // refresh the tag cloud
         RefreshTagListWorker worker = new RefreshTagListWorker(getJabRefFrame(), tagCloud, ((GroupingComboBoxItem) groupingComboBox.getSelectedItem()).getKey(), ((GroupingComboBoxItem) groupingComboBox.getSelectedItem()).getValue());
         performAsynchronously(worker);
@@ -43,8 +41,7 @@ public class RefreshTagListAction extends AbstractPluginAction {
     }
 
     public RefreshTagListAction(JabRefFrame jabRefFrame, JEditorPane tagCloud, JComboBox<? super GroupingComboBoxItem> groupingComboBox) {
-
-        super(jabRefFrame, "Refresh", new ImageIcon(RefreshTagListAction.class.getResource("/images/images/arrow-circle-225.png")));
+        super(jabRefFrame, Localization.lang("Refresh"), new ImageIcon(RefreshTagListAction.class.getResource("/images/images/arrow-circle-225.png")));
         this.tagCloud = tagCloud;
 
         this.groupingComboBox = groupingComboBox;

@@ -47,9 +47,21 @@ public class JabRefGlobalsHelper {
         return getMetaDataValue(jabRefFrame, "psDirectory");
     }
 
+    /**
+     * Use {@link #getMetaDataValue(String)} instead
+     */
+    @Deprecated
     private static String getMetaDataValue(JabRefFrame jabRefFrame, String key) {
         //TODO: Find Meta Data
         //MetaData metaData = jabRefFrame.getCurrentBasePanel().metaData();
+        List<String> fileDI = BibsonomyMetaData.getMetaData().getData(key);
+        if (fileDI != null && fileDI.size() >= 1) {
+            return fileDI.get(0).trim();
+        }
+        return null;
+    }
+
+    private static String getMetaDataValue(String key) {
         List<String> fileDI = BibsonomyMetaData.getMetaData().getData(key);
         if (fileDI != null && fileDI.size() >= 1) {
             return fileDI.get(0).trim();

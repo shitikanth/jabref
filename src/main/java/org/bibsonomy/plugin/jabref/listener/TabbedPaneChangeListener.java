@@ -18,7 +18,8 @@ import org.apache.commons.logging.LogFactory;
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
 public class TabbedPaneChangeListener implements ChangeListener {
-    private static final Log log = LogFactory.getLog(TabbedPaneChangeListener.class);
+
+    private static final Log LOGGER = LogFactory.getLog(TabbedPaneChangeListener.class);
 
     private BibsonomyDataBaseChangeListener databaseChangeListener;
 
@@ -31,17 +32,17 @@ public class TabbedPaneChangeListener implements ChangeListener {
                 if (basePanel.getDatabase() != null) {
                     basePanel.getDatabase().registerListener(databaseChangeListener);
                 } else {
-                    log.warn("found tab-component without database");
+                    LOGGER.warn("found tab-component without database");
                 }
             }
             if (components.length == 0) {
-                log.info("pane has no tab-components");
+                LOGGER.info("pane has no tab-components");
             }
         }
     }
 
-    public TabbedPaneChangeListener(BibsonomyDataBaseChangeListener l) {
-        this.databaseChangeListener = l;
+    public TabbedPaneChangeListener(BibsonomyDataBaseChangeListener databaseChangeListener) {
+        this.databaseChangeListener = databaseChangeListener;
     }
 
 }

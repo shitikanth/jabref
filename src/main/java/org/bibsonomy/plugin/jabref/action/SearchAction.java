@@ -18,18 +18,13 @@ import org.bibsonomy.plugin.jabref.worker.ImportPostsByCriteriaWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class SearchAction extends AbstractPluginAction {
-
-    private static final long serialVersionUID = -2051315699879554553L;
+public class SearchAction extends AbstractBibsonomyAction {
 
     private JTextField searchTextField;
-
     private JComboBox<?> searchTypeComboBox;
-
     private JComboBox<?> groupingComboBox;
 
     public void actionPerformed(ActionEvent e) {
-
         SearchType searchType = ((SearchTypeComboBoxItem) searchTypeComboBox.getSelectedItem()).getKey();
         String criteria = searchTextField.getText();
 
@@ -40,7 +35,6 @@ public class SearchAction extends AbstractPluginAction {
     }
 
     public SearchAction(JabRefFrame jabRefFrame, JTextField searchTextField, JComboBox<?> searchTypeComboBox, JComboBox<?> groupingComboBox) {
-
         super(jabRefFrame, "", new ImageIcon(SearchAction.class.getResource("/images/images/magnifier.png")));
 
         this.searchTextField = searchTextField;

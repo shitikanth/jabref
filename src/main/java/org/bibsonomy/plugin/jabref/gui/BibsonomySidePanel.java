@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.plugin.jabref.BibsonomyProperties;
@@ -118,7 +119,7 @@ public class BibsonomySidePanel extends JPanel {
             gridBagConstraints2.gridx = 1;
             controlsPanel = new JPanel();
             controlsPanel.setLayout(new GridBagLayout());
-            controlsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, "Search", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
+            controlsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, Localization.lang("Search"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
             controlsPanel.add(getSearchTextField(), gridBagConstraints2);
             controlsPanel.add(getSearchTypeComboBox(), gridBagConstraints1);
             controlsPanel.add(getSearchButton(), gridBagConstraints3);
@@ -144,15 +145,13 @@ public class BibsonomySidePanel extends JPanel {
      * @return javax.swing.JComboBox
      */
     private JComboBox<?> getSearchTypeComboBox() {
-        if (searchTypeComboBox == null) {
 
+        if (searchTypeComboBox == null) {
             SearchTypeComboBoxItem[] items = new SearchTypeComboBoxItem[]{
-                    new SearchTypeComboBoxItem(SearchType.FULL_TEXT, "Full text"),
-                    new SearchTypeComboBoxItem(SearchType.TAGS, "Tag")
+                    new SearchTypeComboBoxItem(SearchType.FULL_TEXT, Localization.lang("Full text")),
+                    new SearchTypeComboBoxItem(SearchType.TAGS, Localization.lang("Tag"))
             };
             searchTypeComboBox = new JComboBox<Object>(items);
-
-
         }
         return searchTypeComboBox;
     }
@@ -202,7 +201,7 @@ public class BibsonomySidePanel extends JPanel {
             gridBagConstraints6.gridy = 5;
             tagsPanel = new JPanel();
             tagsPanel.setLayout(new GridBagLayout());
-            tagsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, "Tags", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
+            tagsPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, Localization.lang("Tag"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
             tagsPanel.add(getTagsUpdateButton(), gridBagConstraints6);
             tagsPanel.add(getTagListScrollPane(), gridBagConstraints12);
         }
@@ -237,7 +236,7 @@ public class BibsonomySidePanel extends JPanel {
             gridBagConstraints7.gridx = 0;
             visibilityPanel = new JPanel();
             visibilityPanel.setLayout(new GridBagLayout());
-            visibilityPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, "Import posts from...", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
+            visibilityPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(null, Localization.lang("Import posts from..."), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", Font.BOLD, 12), new Color(51, 51, 51)), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
             visibilityPanel.add(getVisibilityComboBox(), gridBagConstraints7);
         }
         return visibilityPanel;

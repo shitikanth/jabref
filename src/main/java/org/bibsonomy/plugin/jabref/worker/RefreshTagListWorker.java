@@ -7,6 +7,7 @@ import javax.swing.JEditorPane;
 
 import net.sf.jabref.MetaData;
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 
 import org.bibsonomy.common.enums.GroupingEntity;
 import org.bibsonomy.model.BibTex;
@@ -20,7 +21,7 @@ import org.bibsonomy.plugin.jabref.util.BibsonomyMetaData;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class RefreshTagListWorker extends AbstractPluginWorker {
+public class RefreshTagListWorker extends AbstractBibsonomyWorker {
 
 //	private static final Log LOG = LogFactory.getLog(RefreshTagListWorker.class);
 
@@ -87,7 +88,7 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
 
             if (keywords != null)
                 keywords.add(tag.getName());
-            jabRefFrame.output("Added tag: " + tag.getName());
+            jabRefFrame.output(Localization.lang("Added tag: %0", tag.getName() ));
 
             switch (grouping) {
 
@@ -120,8 +121,7 @@ public class RefreshTagListWorker extends AbstractPluginWorker {
         if (metaData != null && keywords != null) {
             metaData.putData(MetaData.SELECTOR_META_PREFIX + "keywords", keywords);
         }
-
-        jabRefFrame.output("Done.");
+        jabRefFrame.output(Localization.lang("Done"));
     }
 
 }

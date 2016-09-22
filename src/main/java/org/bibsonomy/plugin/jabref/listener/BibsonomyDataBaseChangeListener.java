@@ -25,7 +25,6 @@ public class BibsonomyDataBaseChangeListener {
     private final ExecutorService threadPool;
 
     public BibsonomyDataBaseChangeListener(JabRefFrame jabRefFrame) {
-
         this.jabRefFrame = jabRefFrame;
 
         threadPool = Executors.newSingleThreadExecutor();

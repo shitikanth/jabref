@@ -3,6 +3,7 @@ package org.bibsonomy.plugin.jabref.worker;
 import java.net.URLEncoder;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FieldName;
 
@@ -23,9 +24,9 @@ import org.bibsonomy.util.file.FileUtil;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class DownloadDocumentsWorker extends AbstractPluginWorker {
+public class DownloadDocumentsWorker extends AbstractBibsonomyWorker {
 
-    private static final Log LOG = LogFactory.getLog(DownloadDocumentsWorker.class);
+    private static final Log LOGGER = LogFactory.getLog(DownloadDocumentsWorker.class);
 
     private static final String BIBTEX_FILE_FIELD = "file";
 
@@ -55,22 +56,22 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
                 (new ShowSettingsDialogAction(jabRefFrame)).actionPerformed(null);
                 return;
             } catch (Exception e) {
-                LOG.error("Failed getting details for post " + intrahash, e);
-                jabRefFrame.output("Failed getting details for post.");
+                LOGGER.error("Failed getting details for post " + intrahash, e);
+                jabRefFrame.output(Localization.lang("Failed getting details for post."));
                 return;
             }
             Resource r = post.getResource();
             if (!(r instanceof BibTex)) {
-                LOG.warn("requested resource with intrahash '" + intrahash + "' is not bibtex");
-                jabRefFrame.output("Error: Invalid Resourcetype.");
+                LOGGER.warn("requested resource with intrahash '" + intrahash + "' is not bibtex");
+                jabRefFrame.output(Localization.lang("Error: Invalid Resourcetype."));
                 return;
             }
             for (Document document : ((BibTex) r).getDocuments()) {
-                jabRefFrame.output("Downloading: " + document.getFileName());
+                jabRefFrame.output(Localization.lang("Downloading: %0", document.getFileName()));
                 try {
                     getLogic().getDocument(BibsonomyProperties.getUsername(), intrahash, URLEncoder.encode(document.getFileName(), "UTF-8"));
                 } catch (Exception ex) {
-                    LOG.error("Failed downloading file: " + document.getFileName(), ex);
+                    LOGGER.error("Failed downloading file: " + document.getFileName(), ex);
                 }
 
                 try {
@@ -91,12 +92,10 @@ public class DownloadDocumentsWorker extends AbstractPluginWorker {
                 } catch (AuthenticationException e) {
                     (new ShowSettingsDialogAction(jabRefFrame)).actionPerformed(null);
                 } catch (Exception e) {
-                    LOG.error("Failed adding file to entry " + entry.getCiteKey(), e);
+                    LOGGER.error("Failed adding file to entry " + entry.getCiteKeyOptional().get(), e);
                 }
-
             }
         }
-
-        jabRefFrame.output("Done.");
+        jabRefFrame.output(Localization.lang("Done"));
     }
 }

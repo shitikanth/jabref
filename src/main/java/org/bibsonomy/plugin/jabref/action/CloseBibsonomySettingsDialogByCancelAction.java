@@ -5,28 +5,26 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 
+import net.sf.jabref.logic.l10n.Localization;
+
 import org.bibsonomy.plugin.jabref.gui.BibsonomySettingsDialog;
 
 /**
- * {@link ClosePluginSettingsDialogByCancelAction} closes the {@link BibsonomySettingsDialog}
+ * {@link CloseBibsonomySettingsDialogByCancelAction} closes the {@link BibsonomySettingsDialog}
  * without saving the properties
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ClosePluginSettingsDialogByCancelAction extends AbstractAction {
-
-    private static final long serialVersionUID = -6587488658676754916L;
+public class CloseBibsonomySettingsDialogByCancelAction extends AbstractAction {
 
     private BibsonomySettingsDialog settingsDialog;
 
     public void actionPerformed(ActionEvent e) {
-
         settingsDialog.setVisible(false);
     }
 
-    public ClosePluginSettingsDialogByCancelAction(BibsonomySettingsDialog settingsDialog) {
-
-        super("Cancel", new ImageIcon(ClosePluginSettingsDialogByCancelAction.class.getResource("/images/images/cross.png")));
+    public CloseBibsonomySettingsDialogByCancelAction(BibsonomySettingsDialog settingsDialog) {
+        super(Localization.lang("Cancel"), new ImageIcon(CloseBibsonomySettingsDialogByCancelAction.class.getResource("/images/images/cross.png")));
         this.settingsDialog = settingsDialog;
     }
 

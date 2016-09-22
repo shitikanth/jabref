@@ -50,7 +50,8 @@ public class JabRefFileFactory extends MultiDirectoryFileFactory {
                 return fileDirs[0];
             }
         }
-*/
+        */
+
         return BibsonomyGlobals.PLUGIN_FILE_DIRECTORY;
     }
 

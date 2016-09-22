@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class BibtexEntryUtil {
 
-    private static final Log LOG = LogFactory.getLog(BibtexEntryUtil.class);
+    private static final Log LOGGER = LogFactory.getLog(BibtexEntryUtil.class);
 
     /**
      * Check the (string) equality of two BibTex entries
@@ -27,10 +27,10 @@ public class BibtexEntryUtil {
     public static boolean areEqual(final BibEntry firstBibEntry, final BibEntry secondBibEntry) {
         final Set<String> commonFields = firstBibEntry.getFieldNames();
         commonFields.addAll(secondBibEntry.getFieldNames());
-        LOG.debug("Total nr. of common fields: "
+        LOGGER.debug("Total nr. of common fields: "
                 + commonFields.size());
         for (final String field : commonFields) {
-            BibtexEntryUtil.LOG.debug("Comparing field: " + field);
+            BibtexEntryUtil.LOGGER.debug("Comparing field: " + field);
 
             // fields that should be ignored
             if ((field != null) && !field.startsWith("__")
@@ -40,14 +40,14 @@ public class BibtexEntryUtil {
                 // check if b1 lacks a field that b2 has
                 if (StringUtil.isEmpty(firstBibEntry.getField(field).get())
                         && !StringUtil.isEmpty(secondBibEntry.getField(field).get())) {
-                    LOG.debug("field " + field
+                    LOGGER.debug("field " + field
                             + " is null for b1 but not for b2");
                     return false;
                 }
                 // check if b2 lacks a field that b1 has
                 if (StringUtil.isEmpty(secondBibEntry.getField(field).get())
                         && !StringUtil.isEmpty(firstBibEntry.getField(field).get())) {
-                    LOG.debug("field " + field
+                    LOGGER.debug("field " + field
                             + " is null for b2 but not for b1");
                     return false;
                 }
@@ -58,7 +58,7 @@ public class BibtexEntryUtil {
                 }
                 // check for fields of b1 if they are the same in b2
                 if (!firstBibEntry.getField(field).equals(secondBibEntry.getField(field))) {
-                    LOG.debug("Found inequality for field: "
+                    LOGGER.debug("Found inequality for field: "
                             + field);
                     return false;
                 }

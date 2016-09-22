@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.entry.BibEntry;
 
 import org.apache.commons.logging.Log;
@@ -20,21 +21,14 @@ import org.bibsonomy.plugin.jabref.worker.ExportWorker;
  *
  * @author Waldemar Biller <biller@cs.uni-kassel.de>
  */
-public class ExportSelectedEntriesAction extends AbstractPluginAction {
+public class ExportSelectedEntriesAction extends AbstractBibsonomyAction {
 
-    private static final Log LOGGER = LogFactory
-            .getLog(ExportSelectedEntriesAction.class);
-
-    private static final long serialVersionUID = -3680150888244016437L;
+    private static final Log LOGGER = LogFactory.getLog(ExportSelectedEntriesAction.class);
 
     public void actionPerformed(ActionEvent e) {
-        /*
-         * fetch selected entries
-		 */
+
         List<BibEntry> entries = getJabRefFrame().getCurrentBasePanel().getSelectedEntries();
-		/*
-		 * check if they all have keywords
-		 */
+
         CheckTagsUtil ctu = new CheckTagsUtil(entries, getJabRefFrame());
         switch (ctu.hasAPostNoTagsAssigned()) {
             case JOptionPane.YES_OPTION:
@@ -47,13 +41,12 @@ public class ExportSelectedEntriesAction extends AbstractPluginAction {
                 break;
             default:
                 // happens when tags are missing, and user wants to cancel export
-                LOGGER.debug("Selected post have no tags assigned");
+                LOGGER.debug(Localization.lang("Selected post have no tags assigned"));
         }
 
     }
 
     public ExportSelectedEntriesAction(JabRefFrame jabRefFrame) {
-
-        super(jabRefFrame, "Export selected entries", new ImageIcon(ExportSelectedEntriesAction.class.getResource("/images/images/document--arrow.png")));
+        super(jabRefFrame, Localization.lang("Export selected entries"), new ImageIcon(ExportSelectedEntriesAction.class.getResource("/images/images/document--arrow.png")));
     }
 }

@@ -27,7 +27,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bibsonomy.model.BibTex;
 import org.bibsonomy.model.Group;
-import org.bibsonomy.model.PersonName;
 import org.bibsonomy.model.Post;
 import org.bibsonomy.model.Resource;
 import org.bibsonomy.model.Tag;
@@ -92,6 +91,8 @@ public class JabRefModelConverter {
 
     /**
      * Converts a BibSonomy post into a JabRef BibEntry
+     * <p>
+     * <<<<<<< HEAD
      *
      * @param post A Post you need to convert
      * @return An optional BibEntry
@@ -109,26 +110,25 @@ public class JabRefModelConverter {
      * Converts a BibSonomy post into a JabRef BibEntry
      *
      * @param post
-     * @return
+     * @param post The post you want to convert
+     * @return A compatible BibEntry for JabRef
+     * >>>>>>> 2eb4279ae67a111f9d2dea176c9ec338555b985f
      * @deprecated Use {@link #converPostOptional(Post)}
+     * =======
      */
     @Deprecated
     public static BibEntry convertPost(final Post<? extends Resource> post) {
 
         try {
-            // what we have
             final BibTex bibtex = (BibTex) post.getResource();
-
-            // what we want
             final BibEntry entry = new BibEntry();
 
             // JabRef generates an ID for the entry
             copyStringProperties(entry, bibtex);
 
             List<String> authorString = new LinkedList<>();
-            for (PersonName person : bibtex.getAuthor()) {
-                authorString.add(person.toString());
-            }
+
+            bibtex.getAuthor().forEach(author -> authorString.add(author.toString()));
             if (!authorString.isEmpty()) {
                 entry.setField(FieldName.AUTHOR, net.sf.jabref.logic.util.strings.StringUtil.stripBrackets(authorString.toString()));
             } else {
@@ -136,9 +136,7 @@ public class JabRefModelConverter {
             }
 
             List<String> editorString = new LinkedList<>();
-            for (PersonName person : bibtex.getEditor()) {
-                editorString.add(person.toString());
-            }
+            bibtex.getEditor().forEach(editor -> editorString.add(editor.toString()));
             if (!editorString.isEmpty()) {
                 entry.setField(FieldName.EDITOR, net.sf.jabref.logic.util.strings.StringUtil.stripBrackets(editorString.toString()));
             } else {
@@ -161,8 +159,9 @@ public class JabRefModelConverter {
                 copyMonth(entry, bibtex);
 
                 final String bibAbstract = bibtex.getAbstract();
-                if (present(bibAbstract))
+                if (present(bibAbstract)) {
                     entry.setField(FieldName.ABSTRACT, bibAbstract);
+                }
 
                 copyTags(entry, post);
 
@@ -176,7 +175,7 @@ public class JabRefModelConverter {
                 }
 
                 if (present(post.getDate())) {
-                    entry.setField(FieldName.ABSTRACT, bibsonomyDateFormat.format(post.getDate()));
+                    entry.setField(FieldName.TIMESTAMP, bibsonomyDateFormat.format(post.getDate()));
                 }
 
                 if (present(post.getUser()))
@@ -184,7 +183,7 @@ public class JabRefModelConverter {
 
                 return entry;
             }
-        } catch (final Exception e) {
+        } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             LOGGER.error("Could not convert BibSonomy post into a JabRef BibTeX entry.", e);
         }
 
@@ -207,7 +206,7 @@ public class JabRefModelConverter {
 
     public static void copyTags(final BibEntry entry, final Post<? extends Resource> post) {
         /*
-		 * concatenate tags using the JabRef keyword separator
+         * concatenate tags using the JabRef keyword separator
 		 */
         final Set<Tag> tags = post.getTags();
         final StringBuffer tagsBuffer = new StringBuffer();
@@ -228,11 +227,6 @@ public class JabRefModelConverter {
     public static void copyMonth(final BibEntry entry, final BibTex bibtex) {
         final String month = bibtex.getMonth();
         if (present(month)) {
-			/*
-			 * try to convert the month abbrev like JabRef does it
-			 */
-
-            //TODO: Find MONTH_STRNGS
             final String longMonth = MonthUtil.getMonth(month).fullName;
             if (present(longMonth)) {
                 entry.setField("month", longMonth);
@@ -272,9 +266,7 @@ public class JabRefModelConverter {
     }
 
     protected static void copyStringProperties(BibEntry entry, BibTex bibtex) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		/*
-		 * we use introspection to get all fields ...
-		 */
+
         final BeanInfo info = Introspector.getBeanInfo(bibtex.getClass());
         final PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
 
@@ -304,7 +296,7 @@ public class JabRefModelConverter {
      * @return
      */
     public static Post<BibTex> convertEntry(final BibEntry entry) {
-        final Post<BibTex> post = new Post<BibTex>();
+        final Post<BibTex> post = new Post<>();
         final BibTex bibtex = new BibTex();
         post.setResource(bibtex);
 
@@ -374,8 +366,9 @@ public class JabRefModelConverter {
             }
         }
 
-        if (present(entry.getField(FieldName.USERNAME)))
+        if (present(entry.getField(FieldName.USERNAME))) {
             post.setUser(new User(StringUtil.toUTF8(entry.getField(FieldName.USERNAME).get())));
+        }
 
         // Set the groups
         if (present(entry.getField(FieldName.GROUPS))) {
@@ -389,8 +382,8 @@ public class JabRefModelConverter {
             post.setGroups(groups);
         }
 
-        //TODO: Find FieldName that equals description
         final String description = StringUtil.toUTF8(entry.getField(FieldName.DESCRIPTION).get());
+
         if (present(description))
             post.setDescription(description);
 

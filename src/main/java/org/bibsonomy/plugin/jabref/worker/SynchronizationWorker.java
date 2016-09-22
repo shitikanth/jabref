@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.swing.JOptionPane;
 
 import net.sf.jabref.gui.JabRefFrame;
+import net.sf.jabref.logic.l10n.Localization;
 import net.sf.jabref.model.database.BibDatabase;
 import net.sf.jabref.model.entry.BibEntry;
 import net.sf.jabref.model.entry.FieldName;
@@ -28,7 +29,7 @@ import org.bibsonomy.plugin.jabref.util.WorkerUtil;
  *
  * @author Waldemar Biller <wbi@cs.uni-kassel.de>
  */
-public class SynchronizationWorker extends AbstractPluginWorker {
+public class SynchronizationWorker extends AbstractBibsonomyWorker {
 
     private static final Log LOGGER = LogFactory.getLog(SynchronizationWorker.class);
 
@@ -120,9 +121,9 @@ public class SynchronizationWorker extends AbstractPluginWorker {
             }
 
             Optional<String> citeKeyOpt = entry.getCiteKeyOptional();
-            if(citeKeyOpt.isPresent()){
+            if (citeKeyOpt.isPresent()) {
                 this.jabRefFrame.output("Synchronized " + citeKeyOpt.get());
-            }else{
+            } else {
                 this.jabRefFrame.output("Synchronized");
             }
 
@@ -137,6 +138,6 @@ public class SynchronizationWorker extends AbstractPluginWorker {
         this.keepAllRemote = false;
         this.keepAllLocal = false;
 
-        this.jabRefFrame.output("Done.");
+        this.jabRefFrame.output(Localization.lang("Done"));
     }
 }
