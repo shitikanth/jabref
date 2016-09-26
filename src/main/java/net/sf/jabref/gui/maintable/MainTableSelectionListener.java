@@ -25,7 +25,6 @@ import net.sf.jabref.gui.BasePanelMode;
 import net.sf.jabref.gui.GUIGlobals;
 import net.sf.jabref.gui.IconTheme;
 import net.sf.jabref.gui.PreviewPanel;
-import net.sf.jabref.gui.actions.CopyDoiUrlAction;
 import net.sf.jabref.gui.desktop.JabRefDesktop;
 import net.sf.jabref.gui.entryeditor.EntryEditor;
 import net.sf.jabref.gui.externalfiletype.ExternalFileMenuItem;
@@ -408,9 +407,6 @@ public class MainTableSelectionListener implements ListEventListener<BibEntry>, 
                             }
                             menu.add(new ExternalFileMenuItem(panel.frame(), entry, content.get(), content.get(), icon,
                                     panel.getBibDatabaseContext(), field));
-                            if (field == FieldName.DOI) {
-                                menu.add(new CopyDoiUrlAction(content.get()));
-                            }
                             showDefaultPopup = false;
                         }
                     }
