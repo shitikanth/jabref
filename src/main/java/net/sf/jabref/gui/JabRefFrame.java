@@ -702,7 +702,6 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
 
         sidePaneManager.register("groups", groupSelector);
 
-        //TODO: Add bibsonomy here?
         bibsonomySidePaneComponent = new BibsonomySidePaneComponent(sidePaneManager, this);
         sidePaneManager.register("bibsonomy", bibsonomySidePaneComponent);
     }
@@ -1334,6 +1333,8 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         tools.add(unabbreviate);
         mb.add(tools);
 
+        mb.add(bibsonomySidePaneComponent.getMenuItem());
+
         options.add(showPrefs);
 
         AbstractAction genFieldsCustomization = new GenFieldsCustomizationAction();
@@ -1367,10 +1368,6 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
         helpMenu.add(webMenu);
         helpMenu.add(about);
         mb.add(helpMenu);
-
-        JMenu moreMenu = JabRefFrame.subMenu(Localization.menuTitle("More"));
-        moreMenu.add(bibsonomySidePaneComponent.getMenuItem());
-        mb.add(moreMenu);
 
         createDisabledIconsForMenuEntries(mb);
     }
