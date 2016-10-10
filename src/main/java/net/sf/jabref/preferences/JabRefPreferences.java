@@ -815,6 +815,7 @@ public class JabRefPreferences {
 
         // use BibTeX key appended with filename as default pattern
         defaults.put(IMPORT_FILENAMEPATTERN, ImportSettingsTab.DEFAULT_FILENAMEPATTERNS[1]);
+        defaults.put(IMPORT_FILEDIRPATTERN, "");
 
         customExports = new CustomExportList(new ExportComparator());
         customImports = new CustomImportList(this);

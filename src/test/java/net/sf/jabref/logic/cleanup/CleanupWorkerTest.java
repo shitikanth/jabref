@@ -58,6 +58,7 @@ public class CleanupWorkerTest {
 
         JabRefPreferences prefs = JabRefPreferences.getInstance();
         prefs.putBoolean(JabRefPreferences.BIB_LOC_AS_PRIMARY_DIR, true);
+
         worker = new CleanupWorker(context,
                 new CleanupPreferences(JabRefPreferences.getInstance().get(JabRefPreferences.IMPORT_FILENAMEPATTERN),
                         prefs.get(JabRefPreferences.IMPORT_FILEDIRPATTERN),
@@ -245,11 +246,12 @@ public class CleanupWorkerTest {
     public void cleanupRenamePdfRenamesRelativeFile() throws IOException {
         CleanupPreset preset = new CleanupPreset(CleanupPreset.CleanupStep.RENAME_PDF);
 
-        File tempFile = bibFolder.newFile();
+        File tempFile = bibFolder.newFile("Toot.tmp");
         BibEntry entry = new BibEntry();
         entry.setCiteKey("Toot");
         ParsedFileField fileField = new ParsedFileField("", tempFile.getAbsolutePath(), "");
         entry.setField("file", FileField.getStringRepresentation(fileField));
+
 
         worker.cleanup(preset, entry);
         ParsedFileField newFileField = new ParsedFileField("", "Toot.tmp", "");

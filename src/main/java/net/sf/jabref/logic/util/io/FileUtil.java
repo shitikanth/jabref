@@ -146,6 +146,17 @@ public class FileUtil {
 
         try {
 
+            return Files.move(fromFile, fromFile.resolveSibling(toFile)) != null;
+        } catch (IOException e) {
+            LOGGER.error("Renaming Files failed", e);
+            return false;
+        }
+    }
+
+    public static boolean renameFile(Path fromFile, Path toFile, boolean replaceExisting) {
+
+        try {
+
             return Files.move(fromFile, fromFile.resolveSibling(toFile), StandardCopyOption.REPLACE_EXISTING) != null;
         } catch (IOException e) {
             LOGGER.error("Renaming Files failed", e);
