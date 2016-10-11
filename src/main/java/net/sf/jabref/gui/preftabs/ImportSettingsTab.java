@@ -103,6 +103,7 @@ public class ImportSettingsTab extends JPanel implements PrefsTab {
         pan3.add(fileDirPattern);
 
         builder.nextLine();
+        builder.append(pan);
         builder.append(pan3);
 
         pan = builder.getPanel();
