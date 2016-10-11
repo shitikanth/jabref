@@ -86,7 +86,7 @@ public enum KeyBinding {
     STRING_DIALOG_ADD_STRING("String dialog, add string", Localization.lang("String dialog, add string"), "ctrl N"),
     STRING_DIALOG_REMOVE_STRING("String dialog, remove string", Localization.lang("String dialog, remove string"), "shift DELETE"),
     SYNCHRONIZE_FILES("Synchronize files", Localization.lang("Synchronize files"), "ctrl shift F7"),
-    TOGGLE_ENTRY_PREVIEW("Toggle entry preview", Localization.lang("Toggle entry preview"), "alt 2"),
+    TOGGLE_ENTRY_PREVIEW("Preview", Localization.lang("Preview"), "alt 2"),
     TOGGLE_GROUPS_INTERFACE("Toggle groups interface", Localization.lang("Toggle groups interface"), "alt 3"),
     UNABBREVIATE("Unabbreviate", Localization.lang("Unabbreviate"), "ctrl alt shift A"),
     UNDO("Undo", Localization.lang("Undo"), "ctrl Z"),

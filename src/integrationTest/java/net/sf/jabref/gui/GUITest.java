@@ -78,8 +78,8 @@ public class GUITest extends AbstractUITest {
         mainFrame.menuItemWithPath("View", "Toggle groups interface").click();
         mainFrame.menuItemWithPath("View", "Toggle groups interface").click();
 
-        mainFrame.menuItemWithPath("View", "Toggle entry preview").click();
-        mainFrame.menuItemWithPath("View", "Toggle entry preview").click();
+        mainFrame.menuItemWithPath("View", "Preview").click();
+        mainFrame.menuItemWithPath("View", "Preview").click();
 
         mainFrame.menuItemWithPath("View", "Next preview layout").click();
         mainFrame.menuItemWithPath("View", "Previous preview layout").click();

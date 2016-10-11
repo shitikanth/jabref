@@ -362,8 +362,8 @@ public class JabRefFrame extends JFrame implements OutputPrinter {
     private final AbstractAction moveToGroup = new GeneralAction(Actions.MOVE_TO_GROUP, Localization.lang("Move to group") + ELLIPSES);
 
     private final Action togglePreview = enableToggle(new GeneralAction(Actions.TOGGLE_PREVIEW,
-            Localization.menuTitle("Toggle entry preview"),
-            Localization.lang("Toggle entry preview"),
+            Localization.menuTitle("Preview"),
+            Localization.lang("Preview"),
             Globals.getKeyPrefs().getKey(KeyBinding.TOGGLE_ENTRY_PREVIEW),
             IconTheme.JabRefIcon.TOGGLE_ENTRY_PREVIEW.getIcon()));
     private final Action toggleHighlightAny = enableToggle(new GeneralAction(Actions.TOGGLE_HIGHLIGHTS_GROUPS_MATCHING_ANY,
