@@ -310,7 +310,7 @@ public class BibEntry implements Cloneable {
      * extract the year from the 'date' field (analogously for 'month').
      */
     public Optional<String> getFieldOrAlias(String name) {
-        Optional<String> fieldValue = getField(toLowerCase(name));
+        Optional<String> fieldValue = getField(name);
 
         if (fieldValue.isPresent() && !fieldValue.get().isEmpty()) {
             return fieldValue;
