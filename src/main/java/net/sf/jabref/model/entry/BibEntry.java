@@ -784,13 +784,15 @@ public class BibEntry implements Cloneable {
     }
 
     public Optional<String> getLatexFreeField(String name) {
-        if (!hasField(name)) {
+        String fieldName = toLowerCase(name);
+
+        if (!fields.containsKey(fieldName)) {
             return Optional.empty();
-        } else if (latexFreeFields.containsKey(name)) {
-            return Optional.ofNullable(latexFreeFields.get(toLowerCase(name)));
+        } else if (latexFreeFields.containsKey(fieldName)) {
+            return Optional.ofNullable(latexFreeFields.get(fieldName));
         } else {
-            String latexFreeField = unicodeConverter.format(getField(name).get()).intern();
-            latexFreeFields.put(name, latexFreeField);
+            String latexFreeField = unicodeConverter.format(fields.get(fieldName)).intern();
+            latexFreeFields.put(fieldName, latexFreeField);
             return Optional.of(latexFreeField);
         }
     }
