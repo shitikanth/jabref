@@ -1,7 +1,6 @@
 #+Title: JabRef
 
-* Ideas for improvements
-
+* Ideas for improvement
 ** Usability
 
 *** Preview system
@@ -14,7 +13,7 @@
       unusable
     - search does not respect the html structure of preview
 
-**** Ideas for improvement
+**** Steps
    - Create more preview styles: more citation styles
    - Selecting multiple rows in the main table should create show a
      preview of all the selected entries.
