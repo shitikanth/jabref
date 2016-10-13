@@ -1,0 +1,20 @@
+#+Title: JabRef
+
+* Ideas for improvements
+
+** Usability
+
+*** Preview system
+
+**** Issues
+    - only two preview styles available by default
+    - not possible to add more styles
+    - not clear how to modify the existing styles
+    - the preference pane tab for "Entry preview" is unintuitive and
+      unusable
+    - search does not respect the html structure of preview
+
+**** Ideas for improvement
+   - Create more preview styles: more citation styles
+   - Selecting multiple rows in the main table should create show a
+     preview of all the selected entries.
