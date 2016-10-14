@@ -13,9 +13,9 @@ public class PreviewPreferences {
     private final String previewStyleDefault;
 
 
-    public PreviewPreferences(List<String> previewCycle, int previeCyclePosition, int previewPanelHeight, boolean previewPanelEnabled, String previewStyle, String previewStyleDefault) {
+    public PreviewPreferences(List<String> previewCycle, int previewCyclePosition, int previewPanelHeight, boolean previewPanelEnabled, String previewStyle, String previewStyleDefault) {
         this.previewCycle = previewCycle;
-        this.previewCyclePosition = previeCyclePosition;
+        this.previewCyclePosition = previewCyclePosition;
         this.previewPanelHeight = previewPanelHeight;
         this.previewPanelEnabled = previewPanelEnabled;
         this.previewStyle = previewStyle;
