@@ -18,7 +18,6 @@ import javax.swing.text.JTextComponent;
 
 import net.sf.jabref.Globals;
 import net.sf.jabref.gui.BasePanel;
-import net.sf.jabref.gui.date.DatePickerButton;
 import net.sf.jabref.gui.desktop.JabRefDesktop;
 import net.sf.jabref.gui.entryeditor.EntryEditor.StoreFieldAction;
 import net.sf.jabref.gui.fieldeditors.FieldEditor;
@@ -402,13 +401,7 @@ public class FieldExtraComponents {
         });
 
         // insert a datepicker, if the extras field contains this command
-        if (isDatePicker) {
-            DatePickerButton datePicker = new DatePickerButton(editor, isoFormat);
-            return Optional.of(datePicker.getDatePicker());
-        } else {
-            return Optional.empty();
-        }
-
+        return Optional.empty();
     }
 
     /**
