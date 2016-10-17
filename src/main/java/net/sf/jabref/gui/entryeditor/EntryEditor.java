@@ -527,7 +527,7 @@ public class EntryEditor extends JPanel implements EntryContainer {
 
     private void setupSourcePanel() {
         source = new JTextAreaWithHighlighting();
-        panel.frame().getGlobalSearchBar().getSearchQueryHighlightObservable().addSearchListener((SearchQueryHighlightListener) source);
+//        panel.frame().getGlobalSearchBar().getSearchQueryHighlightObservable().addSearchListener((SearchQueryHighlightListener) source);
 
         source.setEditable(true);
         source.setLineWrap(true);
@@ -927,6 +927,7 @@ public class EntryEditor extends JPanel implements EntryContainer {
 
     public void setMovingToDifferentEntry() {
         movingToDifferentEntry = true;
+        entry.unregisterListener(this);
     }
 
 
