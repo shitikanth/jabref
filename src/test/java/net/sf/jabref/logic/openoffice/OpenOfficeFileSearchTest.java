@@ -6,16 +6,18 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class OpenOfficeFileSearchTest {
     OpenOfficeFileSearch openOfficeFileSearch;
-    @Before void setup() {
+
+    @Before
+    public void setup() {
         openOfficeFileSearch = new OpenOfficeFileSearch();
     }
     @Test
     public void testFindOSXProgramFilesDir() {
         List<File> dirList = openOfficeFileSearch.findOSXProgramFilesDir();
-        for (File dir : dirList) {
-            System.out.println(dir.getAbsolutePath());
-        }
+        assertEquals(1, dirList.size());
     }
 }
