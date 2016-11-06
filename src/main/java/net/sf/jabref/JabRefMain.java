@@ -40,8 +40,6 @@ public class JabRefMain {
     }
 
     private static void start(String[] args) {
-        System.out.println("Hello world!");
-
         JabRefPreferences preferences = JabRefPreferences.getInstance();
 
         ProxyPreferences proxyPreferences = preferences.getProxyPreferences();

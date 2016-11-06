@@ -23,16 +23,12 @@ import net.sf.jabref.logic.util.OS;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Tools for automatically detecting JAR and executable paths to OpenOffice and/or LibreOffice.
  */
 public abstract class AutoDetectPaths extends AbstractWorker {
 
-
-    private static final Log LOGGER = LogFactory.getLog(AutoDetectPaths.class);
 
     private final OpenOfficePreferences preferences;
 
@@ -50,7 +46,7 @@ public abstract class AutoDetectPaths extends AbstractWorker {
         this.preferences = preferences;
     }
 
-    public boolean runAutoDetection() {
+    public boolean runAutodetection() {
         foundPaths = false;
         if (preferences.checkAutoDetectedPaths()) {
             return true;
@@ -89,9 +85,8 @@ public abstract class AutoDetectPaths extends AbstractWorker {
         return new ArrayList<>(fileSearch.findFileInDirs(progFiles, getExecutableForPlatform()));
     }
 
-    public boolean autoDetectPaths() {
+    private boolean autoDetectPaths() {
         fileSearch.resetFileSearch();
-        System.out.println("Auto detecting paths.");
         List<File> progFiles = findProgramFilesDir();
         List<File> sofficeFiles = findSofficeFiles(progFiles);
 
@@ -218,7 +213,7 @@ public abstract class AutoDetectPaths extends AbstractWorker {
 
         @Override
         protected List<File> findProgramFilesDir() {
-            return null;
+            return fileSearch.findLinuxProgramFilesDir();
         }
 
         @Override

@@ -70,6 +70,19 @@ public class OpenOfficeFileSearch {
         return dirList;
     }
 
+    public List<File> findLinuxProgramFilesDir() {
+        List<File> dirList = new ArrayList<>();
+
+        String [] rootDirs = {"/usr/lib", "/usr/lib64", "/opt"};
+        for (String rootDirPath : rootDirs) {
+            File rootDir = new File(rootDirPath);
+            if (rootDir.isDirectory()) {
+                dirList.add(rootDir);
+            }
+        }
+
+        return dirList;
+    }
     public void resetFileSearch() {
         fileSearchCanceled = false;
     }
