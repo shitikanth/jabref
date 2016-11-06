@@ -365,9 +365,10 @@ public class OpenOfficePanel extends AbstractWorker {
 
     private void connect(boolean auto) {
         String ooJarsDirectory;
+        System.out.println("gonna connect to OO");
         if (auto) {
-            AutoDetectPaths adp = new AutoDetectPaths(diag, preferences);
-            if (adp.runAutodetection()) {
+            AutoDetectPaths adp = AutoDetectPaths.getInstance(diag, preferences);
+            if (adp.runAutoDetection()) {
                 autoDetected = true;
                 dialogOkPressed = true;
                 diag.dispose();
