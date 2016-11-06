@@ -406,7 +406,6 @@ public class OpenOfficePanel extends AbstractWorker {
                 ooJarsDirectory = ooJars + "/program/classes";
             }
         }
-
         // Add OO JARs to the classpath:
         try {
             List<File> jarFiles = Arrays.asList(new File(ooJarsDirectory, "unoil.jar"),
@@ -422,9 +421,10 @@ public class OpenOfficePanel extends AbstractWorker {
             addURL(jarList);
 
             // Show progress dialog:
-            final JDialog progDiag = new AutoDetectPaths(diag, preferences).showProgressDialog(diag,
+            final ProgressDialog progDiag = new ProgressDialog(diag,
                     Localization.lang("Connecting"),
-                    Localization.lang("Please wait..."), false);
+                    Localization.lang("Please wait..."));
+            progDiag.showDialog();
             getWorker().run(); // Do the actual connection, using Spin to get off the EDT.
             progDiag.dispose();
             diag.dispose();

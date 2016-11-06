@@ -1,6 +1,8 @@
 package net.sf.jabref.gui.openoffice;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +75,7 @@ public class AutoDetectPaths extends AbstractWorker {
     @Override
     public void init() {
         prog = showProgressDialog(parent, Localization.lang("Autodetecting paths..."),
-                Localization.lang("Please wait..."), true);
+                Localization.lang("Please wait..."));
     }
 
     @Override
@@ -243,27 +245,18 @@ public class AutoDetectPaths extends AbstractWorker {
 
     }
 
-
-    public JDialog showProgressDialog(JDialog progressParent, String title, String message, boolean includeCancelButton) {
+    public JDialog showProgressDialog(JDialog progressParent, String title, String message) {
         fileSearchCanceled = false;
-        JProgressBar bar = new JProgressBar(SwingConstants.HORIZONTAL);
-        final JDialog progressDialog = new JDialog(progressParent, title, false);
-        bar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        bar.setIndeterminate(true);
-        if (includeCancelButton) {
-            JButton cancel = new JButton(Localization.lang("Cancel"));
-            cancel.addActionListener(event -> {
-                fileSearchCanceled = true;
-                fileSearch.cancelFileSearch();
-                ((JButton) event.getSource()).setEnabled(false);
-            });
-            progressDialog.add(cancel, BorderLayout.SOUTH);
-        }
-        progressDialog.add(new JLabel(message), BorderLayout.NORTH);
-        progressDialog.add(bar, BorderLayout.CENTER);
-        progressDialog.pack();
-        progressDialog.setLocationRelativeTo(null);
-        progressDialog.setVisible(true);
+        final ProgressDialog progressDialog = new ProgressDialogWithCancel(
+                progressParent,
+                title,
+                message,
+                event -> {
+                    fileSearchCanceled = true;
+                    fileSearch.cancelFileSearch();
+                    ((JButton) event.getSource()).setEnabled(false);
+                });
+        progressDialog.showDialog();
         return progressDialog;
     }
 }

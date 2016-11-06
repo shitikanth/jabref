@@ -18,6 +18,8 @@ public class OpenOfficeFileSearchTest {
     @Test
     public void testFindOSXProgramFilesDir() {
         List<File> dirList = openOfficeFileSearch.findOSXProgramFilesDir();
-        assertEquals(1, dirList.size());
+        assertEquals(2, dirList.size());
+        assertEquals("", dirList.get(0).getName());
+        assertEquals("", dirList.get(1).getName());
     }
 }

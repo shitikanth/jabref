@@ -60,6 +60,7 @@ public class OpenOfficeFileSearch {
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory() && ("OpenOffice.org.app".equals(file.getName())
+                        || "OpenOffice.app".equals(file.getName())
                         || "LibreOffice.app".equals(file.getName()))) {
                     dirList.add(file);
                 }

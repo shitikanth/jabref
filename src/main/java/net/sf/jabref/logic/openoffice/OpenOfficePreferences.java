@@ -27,7 +27,7 @@ public class OpenOfficePreferences {
     public static final String WINDOWS_JARS_SUBPATH = "\\program\\classes";
     public static final String DEFAULT_OSX_PATH = "/Applications/OpenOffice.org.app";
     public static final String OSX_EXECUTABLE_SUBPATH = "/Contents/MacOS/";
-    public static final String OSX_EXECUTABLE = "soffice.bin";
+    public static final String OSX_EXECUTABLE = "soffice";
     public static final String OSX_JARS_SUBPATH = "/Contents/Resources/java";
     public static final String LINUX_EXECUTABLE = "soffice";
 
