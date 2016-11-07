@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -91,10 +92,7 @@ public abstract class AutoDetectPaths extends AbstractWorker {
             return false;
         }
 
-        if (sofficeFiles.isEmpty()) {
-            // TODO
-        }
-        Optional<File> actualFile = checkAndSelectAmongMultipleInstalls(sofficeFiles);
+        Optional<File> actualFile = selectAmongMultipleInstalls(sofficeFiles);
         if (actualFile.isPresent()) {
             return setupPreferencesForOO(actualFile.get().getParentFile(), actualFile.get(),
                     getExecutableForPlatform());
@@ -120,7 +118,7 @@ public abstract class AutoDetectPaths extends AbstractWorker {
         }
     }
 
-    private Optional<File> checkAndSelectAmongMultipleInstalls(List<File> sofficeFiles) {
+    private Optional<File> selectAmongMultipleInstalls(List<File> sofficeFiles) {
         if (sofficeFiles.isEmpty()) {
             return Optional.empty();
         } else if (sofficeFiles.size() == 1) {

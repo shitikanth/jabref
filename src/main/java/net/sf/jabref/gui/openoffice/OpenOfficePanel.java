@@ -106,6 +106,7 @@ public class OpenOfficePanel extends AbstractWorker {
     private boolean dialogOkPressed;
     private boolean autoDetected;
     private String sOffice;
+    private String ooJarsDirectory;
     private IOException connectException;
     private final OpenOfficePreferences preferences;
     private final StyleLoader loader;
@@ -364,27 +365,25 @@ public class OpenOfficePanel extends AbstractWorker {
     }
 
     private void connect(boolean auto) {
-        String ooJarsDirectory;
+        boolean autoDetected = false;
         if (auto) {
             AutoDetectPaths adp = AutoDetectPaths.getInstance(diag, preferences);
             if (adp.runAutodetection()) {
                 autoDetected = true;
                 dialogOkPressed = true;
                 diag.dispose();
+
+                ooJarsDirectory = preferences.getJarsPath();
+                sOffice = preferences.getExecutablePath();
             } else if (adp.canceled()) {
                 frame.setStatus(Localization.lang("Operation canceled."));
             } else {
                 JOptionPane.showMessageDialog(diag, Localization.lang("Autodetection failed"),
-                        Localization.lang("Autodetection failed"), JOptionPane.ERROR_MESSAGE);
+                        Localization.lang("Autodetection failed."), JOptionPane.ERROR_MESSAGE);
             }
-            if (!autoDetected) {
-                return;
-            }
+        }
 
-            ooJarsDirectory = preferences.getJarsPath();
-            sOffice = preferences.getExecutablePath();
-        } else { // Manual connect
-
+        if (!autoDetected) {
             showConnectDialog();
             if (!dialogOkPressed) {
                 return;
@@ -406,8 +405,13 @@ public class OpenOfficePanel extends AbstractWorker {
                 ooJarsDirectory = ooJars + "/program/classes";
             }
         }
-        // Add OO JARs to the classpath:
+        loadJarsAndConnectToRunningInstance();
+
+    }
+
+    private void loadJarsAndConnectToRunningInstance() {
         try {
+            // Add OO JARs to the classpath:
             List<File> jarFiles = Arrays.asList(new File(ooJarsDirectory, "unoil.jar"),
                     new File(ooJarsDirectory, "jurt.jar"), new File(ooJarsDirectory, "juh.jar"),
                     new File(ooJarsDirectory, "ridl.jar"));
