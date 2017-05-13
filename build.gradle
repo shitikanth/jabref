@@ -1,6 +1,7 @@
-import org.gradle.internal.os.OperatingSystem
-
 // to update the gradle wrapper, execute ./gradlew wrapper --gradle-version 3.0
+
+import org.gradle.internal.os.OperatingSystem
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 buildscript {
     repositories {
@@ -14,11 +15,19 @@ buildscript {
 }
 
 plugins {
+    id 'com.gradle.build-scan' version '1.3'
     id "com.install4j.gradle" version "6.1.3"
-    id 'com.github.johnrengelman.shadow' version '1.2.3'
-    // If this is updated to 0.0.9, check configurations.errorprone
-    id "net.ltgt.errorprone" version "0.0.8"
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id "com.simonharrer.modernizer" version "1.4.0-1"
     id 'me.champeau.gradle.jmh' version '0.3.1'
+    id "net.ltgt.errorprone" version "0.0.10"
+    id 'com.lazan.javaflavours' version '1.2'
+}
+
+// use the gradle build scan feature: https://scans.gradle.com/get-started
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
 }
 
 apply plugin: "java"
@@ -27,20 +36,19 @@ apply plugin: "project-report"
 apply plugin: 'jacoco'
 apply plugin: 'install4j'
 apply plugin: 'me.champeau.gradle.jmh'
-
 apply plugin: 'checkstyle'
 
 apply from: 'eclipse.gradle'
 apply from: 'localization.gradle'
 apply from: 'xjc.gradle'
 
-group = "net.sf.jabref"
-version = "3.7-dev"
-project.ext.threeDotVersion = "3.6.0.1"
+group = "org.jabref"
+version = "4.0.0-dev"
+project.ext.threeDotVersion = "4.0.0.1"
 project.ext.install4jDir = hasProperty("install4jDir") ? getProperty("install4jDir") : (OperatingSystem.current().isWindows() ? 'C:/Program Files/install4j6' : 'install4j6')
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-mainClassName = "net.sf.jabref.JabRefMain"
+mainClassName = "org.jabref.JabRefMain"
 
 install4j {
     installDir = file(project.ext.install4jDir)
@@ -58,11 +66,17 @@ configurations {
     antlr3
     antlr4
 
-    databaseTestCompile.extendsFrom testCompile
-    databaseTestRuntime.extendsFrom testRuntime
+    linux_x86_64Compile.extendsFrom compile
+    macosx_x86_64Compile.extendsFrom compile
+    windows_x86_32Compile.extendsFrom compile
+    windows_x86_64Compile.extendsFrom compile
+}
 
-    integrationTestCompile.extendsFrom testCompile
-    integrationTestRuntime.extendsFrom testRuntime
+javaFlavours {
+    flavour 'linux_x86_64'
+    flavour 'macosx_x86_64'
+    flavour 'windows_x86_32'
+    flavour 'windows_x86_64'
 }
 
 def getV8Dependency() {
@@ -86,63 +100,86 @@ def getV8Dependency() {
 }
 
 dependencies {
+    linux_x86_64Compile   group: 'com.eclipsesource.j2v8', name: 'j2v8_linux_x86_x64',  version: '4.6.0'
+    macosx_x86_64Compile  group: 'com.eclipsesource.j2v8', name: 'j2v8_macosx_x86_x64', version: '4.6.0'
+    windows_x86_32Compile group: 'com.eclipsesource.j2v8', name: 'j2v8_win32_x86',      version: '4.6.0'
+    windows_x86_64Compile group: 'com.eclipsesource.j2v8', name: 'j2v8_win32_x86_x64',  version: '4.6.0'
+
     compile 'com.jgoodies:jgoodies-common:1.8.1'
     compile 'com.jgoodies:jgoodies-forms:1.9.0'
     compile 'com.jgoodies:jgoodies-looks:2.7.0'
 
-    compile 'org.swinglabs:swingx:1.6.1' // do not update, 1.6.5.1 is broken
+    // Later versions cannot be used. Tested until 1.6.5-1.
+    // See https://github.com/JabRef/jabref/issues/271 for details
+    compile 'org.swinglabs.swingx:swingx-core:1.6.4'
 
     // update to 2.0.x is not possible - see https://github.com/JabRef/jabref/pull/1096#issuecomment-208857517
-    compile 'org.apache.pdfbox:pdfbox:1.8.12'
-    compile 'org.apache.pdfbox:fontbox:1.8.12'
-    compile 'org.apache.pdfbox:jempbox:1.8.12'
+    compile 'org.apache.pdfbox:pdfbox:1.8.13'
+    compile 'org.apache.pdfbox:fontbox:1.8.13'
+    compile 'org.apache.pdfbox:jempbox:1.8.13'
 
     // required for reading write-protected PDFs - see https://github.com/JabRef/jabref/pull/942#issuecomment-209252635
-    compile 'org.bouncycastle:bcprov-jdk15on:1.55'
+    compile 'org.bouncycastle:bcprov-jdk15on:1.56'
 
-    compile 'commons-cli:commons-cli:1.3.1'
+    compile 'commons-cli:commons-cli:1.4'
 
     compile 'org.openoffice:juh:4.1.2'
     compile 'org.openoffice:jurt:4.1.2'
     compile 'org.openoffice:ridl:4.1.2'
     compile 'org.openoffice:unoil:4.1.2'
 
-    compile 'com.googlecode.java-diff-utils:diffutils:1.3.0'
+    compile 'com.github.bkromhout:java-diff-utils:2.1.1'
 
     antlr3 'org.antlr:antlr:3.5.2'
     compile 'org.antlr:antlr-runtime:3.5.2'
 
-    antlr4 'org.antlr:antlr4:4.5.3'
-    compile 'org.antlr:antlr4-runtime:4.5.3'
+    antlr4 'org.antlr:antlr4:4.7'
+    compile 'org.antlr:antlr4-runtime:4.7'
 
     // VersionEye states that 6.0.5 is the most recent version, but http://dev.mysql.com/downloads/connector/j/ shows that as "Development Release"
     compile 'mysql:mysql-connector-java:5.1.40'
 
-    compile 'com.impossibl.pgjdbc-ng:pgjdbc-ng:0.6'
+    compile 'com.impossibl.pgjdbc-ng:pgjdbc-ng:0.7.1'
 
     compile 'net.java.dev.glazedlists:glazedlists_java15:1.9.1'
     compile fileTree(dir: 'lib', includes: ['*.jar'])
 
-    compile 'com.google.guava:guava:20.0'
+    compile 'com.google.guava:guava:21.0'
+
+    // JavaFX stuff
+    compile 'com.airhacks:afterburner.fx:1.7.0'
+    compile 'de.codecentric.centerdevice:javafxsvg:1.2.1'
+    compile 'org.controlsfx:controlsfx:8.40.12'
+    compile 'org.fxmisc.easybind:easybind:1.0.3'
+    compile 'org.fxmisc.flowless:flowless:0.5.2'
+    compile 'de.jensd:fontawesomefx-materialdesignfont:1.7.22-4'
+
 
     compile 'commons-logging:commons-logging:1.2'
 
     compile 'org.apache.commons:commons-lang3:3.5'
 
-    compile 'org.jsoup:jsoup:1.10.1'
+    compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.mashape.unirest:unirest-java:1.4.9'
-    compile 'info.debatty:java-string-similarity:0.19'
+    compile 'info.debatty:java-string-similarity:0.23'
 
-    compile 'org.apache.logging.log4j:log4j-jcl:2.7'
-    compile 'org.apache.logging.log4j:log4j-api:2.7'
-    compile 'org.apache.logging.log4j:log4j-core:2.7'
-    compile 'org.xmlunit:xmlunit-core:2.2.1'
-    compile 'org.xmlunit:xmlunit-matchers:2.2.1'
+    compile 'org.apache.logging.log4j:log4j-jcl:2.8.2'
+    compile 'org.apache.logging.log4j:log4j-api:2.8.2'
+    compile 'org.apache.logging.log4j:log4j-core:2.8.2'
+    compile 'org.xmlunit:xmlunit-core:2.3.0'
+    compile 'org.xmlunit:xmlunit-matchers:2.3.0'
 
     // need to use snapshots as the stable version is from 2013 and doesn't support v1.0.1 CitationStyles
     compile 'org.citationstyles:styles:1.0.1-SNAPSHOT'
     compile 'org.citationstyles:locales:1.0.1-SNAPSHOT'
-    compile 'de.undercouch:citeproc-java:1.0.0-SNAPSHOT'
+    compile 'de.undercouch:citeproc-java:1.0.1'
+
+    compile 'com.github.lgooddatepicker:LGoodDatePicker:8.3.0'
+
+    compile 'com.github.tomtung:latex2unicode_2.12:0.2'
+
+    compile group: 'com.microsoft.azure', name: 'applicationinsights-core', version: '1.0.+'
+    compile group: 'com.microsoft.azure', name: 'applicationinsights-logging-log4j2', version: '1.0.+'
 
     // if available, use platform specific build of V8
     if (getV8Dependency() != null) {
@@ -150,31 +187,21 @@ dependencies {
     }
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.2.9'
-    testCompile 'com.github.tomakehurst:wiremock:2.2.2'
-    testCompile 'org.assertj:assertj-swing-junit:3.4.0'
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    testCompile 'com.github.tomakehurst:wiremock:2.6.0'
+    testCompile 'org.assertj:assertj-swing-junit:3.5.0'
+    testCompile 'org.reflections:reflections:0.9.11'
 }
 
 sourceSets {
     main {
         java {
-            // remove "src/oracleMock" if ojdbc.jar is available
-            srcDirs = ["src/main/java", "src/main/gen", "src/oracleMock"]
+            srcDirs = ["src/main/java", "src/main/gen"]
         }
-    }
-    databaseTest {
-        java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
+
+        resources {
+            srcDirs = ["src/main/java", "src/main/resources"]
         }
-    }
-    integrationTest {
-        java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDir file('src/integrationTest/java')
-        }
-        resources.srcDir file('src/integrationTest/resources')
     }
 }
 
@@ -183,8 +210,9 @@ processResources {
         expand(version: project.version,
                 "year": String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
                 "authors": new File('AUTHORS').readLines().findAll { !it.startsWith("#") }.join(", "),
-                "developers": new File('DEVELOPERS').readLines().findAll { !it.startsWith("#") }.join(", "))
-                filteringCharset = 'UTF-8'
+                "developers": new File('DEVELOPERS').readLines().findAll { !it.startsWith("#") }.join(", "),
+                "azureInstrumentationKey": System.getenv('AzureInstrumentationKey'))
+        filteringCharset = 'UTF-8'
     }
     filteringCharset = 'UTF-8'
 
@@ -197,6 +225,18 @@ clean {
     delete "src/main/gen"
 }
 
+def flavours = ['linux_x86_64', 'macosx_x86_64', 'windows_x86_32', 'windows_x86_64']
+flavours.each { String flavour ->
+    SourceSet flavourSourceSet = sourceSets.getByName(flavour)
+    Configuration flavourRuntime = configurations.getByName("${flavour}Runtime")
+    JavaCompile flavourCompileTask = tasks.getByName("compile${flavour.capitalize()}Java")
+    Task shadowJarTask = tasks.create(name: "${flavour}ShadowJar", type: ShadowJar) {
+        classifier = "${flavour}-fat"
+        dependsOn flavourCompileTask
+    }
+    assemble.dependsOn shadowJarTask
+}
+
 task generateSource(dependsOn: ["generateBstGrammarSource", "generateSearchGrammarSource"]) {
     group = 'JabRef'
     description 'Generates all Java source files.'
@@ -206,15 +246,15 @@ task generateBstGrammarSource(type: JavaExec) {
     group 'JabRef'
     description 'Generates BstLexer.java and BstParser.java from the Bst.g grammar file using antlr3.'
 
-    File antlrSource = file('src/main/antlr3/net/sf/jabref/bst/Bst.g')
+    File antlrSource = file('src/main/antlr3/org/jabref/bst/Bst.g')
 
     inputs.file antlrSource
-    outputs.file file('src/main/gen/net/sf/jabref/logic/bst/BstLexer.java')
-    outputs.file file('src/main/gen/net/sf/jabref/logic/bst/BstParser.java')
+    outputs.file file('src/main/gen/org/jabref/logic/bst/BstLexer.java')
+    outputs.file file('src/main/gen/org/jabref/logic/bst/BstParser.java')
 
     main = 'org.antlr.Tool'
     classpath = configurations.antlr3
-    args = ["-o", file('src/main/gen/net/sf/jabref/logic/bst/'), antlrSource]
+    args = ["-o", file('src/main/gen/org/jabref/logic/bst/'), antlrSource]
 }
 
 task generateSearchGrammarSource(type: JavaExec) {
@@ -223,7 +263,7 @@ task generateSearchGrammarSource(type: JavaExec) {
     group 'JabRef'
     description "Generates java files for ${grammarFile}.g antlr4."
 
-    String packagePath = "net/sf/jabref/search"
+    String packagePath = "org/jabref/search"
     File antlrPath = file("src/main/antlr4")
     File genPath = file("src/main/gen")
 
@@ -240,7 +280,7 @@ task generateSearchGrammarSource(type: JavaExec) {
 
     main = 'org.antlr.v4.Tool'
     classpath = configurations.antlr4
-    args = ["-o", destinationDir, "-visitor", "-no-listener", "-package", "net.sf.jabref.search", antlrSource]
+    args = ["-o", destinationDir, "-visitor", "-no-listener", "-package", "org.jabref.search", antlrSource]
 }
 
 compileJava {
@@ -262,9 +302,32 @@ javadoc {
 }
 
 test {
+    useJUnit {
+        excludeCategories 'org.jabref.testutils.category.DatabaseTests'
+        excludeCategories 'org.jabref.testutils.category.FetcherTests'
+        excludeCategories 'org.jabref.testutils.category.GUITests'
+    }
     testLogging {
         events "failed"
         exceptionFormat "full"
+    }
+}
+
+task databaseTest(type: Test) {
+    useJUnit {
+        includeCategories 'org.jabref.testutils.category.DatabaseTests'
+    }
+}
+
+task fetcherTest(type: Test) {
+    useJUnit {
+        includeCategories 'org.jabref.testutils.category.FetcherTests'
+    }
+}
+
+task guiTest(type: Test) {
+    useJUnit {
+        includeCategories 'org.jabref.testutils.category.GUITests'
     }
 }
 
@@ -274,16 +337,6 @@ task copyTestResources(type: Copy) {
 }
 processTestResources.dependsOn copyTestResources
 
-task databaseTest(type: Test) {
-    testClassesDir = sourceSets.databaseTest.output.classesDir
-    classpath = sourceSets.databaseTest.runtimeClasspath
-}
-
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-}
-
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
     jacoco {
@@ -291,7 +344,14 @@ tasks.withType(Test) {
     }
 }
 
+task jacocoMerge(type: JacocoMerge) {
+    executionData test, fetcherTest, databaseTest
+}
+
 jacocoTestReport {
+    executionData jacocoMerge.destinationFile
+    dependsOn jacocoMerge
+
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
         html.enabled = true
@@ -366,6 +426,8 @@ if (hasProperty('dev')) {
 task media(type: com.install4j.gradle.Install4jTask, dependsOn: "releaseJar") {
     projectFile = file('jabref.install4j')
     release = project.version
+    winKeystorePassword = System.getenv('CERTIFICATE_PW')
+    macKeystorePassword = System.getenv('CERTIFICATE_PW')
     variables = [
             versionFourDots: project.ext.threeDotVersion,
             buildFileName  : jar.archiveName,
@@ -386,7 +448,7 @@ checkstyle {
     toolVersion = '6.17'
 }
 
-task release(dependsOn: ["media", "releaseJar"]) {
+task release(dependsOn: ["media"]) {
     group = 'JabRef - Release'
     description 'Creates a release for all target platforms.'
 }
@@ -407,19 +469,14 @@ task releaseJar(dependsOn: "shadowJar") {
     }
 }
 
-// fetch all dependencies to speedup CircleCI build
-// this is necessary until https://discuss.circleci.com/t/effective-caching-for-gradle/540 is resolved
-// see http://stackoverflow.com/a/27455099/873282 for an inspiration of this task
-// better solution: https://discuss.gradle.org/t/how-to-download-maven-dependencies-into-project-local-directory-and-set-eclipse-classpath/9851
-task getdeps(type: Copy) {
-    from(configurations.compile + configurations.antlr3 + configurations.antlr4 + configurations.testCompile) {
-        include "*.jar"
-    }
-    into 'build/tmp/alldeps/'
-}
-
 jmh {
     warmupIterations = 5
     iterations = 10
     fork = 2
+}
+
+modernizer {
+    // We have more than 20 issues, which are not fixed yet. Nevertheless, we produce the modernizer output.
+    // See https://github.com/andrewgaul/modernizer-maven-plugin for more information on modernizer
+    failOnViolations = false
 }
